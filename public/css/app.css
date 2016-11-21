@@ -1,3 +1,6 @@
+/**
+ * General page elements
+ */
 th, td {
 	padding: 10px;
 }
@@ -5,6 +8,11 @@ p {
 	margin: 8px 0 12px;
 }
 
+
+
+/**
+ * Calendar styles
+ */
 .hour-row {
 	height: 80vh;
 	overflow: scroll;
@@ -76,7 +84,16 @@ p {
 .legend .hour {
 	height: 43px;
 }
+.hour {
+	transition: height 0.25s !important;
+}
 .day .hour.hidden, .legend .hour.hidden {
+	height: 0px !important;
+	border: 0;
+	display: block!important;
+	margin: 0 !important;
+}
+.legend .hour.hidden span {
 	display: none;
 }
 .popup {
@@ -115,7 +132,13 @@ p {
 .event .content a.accept {
 	background: #5b0;
 }
+.event .content b {
+	margin-bottom: 7px;
+	display: inline-block;
+}
 .event .content {
+	line-height: 1.5;
+	font-weight: 300;
 	width: 100%;
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 	color: #fff;
@@ -143,6 +166,13 @@ p {
 .event .content .to {
 	bottom: 3px;
 }
+
+
+
+
+/**
+ * Booking form box
+ */
 .book-box-container {
 	position: fixed;
 	visibility: hidden;
@@ -171,6 +201,8 @@ p {
 	margin: 0 auto;
 	overflow-y: scroll;
 }
+
+
 button {
 	color: #fff;
 }
@@ -246,30 +278,8 @@ a.action {
 	width: auto;
 }
 
-@media (max-width: 991px) {
-  header .header-inner .header-left {
-    display: none;
-  }
-  .header-lower {
-    display: block;
-  }
-}
-@media (min-width: 992px) {
-  .header-lower {
-    display: none;
-  }
-}
-@media (max-width: 500px) {
-  .book-box-container {
-  	padding: 0;
-  }
-  .header-lower .controls a {
-  	padding: 10px 6px;
-  }
-  .header-lower .controls span {
-	font-size: 13px;
-  }
-}
+
+
 
 .week-component {
 	width: auto;
@@ -567,3 +577,33 @@ input[type=radio] {
 
 
 
+
+
+
+/**
+ * Media queries
+ */
+@media (max-width: 991px) {
+  header .header-inner .header-left {
+    display: none;
+  }
+  .header-lower {
+    display: block;
+  }
+}
+@media (min-width: 992px) {
+  .header-lower {
+    display: none;
+  }
+}
+@media (max-width: 500px) {
+  .book-box-container {
+  	padding: 0;
+  }
+  .header-lower .controls a {
+  	padding: 10px 6px;
+  }
+  .header-lower .controls span {
+	font-size: 13px;
+  }
+}

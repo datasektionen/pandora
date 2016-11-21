@@ -8,7 +8,7 @@
 	<p>Du har rättigheter för att administrera följande entiteter:</p>
 	<ul>
 		@foreach (App\Models\Entity::forAuthUser()->get() as $entity)
-		<li>{{ $entity->name }}</li>
+			<li>{{ $entity->name }}</li>
 		@endforeach
 	</ul>
 	<p>

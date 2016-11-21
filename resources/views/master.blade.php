@@ -16,9 +16,9 @@
     window.tbaas_conf = {
         system_name: "bokning",
         target_id: "methone-container-replace",
-        primary_color: "#0d75d7",
+        primary_color: "#03A9F4",
         secondary_color: "#ffffff",
-        bar_color: "#1e88e5",
+        bar_color: "#039BE5",
         @if(Auth::guest())
         login_text: "Logga in",
         login_href: "/login",
@@ -28,15 +28,9 @@
         @endif
 
         topbar_items: [
-        {
-            str: "Hem",
-            href: "/"
-        },
+        { str: "Hem", href: "/" },
         @if(Auth::check() && Auth::user()->isAdmin())
-        {
-            str: "Administrera",
-            href: "/admin"
-        },
+            { str: "Administrera", href: "/admin" },
         @endif
         ]
     }

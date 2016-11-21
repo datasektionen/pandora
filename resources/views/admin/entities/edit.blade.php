@@ -1,46 +1,49 @@
 @extends('master')
 
+
 @section('title', 'Ändra entitet: ' . $entity->name)
+
 
 @section('action-button')
     <a href="/admin/entities/remove/{{ $entity->id }}" class="primary-action">Ta bort</a>
 @endsection
 
+
 @section('content')
-{!! Form::open(['url' => URL::to(Request::path(), [], true)]) !!}
-<div class="form">
-    <div class="form-entry">
-        <span class="description">
-            Namn:
-        </span>
-        <div class="input">
-            {!! Form::text('name', $entity->name, array('placeholder' => 'T.ex. "Bilen, Mötesrummet"')) !!}
-        </div>
-    </div>
+    {!! Form::open(['url' => URL::to(Request::path(), [], true)]) !!}
+        <div class="form">
+            <div class="form-entry">
+                <span class="description">
+                    Namn:
+                </span>
+                <div class="input">
+                    {!! Form::text('name', $entity->name, array('placeholder' => 'T.ex. "Bilen, Mötesrummet"')) !!}
+                </div>
+            </div>
 
-    <div class="form-entry">
-        <span class="description">
-            Beskrivning:
-        </span>
-        <div class="input">
-            {!! Form::textarea('description', $entity->description, array('placeholder' => 'T.ex. "Mötesrummet är det bästa rummet."', 'class' => 'textarea')) !!}
-        </div>
-    </div>
+            <div class="form-entry">
+                <span class="description">
+                    Beskrivning:
+                </span>
+                <div class="input">
+                    {!! Form::textarea('description', $entity->description, array('placeholder' => 'T.ex. "Mötesrummet är det bästa rummet."', 'class' => 'textarea')) !!}
+                </div>
+            </div>
 
-    <div class="form-entry">
-        <span class="description">
-            Gruppnamn för administration i Pls:
-        </span>
-        <div class="input">
-            {!! Form::text('pls_group', $entity->pls_group, array('placeholder' => 'T.ex. "meta"', 'disabled')) !!}
-        </div>
-    </div>
+            <div class="form-entry">
+                <span class="description">
+                    Gruppnamn för administration i Pls:
+                </span>
+                <div class="input">
+                    {!! Form::text('pls_group', $entity->pls_group, array('placeholder' => 'T.ex. "meta"', 'disabled')) !!}
+                </div>
+            </div>
 
-    <div class="form-entry">
-        <div class="input">
-            {!! Form::submit('Skapa entitet', NULL) !!}
+            <div class="form-entry">
+                <div class="input">
+                    {!! Form::submit('Skapa entitet', NULL) !!}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-{!! Form::close() !!}
+    {!! Form::close() !!}
 @endsection

@@ -60,6 +60,10 @@ $(document).ready(function () {
             $(this).html("Visa mer &darr;");
         }
     });
+
+    $('#copy').focus(function () {
+        $(this).select();
+    });
 });
 
 function dismissDialog() {
