@@ -1,5 +1,20 @@
 <?php
 
+$x = env("DATABASE_URL", "");
+if (strlen($x) > 1) {
+    $url = parse_url();
+
+    $host = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $database = substr($url["path"], 1);
+} else {
+    $host = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "pandora";
+}
+
 return [
 
     /*
@@ -26,7 +41,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +58,7 @@ return [
     | choice installed on your machine before you begin development.
     |
     */
-
+   
     'connections' => [
 
         'sqlite' => [
@@ -68,11 +83,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', $host),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', $database),
+            'username' => env('DB_USERNAME', $username),
+            'password' => env('DB_PASSWORD', $password),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
