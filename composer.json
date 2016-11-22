@@ -40,14 +40,25 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "php artisan optimize",
+            "chmod -R 775 storage",
+            "chmod -R 775 public",
+            "php artisan migrate --force"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan optimize"
+            "php artisan optimize",
+            "php artisan clear-compiled"
         ]
     },
     "config": {
         "preferred-install": "dist"
+    },
+    "extra": {
+        "heroku": {
+            "framework": "silex",
+            "document-root": "public",
+            "index-document": "index.php"
+        }
     }
 }
