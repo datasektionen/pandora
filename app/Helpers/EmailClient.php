@@ -122,4 +122,67 @@ class EmailClient {
             ->with('entity', $event->entity);
         $email->send();
 	}
+
+	public static function sendBookingChanged(Event $oldEvent, Event $event, $dirty) {
+		$recipient = $event->author->kth_username . '@kth.se';
+		if ($recipient === null) {
+			return false;
+		}
+		if (!preg_match("/(.*@.*\..*)(,.*@.*\..*)*/", $recipient)) {
+			return false;
+		}
+		$email = new EmailClient;
+		$email->recipient = $recipient;
+		$email->sender = "no-reply@datasektionen.se";
+		$email->subject = "Din bokning av " . $event->entity->name . " ändrades";
+        $email->html = view('emails.changed')
+            ->with('user', $event->author)
+            ->with('event', $event)
+            ->with('oldEvent', $oldEvent)
+            ->with('entity', $event->entity)
+            ->with('dirty', $dirty);
+
+        $email->send();
+	}
+
+	public static function sendBookingChangedNotification(Event $oldEvent, Event $event, $dirty) {
+		$recipient = $event->entity->notify_email;
+		if ($recipient === null) {
+			return false;
+		}
+		if (!preg_match("/(.*@.*\..*)(,.*@.*\..*)*/", $recipient)) {
+			return false;
+		}
+		$email = new EmailClient;
+		$email->recipient = $recipient;
+		$email->sender = "no-reply@datasektionen.se";
+		$email->subject = "Bokningen " . $event->entity->name . " ändrades och måste granskas";
+        $email->html = view('emails.changed-notify')
+            ->with('event', $event)
+            ->with('oldEvent', $oldEvent)
+            ->with('entity', $event->entity)
+            ->with('dirty', $dirty);
+        $email->send();
+	}
+
+	public static function sendBookingDeleted(Event $event) {
+		$recipient = $event->entity->notify_email;
+		if ($recipient === null) {
+			return false;
+		}
+		if (!preg_match("/(.*@.*\..*)(,.*@.*\..*)*/", $recipient)) {
+			return false;
+		}
+		$email = new EmailClient;
+		$email->recipient = $recipient;
+		$email->sender = "no-reply@datasektionen.se";
+		$email->subject = "Bokningen " . $event->entity->name . " togs bort";
+        $email->html = view('emails.deleted')
+            ->with('event', $event)
+            ->with('entity', $event->entity);
+        $email->send();
+
+        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->send();
+	}
 }

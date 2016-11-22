@@ -39,44 +39,39 @@
                 @foreach($dayTracks as $t => $track)
                     @foreach($track as $event)
                         <div 
-                        class="event {{ $event->approved === null ? 'not-confirmed' : 'confirmed' }}" 
-                        style="
-                        top:   {{ (strtotime($event->start) - strtotime(date("Y-m-d", strtotime($event->start)))) / 3600 * 35 - 8*35 }}px;
-                        height:{{ (strtotime($event->end) - strtotime($event->start)) / 3600 * 35 }}px;
-                        min-height:{{ (strtotime($event->end) - strtotime($event->start)) / 3600 * 35 }}px;
-                        max-height:{{ (strtotime($event->end) - strtotime($event->start)) / 3600 * 35 }}px;
-                        left:  {{ 5 + floor((strtotime($event->start)-strtotime(date('Y-m-d', $startDate))) / 3600 / 24) * 13.57 + $t * 13.57/$numTracks[$date] }}%;
-                        width: {{ 13.57/$numTracks[$date] * $event->colspan }}%;">
-                        <div class="content">
-                            <span class="from">{{ date("H:i", strtotime($event->start)) }}</span>
-                            <span class="to">{{ date("H:i", strtotime($event->end)) }}</span>
-                            <div class="text">
-                                @if($event->approved === null)
-                                    Bokningsförfrågan<br>
-                                @else
-                                    <b>{{ $event->title }}</b><br>
-                                @endif
-
-                                @if (Auth::check() && (Auth::user()->isAdminFor($entity) || $event->created_by == Auth::user()->id))
-                                    Vem: {{ $event->title }}
-                                    <br>Skapad av: {{ $event->author->name }}
-                                    <br>Varför: {{ $event->description }}
-
-                                    @if ($entity->alcohol_question)
-                                        <br>Alkohol: {{ $event->alcohol ? 'Ja' : 'Nej' }}
+                            class="event {{ $event->approved === null ? 'not-confirmed' : 'confirmed' }} {{ $event->id == $highlightId ? 'highlight' : '' }}" 
+                            style="
+                            top:   {{ (strtotime($event->start) - strtotime(date("Y-m-d", strtotime($event->start)))) / 3600 * 35 - 8*35 }}px;
+                            height:{{ (strtotime($event->end) - strtotime($event->start)) / 3600 * 35 }}px;
+                            min-height:{{ (strtotime($event->end) - strtotime($event->start)) / 3600 * 35 }}px;
+                            max-height:{{ (strtotime($event->end) - strtotime($event->start)) / 3600 * 35 }}px;
+                            left:  {{ 5 + floor((strtotime($event->start)-strtotime(date('Y-m-d', $startDate))) / 3600 / 24) * 13.57 + $t * 13.57/$numTracks[$date] }}%;
+                            width: {{ 13.57/$numTracks[$date] * $event->colspan }}%;">
+                            <a class="content" href="/events/{{ $event->id }}">
+                                <span class="from">{{ date("H:i", strtotime($event->start)) }}</span>
+                                <span class="to">{{ date("H:i", strtotime($event->end)) }}</span>
+                                <div class="text">
+                                    @if($event->approved === null)
+                                        Bokningsförfrågan<br>
+                                    @else
+                                        <b>{{ $event->title }}</b><br>
                                     @endif
-                                        <br>
-                                    @if($event->approved === null && Auth::user()->isAdminFor($entity))
-                                        <br><a href="/admin/bookings/{{ $event->id }}/accept" class="accept">Godkänn</a>
-                                        <br><a href="/admin/bookings/{{ $event->id }}/decline">Neka</a>
+
+                                    @if (Auth::check() && (Auth::user()->isAdminFor($entity) || $event->created_by == Auth::user()->id))
+                                        Vem: {{ $event->title }}
+                                        <br>Skapad av: {{ $event->author->name }}
+                                        <br>Varför: {{ $event->description }}
+
+                                        @if ($entity->alcohol_question)
+                                            <br>Alkohol: {{ $event->alcohol ? 'Ja' : 'Nej' }}
+                                        @endif
                                     @endif
-                                @endif
-                            </div>
+                                </div>
+                            </a>
                         </div>
-                    </div>
+                    @endforeach
                 @endforeach
             @endforeach
-        @endforeach
+        </div>
     </div>
-</div>
 </div>

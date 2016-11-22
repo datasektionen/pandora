@@ -41,6 +41,7 @@ class User extends Authenticatable
         if (!Auth::check() || Auth::user()->id != $this->id) {
             return false;
         }
+
         return in_array($entity->pls_group, Session::get('admin', []));
     }
 

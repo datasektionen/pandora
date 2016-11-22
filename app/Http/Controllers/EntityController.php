@@ -28,7 +28,7 @@ use Session;
 class EntityController extends BaseController {
 	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-	public function getShow($id, $year = null, $week = null) {
+	public function getShow($id, $year = null, $week = null, $highlightId = -1) {
 		$entity = Entity::find($id);
 		if ($entity === null) {
 			return redirect()->back();
@@ -85,7 +85,7 @@ class EntityController extends BaseController {
 					->whereNotNull('approved')
 					->orWhere('show_pending_bookings', true);
 				if (Auth::check())
-					$query->orWhere('created_by', Auth::user()->id);
+					$query->orWhere('booked_by', Auth::user()->id);
 			});
 		}
 
@@ -155,7 +155,8 @@ class EntityController extends BaseController {
 		->with('nextWeek', $nextWeek)
 		->with('nextYear', $nextYear)
 		->with('prevWeek', $prevWeek)
-		->with('prevYear', $nextYear);
+		->with('prevYear', $nextYear)
+		->with('highlightId', $highlightId);
 	}
 
 	public function getBook($id) {
@@ -193,7 +194,7 @@ class EntityController extends BaseController {
 		$event->end = date("Y-m-d H:i:s", strtotime($request->input('enddate') . ' ' . $request->input('endtime')));
 		$event->title = $request->input('booker');
 		$event->description = $request->input('reason');
-		$event->booked_by = 1;
+		$event->booked_by = Auth::user()->id;
 		$event->entity_id = $entity->id;
 		$event->alcohol = ($entity->alcohol_question && !$request->has('alcohol')) || ($request->has('alcohol') && $request->input('alcohol') === 'yes');
 		if (Auth::check() && Auth::user()->isAdminFor($entity)) {

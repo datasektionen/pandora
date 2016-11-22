@@ -120,6 +120,10 @@ p {
 	padding: 0px 2px 2px 2px;
 	width: 14%;
 }
+.event .content {
+	display: block;
+	color: #fff !important;
+}
 .event .content a {
 	display: block;
 	padding: 10px;
@@ -152,6 +156,10 @@ p {
 }
 .event.not-confirmed .content {
 	background: rgba(33, 150, 243, 0.5);
+}
+.event.highlight .content {
+	background: rgba(33, 150, 243, 0.5) !important;
+	border: 5px solid #c40;
 }
 .event .content .text {
 }
@@ -606,4 +614,33 @@ input[type=radio] {
   .header-lower .controls span {
 	font-size: 13px;
   }
+}
+
+
+.center-table table {
+	margin-bottom: 40px !important;
+}
+ul.actions {
+	margin: 20px 0;
+	padding: 0;
+	list-style-type: none;
+}
+ul.actions a {
+	background: #3a0;
+	padding: 10px;
+	display: block;
+	margin: 2px 0;
+	text-align: center;
+	color: #fff !important;
+}
+ul.actions a.decline {
+	background: #d30;
+	padding: 10px;
+	display: block;
+}
+ul.actions a.edit {
+	background: #ed0;
+	padding: 10px;
+	color: #222 !important;
+	display: block;
 }

@@ -19,7 +19,13 @@ Route::get('/', 'Controller@getIndex');
 Route::post('bookings/{id}/book', 'EntityController@postBook')->middleware('auth');
 Route::get ('bookings/{id}/book', 'EntityController@getBook')->middleware('auth');
 Route::get ('bookings/{id}/ical', 'EntityController@getIcal');
-Route::get ('bookings/{id}/{year?}/{week?}', 'EntityController@getShow');
+Route::get ('bookings/{id}/{year?}/{week?}/{highlight?}', 'EntityController@getShow');
+
+Route::get ('events/{id}', 'EventController@getShow');
+Route::get ('events/{id}/edit', 'EventController@getEdit');
+Route::post('events/{id}/edit', 'EventController@postEdit');
+Route::get ('events/{id}/delete', 'EventController@getDelete');
+Route::post('events/{id}/delete', 'EventController@postDelete');
 
 /**
  * Authentication routes
@@ -34,8 +40,8 @@ Route::get ('login-complete/{token}', 'AuthController@getLoginComplete')->middle
 Route::get ('admin', 'Admin\AdminController@getIndex')->middleware('admin');
 Route::get ('admin/bookings', 'Admin\BookingAdminController@getShow');
 Route::post('admin/bookings', 'Admin\BookingAdminController@postShow');
-Route::get ('admin/bookings/{id}/accept', 'Admin\BookingAdminController@getAccept')->middleware('isAdminFor');
-Route::get ('admin/bookings/{id}/decline', 'Admin\BookingAdminController@getDecline')->middleware('isAdminFor');
+Route::get ('admin/bookings/{id}/accept', 'Admin\BookingAdminController@getAccept')->middleware('isAdminForEvent');
+Route::get ('admin/bookings/{id}/decline', 'Admin\BookingAdminController@getDecline')->middleware('isAdminForEvent');
 
 Route::get ('admin/entities', 'Admin\EntityAdminController@getShow');
 Route::get ('admin/entities/new', 'Admin\EntityAdminController@getNew');

@@ -33,7 +33,7 @@
 						<label for="decline{{ $booking->id }}"></label>
 					</div>
 				</td>
-				<td><a href="/admin/bookings/edit/{{ $booking->id }}" title="Ändra">{{ $booking->title }}</a></td>
+				<td><a href="/bookings/{{ $booking->entity->id }}/{{ date("Y", strtotime($booking->start)) }}/{{ date("W", strtotime($booking->start)) }}/{{ $booking->id }}" title="Ändra">{{ $booking->title }}</a></td>
 				<td>{{ $booking->entity->name }}</td>
 				<td>{{ date("Y-m-d H:i", strtotime($booking->start)) }}</td>
 				<td>{{ date("Y-m-d H:i", strtotime($booking->end)) }}</td>
