@@ -73,10 +73,8 @@ class EntityController extends BaseController {
 
 		// Get all bookings for the period
 		$query = Event::select('events.*')
-			->where(function ($query) use ($startDate, $endDate) {
-				$query->where('start', '>=', date('Y-m-d H:i:s', $startDate))
-					->orWhere('end', '<=', date('Y-m-d H:i:s', $endDate));
-			})
+			->where('start', '<=', date('Y-m-d H:i:s', $endDate))
+			->where('end', '>=', date('Y-m-d H:i:s', $startDate))
 			->where('entity_id', $entity->id)
 			->orderBy('start', 'DESC');
 
@@ -92,10 +90,9 @@ class EntityController extends BaseController {
 		}
 
 		$ans = $query->get();
+
 		$res = [];
-		//echo "Start<br>";
 		foreach ($ans as $booking) {
-			//echo "Tittar på " . $booking->title . " (".$booking->start." till ".$booking->end.")<br>";
 			while (date("Y-m-d", strtotime($booking->start)) != date("Y-m-d", strtotime($booking->end) - 1) && 
 				strtotime($booking->start) < strtotime($booking->end)) {
 				$newBooking = clone $booking;
@@ -104,10 +101,8 @@ class EntityController extends BaseController {
 				$booking->end = date("Y-m-d", strtotime($booking->end) - 1) . ' 00:00:00';
 				if (strtotime($newBooking->end) <= $endDate && strtotime($newBooking->start) >= $startDate)
 					$res[] = $newBooking;
-				//echo " &nbsp;  &nbsp;  &nbsp; Skapade ny bokning: " . $newBooking->title . " (".$newBooking->start." till ".$newBooking->end.")<br>";
 			}
 			$res[] = $booking;
-			//echo " &nbsp;  &nbsp;  &nbsp; La till bokning: " . $booking->title . " (".$booking->start." till ".$booking->end.")<br>";
 		}
 		$bookings = collect($res);
 
@@ -133,7 +128,6 @@ class EntityController extends BaseController {
 				$tracks[$date][$numTracks[$date]-1][] = $booking;
 			}
 		}
-
 		foreach ($tracks as $date => $dayTracks) {
 			foreach ($dayTracks as $key => $track) {
 				foreach ($track as $booking) {

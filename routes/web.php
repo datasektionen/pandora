@@ -42,3 +42,6 @@ Route::get ('admin/entities/new', 'Admin\EntityAdminController@getNew');
 Route::post('admin/entities/new', 'Admin\EntityAdminController@postNew');
 Route::get ('admin/entities/edit/{id}', 'Admin\EntityAdminController@getEdit')->middleware('isAdminFor');
 Route::post('admin/entities/edit/{id}', 'Admin\EntityAdminController@postEdit')->middleware('isAdminFor');
+
+Route::get ('admin/import', 'Admin\ImportAdminController@getIndex')->middleware('admin');
+Route::post('admin/import', 'Admin\ImportAdminController@postIndex')->middleware('admin');

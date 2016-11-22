@@ -10,6 +10,9 @@
 			<ul>
 				<li><a href="/admin/bookings">Nya bokningar <?php if ($bookings > 0) : ?><span class="notif">{{ $bookings }}</span><?php endif; ?></a></li>
 				<li><a href="/admin/entities">Entiteter</a></li>
+				@if (Auth::user()->isAdmin())
+					<li><a href="/admin/import">Importera</a></li>
+				@endif
 			</ul>
 		</div>
 	</div>

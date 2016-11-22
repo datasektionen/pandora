@@ -34,7 +34,7 @@ class User extends Authenticatable
         if (!Auth::check() || Auth::user()->id != $this->id) {
             return false;
         }
-        return count(Session::get('admin')) > 0;
+        return count(Session::get('admin', [])) > 0 && in_array('admin', Session::get('admin', []));
     }
 
     public function isAdminFor($entity) {
