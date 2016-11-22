@@ -2,7 +2,7 @@
 
 $x = env("DATABASE_URL", "");
 if (strlen($x) > 1) {
-    $url = parse_url();
+    $url = parse_url($x);
 
     $host = $url["host"];
     $username = $url["user"];
