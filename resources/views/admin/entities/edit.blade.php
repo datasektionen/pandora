@@ -4,11 +4,6 @@
 @section('title', 'Ändra entitet: ' . $entity->name)
 
 
-@section('action-button')
-    <a href="/admin/entities/remove/{{ $entity->id }}" class="primary-action">Ta bort</a>
-@endsection
-
-
 @section('content')
     {!! Form::open(['url' => URL::to(Request::path(), [], true)]) !!}
         <div class="form">
@@ -32,6 +27,47 @@
 
             <div class="form-entry">
                 <span class="description">
+                    Fråga om alkoholförtäring under bokning:
+                </span>
+                <div class="input horizontal">
+                    <div class="radio">
+                        {!! Form::radio('alcohol_question', 'yes', $entity->alcohol_question, array('id' => 'alc_yes')) !!}
+                        <label for="alc_yes">Ja</label>
+                    </div>
+                    <div class="radio">
+                        {!! Form::radio('alcohol_question', 'no', !$entity->alcohol_question, array('id' => 'alc_no')) !!}
+                        <label for="alc_no">Nej</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-entry">
+                <span class="description">
+                    Visa ännu ej handlagda bokningar för allmänheten:
+                </span>
+                <div class="input horizontal">
+                    <div class="radio">
+                        {!! Form::radio('show_pending_bookings', 'yes', $entity->show_pending_bookings, array('id' => 'bookings_yes')) !!}
+                        <label for="bookings_yes">Ja</label>
+                    </div>
+                    <div class="radio">
+                        {!! Form::radio('show_pending_bookings', 'no', !$entity->show_pending_bookings, array('id' => 'bookings_no')) !!}
+                        <label for="bookings_no">Nej</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-entry">
+                <span class="description">
+                    E-post för händelsenotifiering:
+                </span>
+                <div class="input">
+                    {!! Form::text('notify_email', $entity->notify_email, array('placeholder' => 'T.ex. "lokalchef@d.kth.se"')) !!}
+                </div>
+            </div>
+
+            <div class="form-entry">
+                <span class="description">
                     Gruppnamn för administration i Pls:
                 </span>
                 <div class="input">
@@ -41,7 +77,7 @@
 
             <div class="form-entry">
                 <div class="input">
-                    {!! Form::submit('Skapa entitet', NULL) !!}
+                    {!! Form::submit('Ändra entitet', NULL) !!}
                 </div>
             </div>
         </div>

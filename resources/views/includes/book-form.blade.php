@@ -51,8 +51,8 @@
         </div>
         @endif
         <div class="form-entry">
+            <p>Genom att trycka på knappen nedan godkänner du att automatiska e-postmeddelanden skickas till dig för att uppdatera dig om din bokning.</p>
             {!! Form::submit('Skapa bokningsförfrågan', ['class' => 'theme-color', 'id' => 'save-booking']) !!}
-            <div>Genom att trycka på knappen ovan godkänner du att automatiska e-postmeddelanden skickas till dig för att uppdatera dig om din bokning.</div>
         </div>
     </div>
 {!! Form::close() !!}

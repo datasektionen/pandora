@@ -59,7 +59,10 @@ class EntityAdminController extends BaseController {
 		$entity = new Entity;
 		$entity->name = $request->input('name');
 		$entity->description = $request->input('description');
+		$entity->notify_email = $request->input('notify_email');
 		$entity->pls_group = $request->input('pls_group');
+		$entity->alcohol_question = $request->input('alcohol_question') == 'yes';
+		$entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
 		$entity->save();
 
 		return redirect('/admin/entities')->with('success', $request->input('name') . ' skapades!');
@@ -87,8 +90,7 @@ class EntityAdminController extends BaseController {
 	public function postEdit($id, Request $request) {
 		$this->validate($request, [
 			'name' => 'required',
-			'description' => 'required',
-			'pls_group' => 'required'
+			'description' => 'required'
 		]);
 
 		$entity = Entity::find($id);
@@ -97,6 +99,9 @@ class EntityAdminController extends BaseController {
 		}
 		$entity->name = $request->input('name');
 		$entity->description = $request->input('description');
+		$entity->notify_email = $request->input('notify_email');
+		$entity->alcohol_question = $request->input('alcohol_question') == 'yes';
+		$entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
 		$entity->save();
 
 		return redirect('/admin/entities')->with('success', $request->input('name') . ' ändrades!');

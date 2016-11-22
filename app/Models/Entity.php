@@ -17,6 +17,8 @@ class Entity extends Model
     	if (Auth::guest()) {
     		return null;
     	}
+    	if (Auth::user()->isAdmin())
+    		return Entity::select('*');
     	return Entity::whereIn('pls_group', Session::get('admin', []));
     }
 }

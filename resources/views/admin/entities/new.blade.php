@@ -27,6 +27,47 @@
 
         <div class="form-entry">
             <span class="description">
+                Fråga om alkoholförtäring under bokning:
+            </span>
+            <div class="input horizontal">
+                <div class="radio">
+                    {!! Form::radio('alcohol_question', 'yes', null, array('id' => 'alc_yes')) !!}
+                    <label for="alc_yes">Ja</label>
+                </div>
+                <div class="radio">
+                    {!! Form::radio('alcohol_question', 'no', null, array('id' => 'alc_no')) !!}
+                    <label for="alc_no">Nej</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-entry">
+            <span class="description">
+                Visa ännu ej handlagda bokningar för allmänheten:
+            </span>
+            <div class="input horizontal">
+                <div class="radio">
+                    {!! Form::radio('show_pending_bookings', 'yes', null, array('id' => 'bookings_yes')) !!}
+                    <label for="bookings_yes">Ja</label>
+                </div>
+                <div class="radio">
+                    {!! Form::radio('show_pending_bookings', 'no', null, array('id' => 'bookings_no')) !!}
+                    <label for="bookings_no">Nej</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-entry">
+            <span class="description">
+                E-post för händelsenotifiering:
+            </span>
+            <div class="input">
+                {!! Form::text('notify_email', NULL, array('placeholder' => 'T.ex. "lokalchef@d.kth.se"')) !!}
+            </div>
+        </div>
+
+        <div class="form-entry">
+            <span class="description">
                 Gruppnamn för administration i Pls:
             </span>
             <div class="input">
