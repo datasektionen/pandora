@@ -14,7 +14,7 @@ class CreateReplacesField extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->integer('replaces_on_edit')->unsigned()->nullable;
+            $table->integer('replaces_on_edit')->unsigned()->nullable();
         });
     }
 
