@@ -78,7 +78,7 @@ class EntityController extends BaseController {
 					->orWhere('end', '<=', date('Y-m-d H:i:s', $endDate));
 			})
 			->where('entity_id', $entity->id)
-			->orderBy(DB::raw('end-start'), 'DESC');
+			->orderBy('start', 'DESC');
 
 		if (!$entity->show_pending_bookings && !in_array($entity->pls_group, Session::get('admin', []))) {
 			$query->join('entities', 'entities.id', 'events.entity_id')
