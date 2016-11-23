@@ -24,10 +24,10 @@ Route::get ('bookings/{id}/ical', 'EntityController@getIcal');
 Route::get ('bookings/{id}/{year?}/{week?}/{highlight?}', 'EntityController@getShow');
 
 Route::get ('events/{id}', 'EventController@getShow');
-Route::get ('events/{id}/edit', 'EventController@getEdit');
-Route::post('events/{id}/edit', 'EventController@postEdit');
-Route::get ('events/{id}/delete', 'EventController@getDelete');
-Route::post('events/{id}/delete', 'EventController@postDelete');
+Route::get ('events/{id}/edit', 'EventController@getEdit')->middleware('auth')->middleware('isUserOrAdminForEvent');
+Route::post('events/{id}/edit', 'EventController@postEdit')->middleware('auth')->middleware('isUserOrAdminForEvent');
+Route::get ('events/{id}/delete', 'EventController@getDelete')->middleware('auth')->middleware('isUserOrAdminForEvent');
+Route::post('events/{id}/delete', 'EventController@postDelete')->middleware('auth')->middleware('isUserOrAdminForEvent');
 
 /**
  * Authentication routes
@@ -39,17 +39,17 @@ Route::get ('login-complete/{token}', 'AuthController@getLoginComplete')->middle
 /**
  * Admin routes.
  */
-Route::get ('admin', 'Admin\AdminController@getIndex')->middleware('admin');
-Route::get ('admin/bookings', 'Admin\BookingAdminController@getShow');
-Route::post('admin/bookings', 'Admin\BookingAdminController@postShow');
-Route::get ('admin/bookings/{id}/accept', 'Admin\BookingAdminController@getAccept')->middleware('isAdminForEvent');
-Route::get ('admin/bookings/{id}/decline', 'Admin\BookingAdminController@getDecline')->middleware('isAdminForEvent');
+Route::get ('admin', 'Admin\AdminController@getIndex')->middleware('auth')->middleware('admin');
+Route::get ('admin/bookings', 'Admin\BookingAdminController@getShow')->middleware('auth')->middleware('isSomeAdmin');
+Route::post('admin/bookings', 'Admin\BookingAdminController@postShow')->middleware('auth')->middleware('isSomeAdmin');
+Route::get ('admin/bookings/{id}/accept', 'Admin\BookingAdminController@getAccept')->middleware('auth')->middleware('isAdminForEvent');
+Route::get ('admin/bookings/{id}/decline', 'Admin\BookingAdminController@getDecline')->middleware('auth')->middleware('isAdminForEvent');
 
-Route::get ('admin/entities', 'Admin\EntityAdminController@getShow');
-Route::get ('admin/entities/new', 'Admin\EntityAdminController@getNew');
-Route::post('admin/entities/new', 'Admin\EntityAdminController@postNew');
-Route::get ('admin/entities/edit/{id}', 'Admin\EntityAdminController@getEdit')->middleware('isAdminForEntity');
-Route::post('admin/entities/edit/{id}', 'Admin\EntityAdminController@postEdit')->middleware('isAdminForEntity');
+Route::get ('admin/entities', 'Admin\EntityAdminController@getShow')->middleware('auth')->middleware('isSomeAdmin');
+Route::get ('admin/entities/new', 'Admin\EntityAdminController@getNew')->middleware('auth')->middleware('admin');
+Route::post('admin/entities/new', 'Admin\EntityAdminController@postNew')->middleware('auth')->middleware('admin');
+Route::get ('admin/entities/edit/{id}', 'Admin\EntityAdminController@getEdit')->middleware('auth')->middleware('isAdminForEntity');
+Route::post('admin/entities/edit/{id}', 'Admin\EntityAdminController@postEdit')->middleware('auth')->middleware('isAdminForEntity');
 
-Route::get ('admin/import', 'Admin\ImportAdminController@getIndex')->middleware('admin');
-Route::post('admin/import', 'Admin\ImportAdminController@postIndex')->middleware('admin');
+Route::get ('admin/import', 'Admin\ImportAdminController@getIndex')->middleware('auth')->middleware('admin');
+Route::post('admin/import', 'Admin\ImportAdminController@postIndex')->middleware('auth')->middleware('admin');

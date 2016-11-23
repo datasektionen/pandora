@@ -55,5 +55,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'isAdminForEntity' => \App\Http\Middleware\IsAdminForEntity::class,
         'isAdminForEvent' => \App\Http\Middleware\IsAdminForEvent::class,
+        'isUserOrAdminForEvent' => \App\Http\Middleware\IsUserOrAdminForEvent::class,
+        'isSomeAdmin' => \App\Http\Middleware\IsSomeAdmin::class,
     ];
 }
