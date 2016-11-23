@@ -75,6 +75,9 @@ class ImportAdminController extends BaseController {
 		// Store number of imported events in $num for further presentation
 		$num = 0;
 		foreach ($ical->events() as $e) {
+			if (Event::where('start', $parseDate($e->dtstart))->where('end', $parseDate($e->dtend))->count() > 0) {
+				continue;
+			}
 			$event = new Event;
 			$event->title = $e->summary == null ? 'Bokning' : $e->summary;
 			$event->description = "";
