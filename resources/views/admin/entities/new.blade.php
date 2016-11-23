@@ -77,6 +77,15 @@
 
         <div class="form-entry">
             <span class="description">
+                <a href="http://fontawesome.io/icons/" target="_blank">FA-ikon</a>:
+            </span>
+            <div class="input">
+                {!! Form::text('fa_icon', NULL, array('placeholder' => 'T.ex. "fa-car"')) !!}
+            </div>
+        </div>
+
+        <div class="form-entry">
+            <span class="description">
                 Del av:
             </span>
             <div class="input">

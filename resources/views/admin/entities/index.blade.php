@@ -23,7 +23,7 @@
 			</tr>
 			@foreach ($entities as $entity)
 			<tr>
-				<td><a href="/admin/entities/edit/{{ $entity->id }}" title="Ändra">{{ $entity->name }}</a></td>
+				<td><a href="/admin/entities/edit/{{ $entity->id }}" title="Ändra"><i class="fa {{ $entity->fa_icon }}"></i> {{ $entity->name }}</a></td>
 				<td>{{ $entity->parent == null ? '' : $entity->parent->name }}</td>
 				<td>{{ $entity->pls_group }}</td>
 				<td>{{ $entity->show_pending_bookings ? 'Ja' : 'Nej' }}</td>
