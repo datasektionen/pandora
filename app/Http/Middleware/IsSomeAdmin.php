@@ -6,6 +6,7 @@ use Closure;
 use App\Models\Entity;
 use Auth;
 use App\Models\Event;
+use Session;
 
 class IsSomeAdmin
 {
