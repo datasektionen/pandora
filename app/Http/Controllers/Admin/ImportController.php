@@ -85,7 +85,6 @@ class ImportAdminController extends BaseController {
 			$event->approved = date("Y-m-d H:i:s");
 			$event->approved_by = 1;
 			$event->alcohol = 0;
-			$event->created_by = 1;
 			$event->save();
 			$num++;
 		}
