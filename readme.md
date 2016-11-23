@@ -1,3 +1,56 @@
+# Pandora
+PHP Laravel application that handles bookings. Live at https://bokning.datasektionen.se.
+
+## API
+There will be an API for Pandora. The API will located at ```/api``` (https://bokning.datasektionen.se/api).
+
+### API endpoints
+When the API is implemented, there will exist some endpoints. 
+The following endpoints are based on the above API URL. Note that these are not implemented yet.
+```
+  GET /events/{entityId}/{year}/{week}          Returns all events for the given week as JSON
+```
+
+## Required environment variables
+```
+	APP_ENV=production
+	APP_KEY=12345678901234567890abcdefabcdef
+	APP_DEBUG=false
+	APP_LOG_LEVEL=debug
+	APP_URL=
+
+	### ALT 1
+	DB_CONNECTION=
+	DB_HOST=
+	DB_DATABASE=
+	DB_USERNAME=
+	DB_PASSWORD=
+	### END ALT 1
+
+	### ALT 2
+	DATABASE_URL:driver://user:password@host:port/database
+	### END ALT 2
+
+	LOGIN_API_KEY=[the key]
+	LOGIN_API_URL=https://login2.datasektionen.se
+	PLS_API_URL=http://pls.froyo.datasektionen.se/api
+	ZFINGER_API_URL=https://zfinger.datasektionen.se
+	SPAM_API_KEY=[the key]
+	SPAM_API_URL=https://spam.datasektionen.se/api/sendmail
+```
+
+## Roadmap
+Random features are implemented at a random speed. Post an [issue](https://github.com/datasektionen/pandora/issues), and maybe it will be implemented. One day.
+
+## Installation and setup
+To setup the app, a web server is needed. The installation depends on your web server. One option is to user [Laravel Homestead](https://laravel.com/docs/4.2/homestead). 
+
+
+
+
+
+# Laravel
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img width="150"src="https://laravel.com/laravel.png"></a></p>
 
 <p align="center">
