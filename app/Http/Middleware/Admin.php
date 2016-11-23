@@ -19,7 +19,7 @@ class Admin {
      */
     public function handle($request, Closure $next) {
         if (!Auth::check() || !Auth::user()->isAdmin()) {
-            return redirect('/')->with('error', 'Du har inte behörighet att visa den här sidan.');
+            abort(403);
         }
 
         return $next($request);

@@ -1,9 +1,11 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
+use App\Helpers\EmailClient;
+
 use Carbon\Carbon;
 use Auth;
-use App\Helpers\EmailClient;
 
 /**
  * An event describes a booking. Contains starting, ending dates, 
@@ -38,28 +40,39 @@ class Event extends Model {
 	}
 
 	/**
-	 * Called when this model is approved.
+	 * Defines relationship to person that initially booked this event.
+	 * 
+	 * @return relation
+	 */
+	public function author() {
+		return $this->belongsTo('App\Models\User', 'booked_by');
+	}
+
+	/**
+	 * Approves a booking. The authenticated user is set as approved_by.
+	 * Replaces the event in replace_on_edit (ie removes it).
+	 * Emails booking confirmation.
 	 * 
 	 * @return true
 	 */
 	public function approve() {
 		$this->approved = Carbon::now();
 		$this->approved_by = Auth::user()->id;
-		$this->save();
 
 		if ($this->replaces_on_edit !== null) {
 			$e = Event::find($this->replaces_on_edit);
 			if ($e !== null) {
 				$e->delete();
 			}
+			$this->replaces_on_edit = null;
 		}
+		$this->save();
 
-		EmailClient::sendBookingConfirmation($this);
 		return true;
 	}
 
 	/**
-	 * Called when this model is edited. Approved by will disappear.
+	 * Removes approve of a booking.
 	 * 
 	 * @return true
 	 */
@@ -70,33 +83,41 @@ class Event extends Model {
 		return true;
 	}
 
+	/**
+	 * Declines a booking. Deletes the event and emails user.
+	 * 
+	 * @return true
+	 */
 	public function decline() {
 		$this->approved = null;
 		$this->approved_by = null;
 		$this->save();
-		EmailClient::sendBookingDeclined($this);
 		$this->delete();
 
 		return true;
 	}
 
-	public function author() {
-		return $this->belongsTo('App\Models\User', 'booked_by');
-	}
-
+	/**
+	 * Returns number of events that this event collides with.
+	 * 
+	 * @return 
+	 */
 	public function collisions() {
 		$start = $this->start;
 		$end = $this->end;
 
-		return Event::where(function($query) use ($start) {
+		return Event::where(function ($query) use ($start, $end) {
+			$query->where(function($query) use ($start) {
 				$query->where('start', '>=', $start)
 					->where('end', '<=', $start);
-			})
-			->orWhere(function($query) use ($end) {
-				$query->where('end', '>=', $end)
-					->where('start', '<=', $end);
+				})
+				->orWhere(function($query) use ($end) {
+					$query->where('start', '>=', $end)
+						->where('end', '<=', $end);
+				});
 			})
 			->where('id', '!=', $this->replaces_on_edit)
-			->count() - 1;
+			->where('id', '!=', $this->id)
+			->count();
 	}
 }

@@ -1,32 +1,31 @@
-<?php
-
-namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Http\Controllers;
 use Illuminate\Http\Request;
 
-use \App\Models\Event;
-use \App\Models\User;
-use \App\Models\Entity;
+use App\Models\Event;
+use App\Models\User;
+use App\Models\Entity;
+use App\Http\Controllers;
+
 use Auth;
 
 /**
- * Handles administrator actions concerning elections.
+ * Handles administrator actions concerning entities.
  *
  * @author  Jonas Dahl <jonas@jdahl.se>
- * @version 2016-10-14
+ * @version 2016-11-23
  */
 class EntityAdminController extends BaseController {
 	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 	/**
-	 * Shows all elections as a list.
+	 * Shows all entities for the authenticated user as a list.
 	 * 
-	 * @return view containing a list over elections
+	 * @return view containing a list over entities
 	 */
 	public function getShow() {
 		$entities = Entity::forAuthUser()->orderBy('name')->paginate(20);
@@ -36,18 +35,19 @@ class EntityAdminController extends BaseController {
 	}
 
 	/**
-	 * Shows all elections as a list.
+	 * Create new entity action. Shows a form.
 	 * 
-	 * @return view containing a list over elections
+	 * @return view with form
 	 */
 	public function getNew() {
 		return view('admin.entities.new');
 	}
 
 	/**
-	 * Shows all elections as a list.
+	 * Handles the post request when creating a new entity.
 	 * 
-	 * @return view containing a list over elections
+	 * @param  Request $request the post request
+	 * @return redirect to admin entities page
 	 */
 	public function postNew(Request $request) {
 		$this->validate($request, [
@@ -56,6 +56,7 @@ class EntityAdminController extends BaseController {
 			'pls_group' => 'required'
 		]);
 
+		// Create entity
 		$entity = new Entity;
 		$entity->name = $request->input('name');
 		$entity->description = $request->input('description');
@@ -65,27 +66,27 @@ class EntityAdminController extends BaseController {
 		$entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
 		$entity->save();
 
-		return redirect('/admin/entities')->with('success', $request->input('name') . ' skapades!');
+		return redirect('/admin/entities')
+			->with('success', $request->input('name') . ' skapades!');
 	}
 
 	/**
-	 * Shows all elections as a list.
+	 * Edit entity action. Shows a form.
 	 * 
-	 * @return view containing a list over elections
+	 * @return view with form
 	 */
 	public function getEdit($id) {
-		$entity = Entity::find($id);
-		if ($entity === null) {
-			return redirect()->back()->with('error', 'Hittade inte entiteten att ändra.');
-		}
+		$entity = Entity::findOrFail($id);
+
 		return view('admin.entities.edit')
 			->with('entity', $entity);
 	}
 
 	/**
-	 * Shows all elections as a list.
+	 * Handles the post request when editing an entity.
 	 * 
-	 * @return view containing a list over elections
+	 * @param  Request $request the post request
+	 * @return redirect to admin entities page
 	 */
 	public function postEdit($id, Request $request) {
 		$this->validate($request, [
@@ -93,10 +94,8 @@ class EntityAdminController extends BaseController {
 			'description' => 'required'
 		]);
 
-		$entity = Entity::find($id);
-		if ($entity === null) {
-			return redirect()->back()->with('error', 'Hittade inte entiteten att ändra.');
-		}
+		// Do the editing
+		$entity = Entity::findOrFail($id);
 		$entity->name = $request->input('name');
 		$entity->description = $request->input('description');
 		$entity->notify_email = $request->input('notify_email');
@@ -104,7 +103,8 @@ class EntityAdminController extends BaseController {
 		$entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
 		$entity->save();
 
-		return redirect('/admin/entities')->with('success', $request->input('name') . ' ändrades!');
+		return redirect('/admin/entities')
+			->with('success', $request->input('name') . ' ändrades!');
 	}
 
 }

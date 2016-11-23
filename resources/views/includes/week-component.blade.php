@@ -34,7 +34,6 @@
                 <div class="clear"></div>
             </div>
             @endfor
-
             @foreach($tracks as $date => $dayTracks)
                 @foreach($dayTracks as $t => $track)
                     @foreach($track as $event)

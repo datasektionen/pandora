@@ -16,6 +16,9 @@ class HelperServiceProvider extends ServiceProvider
         $this->app->bind('EmailClient', function() {
             return new \App\Helpers\EmailClient;
         });
+        $this->app->bind('Planner', function() {
+            return new \App\Helpers\Planner;
+        });
 
         parent::boot();
     }

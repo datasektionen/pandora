@@ -11,6 +11,8 @@
 |
 */
 
+// TODO Change permissions and middleware
+
 Route::get('/', 'Controller@getIndex');
 
 /**

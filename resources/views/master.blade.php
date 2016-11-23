@@ -16,7 +16,7 @@
     window.tbaas_conf = {
         system_name: "bokning",
         target_id: "methone-container-replace",
-        primary_color: "#03A9F4",
+        primary_color: "#42a5f5",
         secondary_color: "#ffffff",
         bar_color: "#039BE5",
         @if(Auth::guest())

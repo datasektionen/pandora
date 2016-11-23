@@ -16,14 +16,10 @@ class IsAdminForEvent
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-        if (!Auth::check()) {
-            return redirect('/')->with('error', 'Du måste logga in för att visa den här sidan.');
-        }
-        $event = Event::find(intval($request->route('id')));
-        if ($event === null || !Auth::user()->isAdminFor($event->entity)) {
-            return redirect('/')->with('error', 'Du har inte tillräcklig behörighet för att visa den här sidan.');
+    public function handle($request, Closure $next) {
+        $event = Event::findOrFail(intval($request->route('id')));
+        if (!Auth::user()->isAdminFor($event->entity)) {
+            abort(403);
         }
         return $next($request);
     }

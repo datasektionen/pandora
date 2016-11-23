@@ -53,7 +53,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\Admin::class,
-        'isAdminFor' => \App\Http\Middleware\IsAdminFor::class,
+        'isAdminForEntity' => \App\Http\Middleware\IsAdminFor::class,
         'isAdminForEvent' => \App\Http\Middleware\IsAdminForEvent::class,
     ];
 }

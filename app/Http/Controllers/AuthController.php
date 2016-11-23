@@ -17,7 +17,7 @@ use App\Models\User;
 * Authentication controller. Handles login via login2.datasektionen.se.
 *
 * @author Jonas Dahl <jonas@jdahl.se>
-* @version 2016-10-14
+* @version 2016-11-23
 */
 class AuthController extends BaseController {
 	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -29,8 +29,9 @@ class AuthController extends BaseController {
 	*/
 	public function getLogout() {
 		Auth::logout();
-		\Session::forget('admin');
-		return redirect('/')->with('success', 'Du är nu utloggad från bokningssystemet.');
+		Session::forget('admin');
+		return redirect('/')
+			->with('success', 'Du är nu utloggad från bokningssystemet.');
 	}
 
 	/**
@@ -43,10 +44,12 @@ class AuthController extends BaseController {
 	}
 
 	/**
-	* Show a person.
-	* @param  int $id the id of the person to show
+	* When login is complete, login2 will redirect us here. Now verify the login and ask PLS
+	* for admin privileges. The admin privileges will be stored in Session['admin'] as an array of
+	* pls permissions.
 	* 
-	* @return view     the person view
+	* @param  string $token the token from login2
+	* @return redirect to main page or intended page
 	*/
 	public function getLoginComplete($token) {
 		// Send get request to login server
