@@ -10,7 +10,8 @@
     <!-- Fonts -->
     <link href="//aurora.datasektionen.se" rel="stylesheet" type="text/css">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
-
+    <meta name="theme-color" content="#039BE5">
+    
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript">
     window.tbaas_conf = {
