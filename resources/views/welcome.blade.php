@@ -3,6 +3,8 @@
 @section('title', 'Datasektionens bokningssystem')
 
 @section('content')
+<h1>Beta - detta system är inte i bruk</h1>
+<p>Detta system är inte i bruk än, så om du försöker boka något så kommer det kanske se ut att funka, men bokningen gäller inte. Du bokar fortfarande genom att mejla lokalchef@d.kth.se eller d-mulle@d.kth.se.</p>
 <div class="home_sections">
 
 	<?php $i = 0; ?>
