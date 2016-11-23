@@ -7,7 +7,7 @@ use App\Models\Entity;
 use Auth;
 use App\Models\Event;
 
-class IsAdminForEvent
+class IsSomeAdmin
 {
     /**
      * Handle an incoming request.
