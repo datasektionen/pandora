@@ -12,6 +12,12 @@
     Din bokning har ändrats. Se nedan vad. Din bokning är inte bekräftad än. Du får ett nytt mejl när din bokning är handlagd.
 </p>
 <br/>
+@if (isset($entity->reason) && strlen($entity->reason) > 0)
+<p style="margin:0;padding:0;border:0">
+    <b>Anledning:</b> {{ $entity->reason }}
+</p>
+<br/>
+@endif
 <table border="0" cellspacing="0" cellpadding="0" style="width:100%">
     <tr>
         <th></th>

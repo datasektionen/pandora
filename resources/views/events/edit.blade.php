@@ -36,6 +36,12 @@
             </span>
             {!! Form::text('reason', $event->description, ['placeholder' => 'T.ex. "Vi ska ha en fiskdammstävling."']) !!}
         </div>
+        <div class="form-entry">
+            <span class="description">
+                Varför bokar du om bokningen? Detta kommer bifogas det e-postmeddelande som går ut till bokningsinnehavaren och administratören.
+            </span>
+            {!! Form::text('reason_edit', NULL, ['placeholder' => 'T.ex. "Ett annat event tog bokningstiden."']) !!}
+        </div>
         {{--
         TODO: Enable when controller handles it
         @if ($event->entity->alcohol_question)

@@ -6,9 +6,15 @@
 <p style="margin:0;padding:0;border:0">Hej!</p>
 <br/>
 <p style="margin:0;padding:0;border:0">
-    Nedanstående bokning har <b>tagits bort</b> för {{ $entity->name }}.
+    Nedanstående bokning har <b>tagits bort</b> för {{ $entity->name }}. Tiden är alltså avbokad.
 </p>
 <br/>
+@if (isset($entity->reason) && strlen($entity->reason) > 0)
+<p style="margin:0;padding:0;border:0">
+    <b>Anledning:</b> {{ $entity->reason }}
+</p>
+<br/>
+@endif
 <table border="0" cellspacing="0" cellpadding="0" style="width:100%">
     <tr>
         <td>Bokningens start: </td>
@@ -42,7 +48,7 @@
     </tr>
     <tr>
         <td>Status: </td>
-        <td> {{ $event->approved === null && $event->deleted_at === null ? 'Inte handlagd' : ($event->approved != null ? 'Godkänd' : 'Inte godkänd') }}</td>
+        <td> Avbokad</td>
     </tr>
 </table>
 <br/>
