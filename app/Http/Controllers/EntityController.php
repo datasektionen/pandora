@@ -62,13 +62,16 @@ class EntityController extends BaseController {
 		$query = Event::select('events.*')
 			->where('start', '<=', date('Y-m-d H:i:s', $endDate))
 			->where('end', '>=', date('Y-m-d H:i:s', $startDate))
-			->where('entity_id', $entity->id)
+			->join('entities', 'entities.id', 'events.entity_id')
+			->where(function ($query) use ($entity) {
+				$query->where('entity_id', $entity->id)
+					->orWhere('entity_id', $entity->part_of);
+			})
 			->orderBy('start', 'DESC');
 
 		// We want to show some less events if we are not admin or owner of the event
 		if (!$entity->show_pending_bookings && !in_array($entity->pls_group, Session::get('admin', []))) {
-			$query->join('entities', 'entities.id', 'events.entity_id')
-				->where(function ($query) {
+			$query->where(function ($query) {
 				$query
 					->whereNotNull('approved')
 					->orWhere('show_pending_bookings', true);

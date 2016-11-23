@@ -112,6 +112,9 @@ p {
 .day .hour.lighten-4:hover {
 	cursor: s-resize;
 }
+.day .hour.lighten-4 {
+	background: #bbdefb !important;
+}
 .clear {
 	clear: both;
 }
@@ -158,8 +161,11 @@ p {
 	background: rgba(33, 150, 243, 0.5);
 }
 .event.highlight .content {
-	background: rgba(33, 150, 243, 0.5) !important;
-	border: 5px solid #c40;
+	background: rgba(243, 45, 33, 0.5) !important;
+}
+.event .content.child {
+	color: #555 !important;
+	background: rgba(200, 200, 200, 0.3) !important;
 }
 .event .content .text {
 }
@@ -592,7 +598,7 @@ input[type=radio] {
  * Media queries
  */
 @media (max-width: 991px) {
-  header .header-inner .header-left {
+  header .header-inner .header-left .calendar {
     display: none;
   }
   .header-lower {

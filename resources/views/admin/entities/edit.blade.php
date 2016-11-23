@@ -76,6 +76,17 @@
             </div>
 
             <div class="form-entry">
+                <span class="description">
+                    Del av:
+                </span>
+                <div class="input">
+                    <div class="select">
+                        {!! Form::select('part_of', App\Models\Entity::all()->pluck('name', 'id')->prepend('Välj annan entitet', 0), $entity->part_of) !!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-entry">
                 <div class="input">
                     {!! Form::submit('Ändra entitet', NULL) !!}
                 </div>

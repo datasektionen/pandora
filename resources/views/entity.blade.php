@@ -6,7 +6,7 @@
 
 @section('header-left')
     {{-- The controls for the wide page --}}
-    <div class="center">
+    <div class="center calendar">
         <div class="controls">
             <a href="{{ url('bookings', [$entity->id, $prevYear, $prevWeek]) }}" class="prev theme-color">&lt;</a>
             <span>Vecka {{ $week }} år {{ $year }}</span>

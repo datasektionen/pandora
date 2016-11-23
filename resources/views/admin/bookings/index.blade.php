@@ -38,10 +38,12 @@
 				<td>{{ date("Y-m-d H:i", strtotime($booking->start)) }}</td>
 				<td>{{ date("Y-m-d H:i", strtotime($booking->end)) }}</td>
 				<td>
-					@if ($booking->collisions() == 0) 
-					<b style="color: #3a0">Krockar inte med något!</b>
+					@if (($c = $booking->weakCollisions()) == 0) 
+						<b style="color: #3a0">Krockar inte med något!</b>
+					@elseif (($c = $booking->weakCollisions()) != 0 && ($d = $booking->collisions()) != 0 && $c-$d != 0)
+						<b style="color: #d50">Krockar med {{ $c }} bokning{{ $c > 1 ? 'ar' : '' }}! {{ $c-$d }} är med aktiviteter tillhörande entiteter som är del av denna.</b>
 					@else
-					<b style="color: #d50">Krockar med {{ $booking->collisions() }} bokning(ar)!</b>
+						<b style="color: #d50">Krockar med {{ $c }} bokning{{ $c > 1 ? 'ar' : '' }}!</b>
 					@endif
 				</td>
 			</tr>

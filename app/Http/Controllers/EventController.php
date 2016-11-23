@@ -113,8 +113,12 @@ class EventController extends BaseController {
 
 		// Copy old event into new event, and save it to be able to getDirty()
 		$oldEvent = Event::findOrFail($id);
-		$event = $oldEvent->replicate();
-		$event->save();
+		if ($oldEvent->approved !== null) {
+			$event = $oldEvent->replicate();
+			$event->save();
+		} else {
+			$event = clone $oldEvent;
+		}
 
 		// Set the new values for the event
 		$event->start = date("Y-m-d H:i:s", strtotime($request->input('startdate') . ' ' . $request->input('starttime')));

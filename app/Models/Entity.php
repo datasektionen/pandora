@@ -22,6 +22,16 @@ class Entity extends Model {
     }
 
     /**
+     * Defines relation to a parent.
+     * For example, Mötesrummet can be part of Meta.
+     * 
+     * @return relation
+     */
+    public function parent() {
+        return $this->belongsTo('App\Models\Entity', 'part_of');
+    }
+
+    /**
      * Returns all entities for the given user. Auth::user() is used if none given.
      * If user is super admin all entities are given, otherwise only those that is in
      * admin session.

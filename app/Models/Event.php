@@ -99,25 +99,45 @@ class Event extends Model {
 
 	/**
 	 * Returns number of events that this event collides with.
+	 * Also takes parent (part_of) entity events into account.
 	 * 
-	 * @return 
+	 * @return int number of such collisions
 	 */
 	public function collisions() {
 		$start = $this->start;
 		$end = $this->end;
 
-		return Event::where(function ($query) use ($start, $end) {
-			$query->where(function($query) use ($start) {
-				$query->where('start', '>=', $start)
-					->where('end', '<=', $start);
-				})
-				->orWhere(function($query) use ($end) {
-					$query->where('start', '>=', $end)
-						->where('end', '<=', $end);
-				});
+		return $q = Event::where('start', '<', $end)
+			->where('end', '>', $start)
+			->where(function ($query) {
+				$query->where('entity_id', $this->entity->part_of)
+				   	  ->orWhere('entity_id', $this->entity->id);
 			})
-			->where('id', '!=', $this->replaces_on_edit)
-			->where('id', '!=', $this->id)
+			->where('events.id', '!=', $this->replaces_on_edit)
+			->where('events.id', '!=', $this->id)
+			->count();
+	}
+
+	/**
+	 * Returns number of events that this event collides with.
+	 * Also takes parent (part_of) and children entity events into account.
+	 * 
+	 * @return int number of such collisions
+	 */
+	public function weakCollisions() {
+		$start = $this->start;
+		$end = $this->end;
+
+		return $q = Event::where('start', '<', $end)
+			->join('entities', 'entities.id', 'events.entity_id')
+			->where('end', '>', $start)
+			->where(function ($query) {
+				$query->where('entity_id', $this->entity->part_of)
+				   	  ->orWhere('entity_id', $this->entity->id)
+				   	  ->orWhere('part_of', $this->entity->id);
+			})
+			->where('events.id', '!=', $this->replaces_on_edit)
+			->where('events.id', '!=', $this->id)
 			->count();
 	}
 }

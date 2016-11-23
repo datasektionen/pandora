@@ -64,6 +64,7 @@ class EntityAdminController extends BaseController {
 		$entity->pls_group = $request->input('pls_group');
 		$entity->alcohol_question = $request->input('alcohol_question') == 'yes';
 		$entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
+		$entity->part_of = $request->input('part_of');
 		$entity->save();
 
 		return redirect('/admin/entities')
@@ -101,6 +102,7 @@ class EntityAdminController extends BaseController {
 		$entity->notify_email = $request->input('notify_email');
 		$entity->alcohol_question = $request->input('alcohol_question') == 'yes';
 		$entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
+		$entity->part_of = $request->input('part_of');
 		$entity->save();
 
 		return redirect('/admin/entities')

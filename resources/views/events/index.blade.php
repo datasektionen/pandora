@@ -1,5 +1,7 @@
 @extends('master')
 
+@section('header-left', '<a href="/bookings/'. $event->entity_id . '/' . date('Y', strtotime($event->start)) . '/' . date('W', strtotime($event->start)) . '/' . $event->id . '">&#171; Visa i kalender</a>')
+
 @section('title', 'Bokning: ' . $event->title)
 
 @if (Auth::check() && (Auth::user()->isAdminFor($event->entity) || $event->booked_by == Auth::user()->id))
@@ -9,6 +11,15 @@
 @section('content')
 <div class="center-table">
 	@if ($event->approved === null && Auth::check() && Auth::user()->isAdminFor($event->entity))
+		<p>
+			@if (($c = $event->weakCollisions()) == 0) 
+				<b style="color: #3a0">Krockar inte med något!</b>
+			@elseif (($c = $event->weakCollisions()) != 0 && ($d = $event->collisions()) != 0 && $c-$d != 0)
+				<b style="color: #d50">Krockar med {{ $c }} bokning{{ $c > 1 ? 'ar' : '' }}! {{ $c-$d }} är med aktiviteter tillhörande entiteter som är del av denna.</b>
+			@else
+				<b style="color: #d50">Krockar med {{ $c }} bokning{{ $c > 1 ? 'ar' : '' }}!</b>
+			@endif
+		</p>
 		<ul class="actions">
 	        <li><a href="/admin/bookings/{{ $event->id }}/accept" class="accept">Godkänn</a></li>
 	        <li><a href="/admin/bookings/{{ $event->id }}/decline" class="decline">Neka</a></li>

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
+use App\Helpers\EmailClient;
 
 use Auth;
 use Session;
