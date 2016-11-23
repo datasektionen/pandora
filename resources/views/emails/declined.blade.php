@@ -13,9 +13,9 @@
     Detta mejl är en bekräftelse på att din bokning blivit avslagen. Nedan finns information kring bokningen.
 </p>
 <br/>
-@if (isset($entity->reason) && strlen($entity->reason) > 0)
+@if (isset($event->reason) && strlen($event->reason) > 0)
 <p style="margin:0;padding:0;border:0">
-    <b>Anledning:</b> {{ $entity->reason }}
+    <b>Anledning:</b> {{ $event->reason }}
 </p>
 <br/>
 @endif

@@ -48,7 +48,7 @@ class BookingAdminController extends BaseController {
 
 		// Approve and send mail
 		$event->approve();
-		EmailClient::sendBookingConfirmation($this);
+		EmailClient::sendBookingConfirmation($event);
 
 		return redirect()
 			->back()
@@ -64,7 +64,7 @@ class BookingAdminController extends BaseController {
 		$event = Event::findOrFail($id);
 
 		// Decline and send sorry email
-		EmailClient::sendBookingDeclined($this);
+		EmailClient::sendBookingDeclined($event);
 		$event->decline();
 
 		return redirect()
@@ -91,8 +91,12 @@ class BookingAdminController extends BaseController {
 
 			if ($action == 'approve') {
 				$event->approve();
+				EmailClient::sendBookingConfirmation($this);
 			}
 			if ($action == 'decline') {
+				$event->reason = $request->input('reason')[$event->id];
+				$event->save();
+				EmailClient::sendBookingDeclined($event);
 				$event->delete();
 			}
 		}

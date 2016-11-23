@@ -6,7 +6,7 @@
 <p style="margin:0;padding:0;border:0">Hej!</p>
 <br/>
 <p style="margin:0;padding:0;border:0">
-    En ny bokningsförfrågan har inkommit för {{ $entity->name }}. Se nedan. <a href="{{ url('/admin/bookings/' . $event->id) }}">Du kan granska den här</a>.
+    En ny bokningsförfrågan har inkommit för {{ $entity->name }}. Se nedan. <a href="{{ url('/events/' . $event->id) }}">Du kan granska den här</a>.
 </p>
 <br/>
 <table border="0" cellspacing="0" cellpadding="0" style="width:100%">

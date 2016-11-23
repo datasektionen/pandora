@@ -4,6 +4,26 @@
 @section('title', 'Nya bokningar')
 
 
+@section('head-js')
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('.reason').css('width', '150px');
+		$('.reason').hide();
+
+		$('input[type="radio"]').change(function () {
+			if ($(this).prop('name').startsWith('booking')) {
+				if ($(this).val() == 'decline') {
+					$(this).parent().parent().parent().find('td:nth-child(3) input').show();
+				} else {
+					$(this).parent().parent().parent().find('td:nth-child(3) input').hide();
+				}
+			}
+		});
+	});
+</script>
+@endsection
+
+
 @section('admin-content')
 {!! Form::open() !!}
 	@if($bookings->count() == 0)
@@ -13,6 +33,7 @@
 			<tr>
 				<th>Godkänn</th>
 				<th>Neka</th>
+				<th></th>
 				<th>Bokning</th>
 				<th>Bokat objekt</th>
 				<th>Start</th>
@@ -32,6 +53,9 @@
 						{!! Form::radio('booking[' . $booking->id . ']', 'decline', false, ['id' => 'decline' . $booking->id]) !!}
 						<label for="decline{{ $booking->id }}"></label>
 					</div>
+				</td>
+				<td>
+					{!! Form::text('reason[' . $booking->id . ']', null, ['class' => 'reason', 'placeholder' => 'Anledning till avslag']) !!}
 				</td>
 				<td><a href="/bookings/{{ $booking->entity->id }}/{{ date("Y", strtotime($booking->start)) }}/{{ date("W", strtotime($booking->start)) }}/{{ $booking->id }}" title="Ändra">{{ $booking->title }}</a></td>
 				<td>{{ $booking->entity->name }}</td>
