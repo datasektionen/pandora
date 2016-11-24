@@ -12,7 +12,7 @@
 	<div class="col-md-4 home_section">
 		@if (isset($entity->fa_icon))
 		<div class="home_section_icon">
-			<i class="fa {{ $entity->fa_icon }}"></i>
+			<i class="fa text-theme-color {{ $entity->fa_icon }}"></i>
         </div>
         @endif
 		<h2>{{ $entity->name }}</h2>
