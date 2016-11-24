@@ -52,6 +52,21 @@ class User extends Authenticatable {
     }
 
     /**
+     * Checks if this user is admin for anything.
+     * 
+     * @return boolean false if user 
+     *                       - is not logged in or
+     *                       - is logged in but is not this user or
+     *                       - is logged in and is this user but is not admin for anything (has empty admin session)
+     */
+    public function isSomeAdmin() {
+        if (!Auth::check() || Auth::user()->id != $this->id) {
+            return false;
+        }
+        return count(Session::get('admin', [])) > 0;
+    }
+
+    /**
      * Returns true if this user is admin right now for the given entity.
      * 
      * @param  Entity  $entity the entity to check for

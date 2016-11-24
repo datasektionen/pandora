@@ -30,7 +30,7 @@
 
         topbar_items: [
         { str: "Hem", href: "/" },
-        @if(Auth::check() && Auth::user()->isAdmin())
+        @if(Auth::check() && Auth::user()->isSomeAdmin())
             { str: "Administrera", href: "/admin" },
         @endif
         ]

@@ -39,7 +39,7 @@ Route::get ('login-complete/{token}', 'AuthController@getLoginComplete')->middle
 /**
  * Admin routes.
  */
-Route::get ('admin', 'Admin\AdminController@getIndex')->middleware('auth')->middleware('admin');
+Route::get ('admin', 'Admin\AdminController@getIndex')->middleware('auth')->middleware('isSomeAdmin');
 Route::get ('admin/bookings', 'Admin\BookingAdminController@getShow')->middleware('auth')->middleware('isSomeAdmin');
 Route::post('admin/bookings', 'Admin\BookingAdminController@postShow')->middleware('auth')->middleware('isSomeAdmin');
 Route::get ('admin/bookings/{id}/accept', 'Admin\BookingAdminController@getAccept')->middleware('auth')->middleware('isAdminForEvent');
