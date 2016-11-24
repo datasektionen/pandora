@@ -123,10 +123,6 @@ p {
 	padding: 0px 2px 2px 2px;
 	width: 14%;
 }
-.event .content {
-	display: block;
-	color: #fff !important;
-}
 .event .content a {
 	display: block;
 	padding: 10px;
@@ -144,18 +140,19 @@ p {
 	display: inline-block;
 }
 .event .content {
+	display: block;
+	color: #000 !important;
 	line-height: 1.5;
 	font-weight: 300;
 	width: 100%;
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-	color: #fff;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 	height: 100%;
 	overflow: hidden;
 	padding: 10px 10px 10px;
 	line-height: 1.15;
 	cursor: pointer;
 	font-size: 0.8em;
-	background: #2196f3;
+	background: #e0e0e8;
 }
 .event.not-confirmed .content {
 	background: rgba(33, 150, 243, 0.5);
@@ -164,6 +161,7 @@ p {
 	background: rgba(243, 45, 33, 0.5) !important;
 }
 .event .content.child {
+	opacity: 0.7;
 	color: #555 !important;
 	background: rgba(200, 200, 200, 0.3) !important;
 }
@@ -336,6 +334,11 @@ a.action {
 	background: #dfd;
 	padding: 20px;
 	margin: 0 0 10px;
+}
+.error h3, .success h3 {
+	border: 0 !important;
+	margin: 10px 0 !important;
+	padding: 0 !important;
 }
 
 
