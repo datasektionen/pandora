@@ -2,7 +2,7 @@
  * Calendar styles
  */
 .hour-row {
-	overflow: scroll;
+	overflow: auto;
 	width: 100%;
 	position: relative;
 }
@@ -205,7 +205,7 @@ a.action {
 
 .week-component {
 	width: auto;
-	overflow: scroll;
+	overflow: auto;
 }
 .week {
 	min-width: 600px;
