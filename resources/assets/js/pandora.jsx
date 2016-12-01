@@ -1,4 +1,4 @@
-const pandora_api_url = 'https://bokning.local/api'
+const pandora_api_url = 'https://bokning.datasektionen.se/api'
 
 const getJson = path => fetch(pandora_api_url + path).then(res => res.json())
 
