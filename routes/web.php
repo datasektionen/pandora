@@ -53,3 +53,9 @@ Route::post('admin/entities/edit/{id}', 'Admin\EntityAdminController@postEdit')-
 
 Route::get ('admin/import', 'Admin\ImportAdminController@getIndex')->middleware('auth')->middleware('admin');
 Route::post('admin/import', 'Admin\ImportAdminController@postIndex')->middleware('auth')->middleware('admin');
+
+Route::get ('js/cors/{file}', function($file) { 
+	return response(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/js/' . $file))
+		->header('Access-Control-Allow-Origin', '*')
+        ->header('Access-Control-Allow-Methods', '*');
+});
