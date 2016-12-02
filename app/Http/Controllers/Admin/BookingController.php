@@ -91,7 +91,7 @@ class BookingAdminController extends BaseController {
 
 			if ($action == 'approve') {
 				$event->approve();
-				EmailClient::sendBookingConfirmation($this);
+				EmailClient::sendBookingConfirmation($event);
 			}
 			if ($action == 'decline') {
 				$event->reason = $request->input('reason')[$event->id];
