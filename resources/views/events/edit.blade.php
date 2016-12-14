@@ -11,16 +11,16 @@
             <span class="description">
                 Startdatum och -tid för bokning:
             </span>
-            {!! Form::input('date', 'startdate', date('Y-m-d', strtotime($event->start)), ['id' => 'startdate']) !!}
-            {!! Form::input('time', 'starttime', date('H:i', strtotime($event->start))) !!}
+            {!! Form::input('date', 'startdate', date('Y-m-d', strtotime($event->start)), ['id' => 'startdate', 'class' => 'datepicker', 'placeholder' => 'YYYY-MM-DD']) !!}
+            {!! Form::input('time', 'starttime', date('H:i', strtotime($event->start)), ['class' => 'timepicker', 'placeholder' => 'TT:MM']) !!}
             <div class="clear"></div>
         </div>
         <div class="form-entry">
             <span class="description">
                 Slutdatum och -tid för bokning:
             </span>
-            {!! Form::input('date', 'enddate', date('Y-m-d', strtotime($event->end))) !!}
-            {!! Form::input('time', 'endtime', date('H:i', strtotime($event->end))) !!}
+            {!! Form::input('date', 'enddate', date('Y-m-d', strtotime($event->end)), ['class' => 'datepicker', 'placeholder' => 'YYYY-MM-DD']) !!}
+            {!! Form::input('time', 'endtime', date('H:i', strtotime($event->end)), ['class' => 'timepicker', 'placeholder' => 'TT:MM']) !!}
             <div class="clear"></div>
         </div>
         <div class="form-entry">

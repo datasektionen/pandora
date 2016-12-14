@@ -10,9 +10,13 @@
     <!-- Fonts -->
     <link href="//aurora.datasektionen.se" rel="stylesheet" type="text/css">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery.timepicker.css" rel="stylesheet" type="text/css">
     <meta name="theme-color" content="#039BE5">
     
     <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/jquery.timepicker.js"></script>
     <script type="text/javascript">
     window.tbaas_conf = {
         system_name: "bokning",
@@ -35,6 +39,10 @@
         @endif
         ]
     }
+    $(document).ready(function () {
+        $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd'});
+        $('.timepicker').timepicker({ timeFormat: 'H:i' });
+    });
     </script>
     <script async src="//methone.datasektionen.se"></script>
     @yield('head-js')
