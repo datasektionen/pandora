@@ -211,7 +211,7 @@ a.action {
 	overflow: auto;
 }
 .week {
-	min-width: 600px;
+	min-width: 650px;
 }
 
 
@@ -230,4 +230,7 @@ a.action {
     color: #000 !important;
 	background: #EEC912 !important;
 	text-decoration: none !important;
+}
+.media .legend .hour:first-child {
+	height: 27px;
 }
