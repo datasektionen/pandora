@@ -50,9 +50,43 @@
             </div>
         </div>
         @endif
+
+        @if (Auth::user()->isAdminFor($entity))
+        <div class="form-entry">
+            <span class="description">
+                Återkommer eventet veckovis?
+            </span>
+            <div class="horizontal">
+                <div class="radio">
+                    {!! Form::radio('recurring', 'yes', false, ['id' => 'recurring']) !!} <label for="recurring">Ja</label>
+                </div>
+                <div class="radio">
+                    {!! Form::radio('recurring', 'no', true, ['id' => 'norecurring']) !!} <label for="norecurring">Nej</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-entry" id="untildate">
+            <span class="description">
+                Fram till vilket datum?
+            </span>
+            <div class="horizontal">
+                {!! Form::input('date', 'recurringuntil', null) !!}
+            </div>
+        </div>
+        @endif
         <div class="form-entry">
             <p>Genom att trycka på knappen nedan godkänner du att automatiska e-postmeddelanden skickas till dig för att uppdatera dig om din bokning.</p>
             {!! Form::submit('Skapa bokningsförfrågan', ['class' => 'theme-color', 'id' => 'save-booking']) !!}
         </div>
     </div>
+    <script type="text/javascript">
+        $('input[name="recurring"]').change(function (e) {
+            if ($(this).val() === 'yes') {
+                $('#untildate').show();
+            } else {
+                $('#untildate').hide();
+            }
+        });
+        $('input[name="recurring"][value="no"]').change();
+    </script>
 {!! Form::close() !!}

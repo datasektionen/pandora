@@ -152,7 +152,6 @@ p {
 	line-height: 1.15;
 	cursor: pointer;
 	font-size: 0.8em;
-	background: #e0e0e8;
 }
 .event.not-confirmed .content {
 	background: rgba(33, 150, 243, 0.5);

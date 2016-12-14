@@ -147,13 +147,34 @@ class EntityController extends BaseController {
 		$event->booked_by = Auth::user()->id;
 		$event->entity_id = $entity->id;
 		$event->alcohol = ($entity->alcohol_question && !$request->has('alcohol')) || ($request->has('alcohol') && $request->input('alcohol') === 'yes');
+		$event->save();
 
+		$validateDate = function($date) {
+		    $d = DateTime::createFromFormat('Y-m-d', $date);
+		    return $d && $d->format('Y-m-d') === $date;
+		};
+		
 		// If an admin, the booking is automatically approved, otherwise, notify both admin and user
 		if (Auth::check() && Auth::user()->isAdminFor($entity)) {
 			$event->approve();
+			if ($request->get('recurring') === 'yes' && $validateDate($request->get('recurringuntil'))) {
+				$sDate = strtotime($event->start);
+				$eDate = strtotime($event->end);
+				$sDate = strtotime('+1week', $sDate);
+				$eDate = strtotime('+1week', $eDate);
+				while ($sDate <= strtotime($request->get('recurringuntil'))) {
+					$e = $event->replicate();
+					$e->start = date('Y-m-d H:i:s', $sDate);
+					$e->end = date('Y-m-d H:i:s', $eDate);
+					$e->recurring_of = $event->id;
+					$e->save();
+
+					$sDate = strtotime('+1week', $sDate);
+					$eDate = strtotime('+1week', $eDate);
+				}
+			}
 			EmailClient::sendBookingConfirmation($event);
 		} else {
-			$event->save();
 			EmailClient::sendBookingStatus($event);
 			EmailClient::sendBookingNotification($event);
 		}

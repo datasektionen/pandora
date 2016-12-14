@@ -46,7 +46,7 @@
                             max-height:{{ (strtotime($event->end) - strtotime($event->start)) / 3600 * 35 }}px;
                             left:  {{ 5 + floor((strtotime($event->start)-strtotime(date('Y-m-d', $startDate))) / 3600 / 24) * 13.57 + $t * 13.57/$numTracks[$date] }}%;
                             width: {{ 13.57/$numTracks[$date] * $event->colspan }}%;">
-                            <a class="content{{ $event->entity_id != $entity->id ? ' child' : '' }}" href="/events/{{ $event->id }}">
+                            <a class="lighten-3 content{{ $event->entity_id != $entity->id ? ' child' : '' }}" href="/events/{{ $event->id }}">
                                 <span class="from">{{ date("H:i", strtotime($event->start)) }}</span>
                                 <span class="to">{{ date("H:i", strtotime($event->end)) }}</span>
                                 <div class="text">
