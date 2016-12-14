@@ -45,7 +45,6 @@
             "chmod -R 775 storage",
             "chmod -R 775 public",
             "php artisan migrate --force",
-            "npm install",
             "gulp"
         ],
         "post-update-cmd": [
