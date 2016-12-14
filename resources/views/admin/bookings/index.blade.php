@@ -25,7 +25,7 @@
 
 
 @section('admin-content')
-{!! Form::open() !!}
+{!! Form::open(['url' => URL::to(Request::path(), [], true)]) !!}
 	@if($bookings->count() == 0)
 		<p>Du har inga bokningar att hantera! Bra jobbat!</p>
 	@else

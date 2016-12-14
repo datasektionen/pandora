@@ -5,7 +5,7 @@
 
 
 @section('admin-content')
-{!! Form::open() !!}
+{!! Form::open(['url' => URL::to(Request::path(), [], true)]) !!}
 <div class="form">	
 	<div class="form-entry">
 		<span class="description">Url till kalendern:</span>

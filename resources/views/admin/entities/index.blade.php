@@ -11,7 +11,7 @@
 	<p>Här visas all bokningsbara objekt (entiteter) som du får visa. Namn på entiteten visas för alla användare. Pls-gruppen är namnet på gruppen i Pls som reglerar vilka som får administrera entiteten.</p>
 	<p>Om en entitet är del av en annan entitet kommer dessa att generera krockar i administrationsgränssnittet samt visas i varandras scheman.</p>
 	<p><b>I dagsläget stödjer inte systemet rekursiva arv. Det betyder att "Del av"-kriteriet endast kommer ta hänsyn till den närmaste föräldern, och inte flera.</b></p>
-	{!! Form::open() !!}
+	{!! Form::open(['url' => URL::to(Request::path(), [], true)]) !!}
 		<table>
 			<tr>
 				<th>Namn</th>
