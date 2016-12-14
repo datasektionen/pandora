@@ -140,4 +140,46 @@ class Event extends Model {
 			->where('events.id', '!=', $this->id)
 			->count();
 	}
+
+	/**
+	 * Returns a relation to the recurring_of event.
+	 * 
+	 * @return Relation
+	 */
+	public function recurringOrigin() {
+		return $this->belongsTo('App\Models\Event', 'recurring_of');
+	}
+
+	/**
+	 * Returns true if this event is recurring, false otherwise.
+	 * 
+	 * @return boolean
+	 */
+	public function isRecurring() {
+		return $this->recurring_of === null || Event::where('recurring_of', '=', $this->id)->count() === 0;
+	}
+
+	/**
+	 * Returns all the recurring events for this event.
+	 * 
+	 * @return [Events]
+	 */
+	public function recurringEvents() {
+		if ($this->recurring_of === null) {
+			return Event::where('recurring_of', $this->id)->union(Event::where('id', $this->id));
+		}
+		return Event::where('recurring_of', '=', $this->recurring_of)->union(Event::where('id', $this->recurring_of));
+	}
+
+	/**
+	 * Returns all the following recurring events.
+	 * 
+	 * @return [Events]
+	 */
+	public function followingRecurringEvents() {
+		if ($this->recurring_of === null) {
+			return Event::where('recurring_of', $this->id)->where('start', '>', $this->start)->union(Event::where('id', $this->id));
+		}
+		return Event::where('recurring_of', '=', $this->recurring_of)->where('start', '>', $this->start)->union(Event::where('id', $this->id));
+	}
 }

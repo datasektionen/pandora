@@ -69,8 +69,37 @@ class EventController extends BaseController {
 		$event->reason = $request->input('reason');
 		$event->save();
 		EmailClient::sendBookingDeleted($event);
-		$event->delete();
 
+		if ($event->isRecurring()) {
+			switch ($request->input('recurring', '')) {
+				case 'all':
+					// Delete all events in series
+					$allEvents = $event->recurringEvents()->get();
+					foreach ($allEvents as $e) {
+						$e->delete();
+					}
+					break;
+				case 'following':
+					// Delete following events in series
+					$followingEvents = $event->followingRecurringEvents()->get();
+					foreach ($followingEvents as $e) {
+						$e->delete();
+					}
+					break;
+				case 'this':
+					// Delete only this
+					$event->delete();
+					break;
+				default:
+					return redirect()->back()
+						->with('error', 'Du måste välja om du vill ta bort alla event i serien, efterföljande eller bara det aktuella.');
+					break;
+			}
+			return redirect('/')
+				->with('success', 'Bokningen togs bort.');
+		}
+
+		$event->delete();
 		return redirect('/')
 			->with('success', 'Bokningen togs bort.');
 	}

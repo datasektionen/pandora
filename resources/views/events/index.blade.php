@@ -43,6 +43,12 @@
 			<td>Av vem: </td>
 			<td> {{ $event->title }}</td>
 		</tr>
+		@if ($event->recurringOrigin !== null)
+		<tr>
+			<td>Upprepning av: </td>
+			<td><a href="/events/{{ $event->recurringOrigin->id }}">{{ $event->recurringOrigin->title }}</a></td>
+		</tr>
+		@endif
 	</table>
 	@if (Auth::check() && (Auth::user()->isAdminFor($event->entity) || Auth::user()->isAdmin() || Auth::user()->id == $event->booked_by))
 	<h2>Information som inte visas för alla</h2>
