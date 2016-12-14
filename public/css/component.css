@@ -214,3 +214,20 @@ a.action {
 	min-width: 600px;
 }
 
+
+.media * {
+	font-family: 'Lato', Helvetica, Arial, sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.media .content {
+	background: #EEC912 !important;
+    color: #000 !important;
+    text-decoration: none !important;
+}
+.media .controls a {
+    color: #000 !important;
+	background: #EEC912 !important;
+	text-decoration: none !important;
+}
