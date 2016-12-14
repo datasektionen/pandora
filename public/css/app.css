@@ -664,3 +664,21 @@ ul.actions a.edit {
 	color: #222 !important;
 	display: block;
 }
+
+
+@media screen and (max-width: 991px) {
+	header .header-inner .header-right {
+	    display: block;
+	    padding: 0;
+	    width: 100%;
+	}
+	header .header-inner .header-right a {
+		margin-top: 0px;
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+}
+header .header-inner .header-left a {
+	font-size: 0.88em;
+}

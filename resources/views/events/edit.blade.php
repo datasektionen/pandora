@@ -62,7 +62,7 @@
         --}}
         <div class="form-entry">
         	<p>Din bokning kommer åter behöva godkännas om du ändrar den och trycker på knappen nedan. Genom att trycka på knappen godkänner du också att automatiska e-postmeddelanden skickas till dig för att uppdatera dig om din bokning.</p>
-            {!! Form::submit('Skapa bokningsförfrågan', ['class' => 'theme-color', 'id' => 'save-booking']) !!}
+            {!! Form::submit('Ändra bokning', ['class' => 'theme-color', 'id' => 'save-booking']) !!}
         </div>
     </div>
 {!! Form::close() !!}
