@@ -171,7 +171,7 @@ class EntityController extends BaseController {
 		$entity = Entity::findOrFail($id);
 
 		return response(view('ical.entity')
-			->with('events', $entity->events)
+			->with('events', $entity->events()->whereNotNull('approved')->get())
 			->with('entity', $entity))
             ->withHeaders([
                 'Content-Type' => 'text/calendar; charset=utf-8',
