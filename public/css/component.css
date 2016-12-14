@@ -184,7 +184,7 @@ a.action {
   position: static;
   display: inline-block;
   width: auto;
-  height: 30px !important;
+  line-height: 50px;
   margin-bottom: 10px;
   clear: both;
 }
@@ -205,6 +205,31 @@ a.action {
 }
 
 
+@media screen and (max-width: 700px) {
+	.controls a {
+		padding: 10px 4px;
+		margin: 0 1px;
+	}
+	.controls span {
+		margin: 0 5px;
+	}
+	.controls * {
+		font-size: 0.85em;
+	}
+}
+@media screen and (max-width: 350px) {
+	.controls a {
+		padding: 10px 4px;
+		margin: 0 1px;
+	}
+	.controls a.today {
+		display: block;
+		margin: 1px 0;
+		height: 30px;
+		padding: 10px;
+		line-height: 0.85em;
+	}
+}
 
 .week-component {
 	width: auto;
@@ -214,6 +239,17 @@ a.action {
 	min-width: 650px;
 }
 
+.clear {
+	clear: both;
+}
+.controls:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
 
 .media * {
 	font-family: 'Lato', Helvetica, Arial, sans-serif;
