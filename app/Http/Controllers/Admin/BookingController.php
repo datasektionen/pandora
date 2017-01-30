@@ -67,8 +67,7 @@ class BookingAdminController extends BaseController {
 		EmailClient::sendBookingDeclined($event);
 		$event->decline();
 
-		return redirect()
-			->back()
+		return redirect('admin/bookings')
 			->with('success', 'Nekade bokningen.');
 	}
 
