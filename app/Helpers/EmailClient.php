@@ -109,9 +109,6 @@ class EmailClient {
 		if ($recipient === null) {
 			return false;
 		}
-		if (!preg_match("/(.*@.*\..*)(,.*@.*\..*)*/", $recipient)) {
-			return false;
-		}
 		$email = new EmailClient;
 		$email->recipient = $recipient;
 		$email->sender = "no-reply@datasektionen.se";
@@ -150,9 +147,6 @@ class EmailClient {
 		if ($recipient === null) {
 			return false;
 		}
-		if (!preg_match("/(.*@.*\..*)(,.*@.*\..*)*/", $recipient)) {
-			return false;
-		}
 		$email = new EmailClient;
 		$email->recipient = $recipient;
 		$email->sender = "no-reply@datasektionen.se";
@@ -168,9 +162,6 @@ class EmailClient {
 	public static function sendBookingDeleted(Event $event) {
 		$recipient = $event->entity->notify_email;
 		if ($recipient === null) {
-			return false;
-		}
-		if (!preg_match("/(.*@.*\..*)(,.*@.*\..*)*/", $recipient)) {
 			return false;
 		}
 		$email = new EmailClient;
