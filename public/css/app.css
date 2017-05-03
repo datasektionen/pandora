@@ -193,6 +193,15 @@ p {
   text-align: justify;
   display: block;
 }
+.col-md-4 {
+	width: 25%;
+}
+@media screen and (max-width: 993px) {
+	.col-md-4 {
+		width: 100%;
+	}
+}
+
 
 
 
