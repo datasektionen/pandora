@@ -16,7 +16,7 @@
 		<p>{{ $entity->description }}</p>
 		<p><a href="{{ url('bookings', $entity->id) }}" class="action">Boka {{ $entity->name }} &raquo;</a></p>
 	</div>
-	@if ($i++ % 3 == 2)
+	@if ($i++ % 4 == 3)
 		<div class="clear"></div>
 	@endif
 	@endforeach
