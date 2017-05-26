@@ -18,12 +18,10 @@
     <script type="text/javascript" src="/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/js/jquery.timepicker.js"></script>
     <script type="text/javascript">
-    window.tbaas_conf = {
-        system_name: "bokning",
-        target_id: "methone-container-replace",
-        primary_color: "#42a5f5",
-        secondary_color: "#ffffff",
-        bar_color: "#039BE5",
+    window.methone_conf = {
+        system_name: "pandora",
+        color_scheme: "blue",
+
         @if(Auth::guest())
         login_text: "Logga in",
         login_href: "/login",
@@ -32,7 +30,7 @@
         login_href: "/logout",
         @endif
 
-        topbar_items: [
+        links: [
         { str: "Hem", href: "/" },
         @if(Auth::check() && Auth::user()->isSomeAdmin())
             { str: "Administrera", href: "/admin" },
@@ -44,7 +42,7 @@
         $('.timepicker').timepicker({ timeFormat: 'H:i' });
     });
     </script>
-    <script async src="//methone.datasektionen.se"></script>
+    <script async src="//methone.datasektionen.se/bar.js"></script>
     @yield('head-js')
 </head>
 <body>
