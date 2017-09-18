@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Entity;
 use App\Http\Controllers;
 
+use Validator;
 use Auth;
 use DateTime;
 use DB;
@@ -120,8 +121,11 @@ class EntityController extends BaseController {
 	 * @return redirect to schedule page
 	 */
 	public function postBook($id, Request $request) {
-		$this->validate($request, [
-			'startdate' => 'required|date',
+		// Get the entity
+		$entity = Entity::findOrFail($id);
+
+		$validator = Validator::make($request->all(), [
+            'startdate' => 'required|date',
 			'enddate' => 'required|date',
 			'starttime' => [
 				'required', 
@@ -133,10 +137,19 @@ class EntityController extends BaseController {
 			],
 			'booker' => 'required',
 			'reason' => 'required'
-		]);
+        ]);
 
-		// Get the entity
-		$entity = Entity::findOrFail($id);
+        if ($validator->fails()) {
+            return redirect('bookings/' . $entity->id . '/book')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        if ($entity->contract_url !== null && $request->input('contract') !== 'yes') {
+            return redirect('bookings/' . $entity->id . '/book')
+                        ->with('error', 'Du måste godkänna bokningsavtalet.')
+                        ->withInput();
+        }
 
 		// Create the event
 		$event = new Event;

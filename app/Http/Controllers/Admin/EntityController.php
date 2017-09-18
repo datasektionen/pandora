@@ -66,6 +66,7 @@ class EntityAdminController extends BaseController {
 		$entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
 		$entity->part_of = $request->input('part_of');
 		$entity->fa_icon = $request->input('fa_icon');
+		$entity->contract_url = $request->input('contract') === 'yes' ? $request->input('contract_url') : null;
 		$entity->save();
 
 		return redirect('/admin/entities')
@@ -105,6 +106,7 @@ class EntityAdminController extends BaseController {
 		$entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
 		$entity->part_of = $request->input('part_of');
 		$entity->fa_icon = $request->input('fa_icon');
+		$entity->contract_url = $request->input('contract') === 'yes' ? $request->input('contract_url') : null;
 		$entity->save();
 
 		return redirect('/admin/entities')

@@ -50,6 +50,18 @@
             </div>
         </div>
         @endif
+        @if ($entity->contract_url !== null)
+        <div class="form-entry">
+            <span class="description">
+                Har du läst och godkänner <a href="{!! $entity->contract_url !!}" target="_blank">bokningsavtalet</a>?
+            </span>
+            <div class="horizontal">
+                <div class="radio">
+                    {!! Form::radio('contract', 'yes', false, ['id' => 'contract']) !!} <label for="contract">Ja</label>
+                </div>
+            </div>
+        </div>
+        @endif
 
         @if (Auth::user()->isAdminFor($entity))
         <div class="form-entry">

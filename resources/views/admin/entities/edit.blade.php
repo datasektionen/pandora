@@ -96,6 +96,23 @@
             </div>
 
             <div class="form-entry">
+                <span class="description">
+                    Kontrakt som måste godkännas vid bokning:
+                </span>
+                <div class="input">
+                    <div class="radio">
+                        {!! Form::radio('contract', 'yes', $entity->contract_url != null, array('id' => 'contract_yes')) !!}
+                        <label for="contract_yes">Ja, URL: <br>{!! Form::text('contract_url', $entity->contract_url) !!}</label>
+                    </div>
+                    <div class="clear" style="height:30px"></div>
+                    <div class="radio">
+                        {!! Form::radio('contract', 'no', $entity->contract_url == null, array('id' => 'contract_no')) !!}
+                        <label for="contract_no">Nej</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-entry">
                 <div class="input">
                     {!! Form::submit('Ändra entitet', NULL) !!}
                 </div>
