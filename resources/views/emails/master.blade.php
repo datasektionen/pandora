@@ -1,4 +1,5 @@
 @yield('content')
 
 Hälsningar,
-Bokningssystemet på Konglig Datasektionen
+
+**Bokningssystemet på Konglig Datasektionen**
