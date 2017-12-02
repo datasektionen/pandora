@@ -26,7 +26,7 @@
 		</tr>
 		@empty
 		<tr>
-			<td colspan="3" style="text-align: center">Det finns inga bokningar här...</td>
+			<td colspan="5" style="text-align: center">Det finns inga bokningar här...</td>
 		</tr>
 		@endforelse
 	</table>
@@ -54,7 +54,7 @@
 		</tr>
 		@empty
 		<tr>
-			<td colspan="3" style="text-align: center">Det finns inga bokningar här...</td>
+			<td colspan="5" style="text-align: center">Det finns inga bokningar här...</td>
 		</tr>
 		@endforelse
 	</table>
