@@ -29,6 +29,8 @@ Route::post('events/{id}/edit', 'EventController@postEdit')->middleware('auth')-
 Route::get ('events/{id}/delete', 'EventController@getDelete')->middleware('auth')->middleware('isUserOrAdminForEvent');
 Route::post('events/{id}/delete', 'EventController@postDelete')->middleware('auth')->middleware('isUserOrAdminForEvent');
 
+Route::get ('user', 'UserController@getIndex')->middleware('auth');
+
 /**
  * Authentication routes
  */

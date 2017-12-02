@@ -93,4 +93,13 @@ class User extends Authenticatable {
             ->whereIn('pls_group', Session::get('admin', []))
             ->orderBy('start');
     }
+
+    /**
+     * Returns all bookings for user.
+     *
+     * @return query
+     */
+    public function bookings() {
+        return $this->hasMany('App\Models\Event', 'booked_by');
+    }
 }

@@ -48,6 +48,9 @@
 
         links: [
         { str: "Hem", href: "/" },
+        @if(Auth::check())
+            { str: "Mina bokningar", href: "/user" },
+        @endif
         @if(Auth::check() && Auth::user()->isSomeAdmin())
             { str: "Administrera", href: "/admin" },
         @endif
