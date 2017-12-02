@@ -53,17 +53,11 @@ class AuthController extends BaseController {
 	*/
 	public function getLoginComplete($token) {
 		// Send get request to login server
-		$client = new Client();
-		$res = $client->request('GET', env('LOGIN_API_URL') . '/verify/' . $token . '.json', [
-			'form_params' => [
-				'format' => 'json',
-				'api_key' => env('LOGIN_API_KEY')
-			]
-		]);
+		$res = @file_get_contents(env('LOGIN_API_URL') . '/verify/' . $token . '.json?api_key=' . env('LOGIN_API_KEY'));
 
 		// We now have a response. If it is good, parse the json and login user
-		if ($res->getStatusCode() == 200) {
-			$body = json_decode($res->getBody());
+		if ($res !== false) {
+			$body = json_decode($res);
 			$user = User::where('kth_username', $body->user)->first();
 
 			if ($user === null) {
