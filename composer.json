@@ -44,8 +44,7 @@
             "php artisan optimize",
             "chmod -R 775 storage",
             "chmod -R 775 public",
-            "php artisan migrate --force",
-            "gulp"
+            "php artisan migrate --force"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
