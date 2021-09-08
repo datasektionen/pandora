@@ -1,7 +1,7 @@
 @extends('emails.master')
 
 @section('content')
-#Hej, {{ $user->name }}!
+# Hej, {{ $user->name }}!
 
 Din bokning blev inte godkänd!
 
