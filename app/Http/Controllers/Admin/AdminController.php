@@ -16,15 +16,17 @@ use App\Models\Event;
  * @author Jonas Dahl <jonas@jdahl.se>
  * @version 2016-11-23
  */
-class AdminController extends BaseController {
-	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+class AdminController extends BaseController
+{
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-	/**
-	 * Returns the main admin page.
-	 *
-	 * @return view
-	 */
-	public function getIndex() {
-		return view('admin.index');
-	}
+    /**
+     * Returns the main admin page.
+     *
+     * @return view
+     */
+    public function getIndex()
+    {
+        return view('admin.index');
+    }
 }

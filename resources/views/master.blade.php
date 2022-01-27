@@ -22,71 +22,75 @@
     <link rel="apple-touch-icon" sizes="144x144" href="/logos/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/logos/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/logos/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/logos/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/logos/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/logos/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/logos/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/logos/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#039BE5">
     <meta name="msapplication-TileImage" content="/logos/ms-icon-144x144.png">
-    
+
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/js/jquery.timepicker.js"></script>
     <script type="text/javascript">
-    window.methone_conf = {
-        system_name: "pandora",
-        color_scheme: "blue",
+        window.methone_conf = {
+            system_name: "pandora",
+            color_scheme: "blue",
 
-        @if(Auth::guest())
-        login_text: "Logga in",
-        login_href: "/login",
-        @else
-        login_text: "Logga ut",
-        login_href: "/logout",
-        @endif
+            @if(Auth::guest())
+            login_text: "Logga in",
+            login_href: "/login",
+            @else
+            login_text: "Logga ut",
+            login_href: "/logout",
+            @endif
 
-        links: [
-        { str: "Hem", href: "/" },
-        @if(Auth::check())
-            { str: "Mina bokningar", href: "/user" },
-        @endif
-        @if(Auth::check() && Auth::user()->isSomeAdmin())
-            { str: "Administrera", href: "/admin" },
-        @endif
-        ]
-    }
-    $(document).ready(function () {
-        $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd'});
-        $('.timepicker').timepicker({ timeFormat: 'H:i' });
-    });
+            links: [
+                {str: "Hem", href: "/"},
+                    @if(Auth::check())
+                {
+                    str: "Mina bokningar", href: "/user"
+                },
+                    @endif
+                    @if(Auth::check() && Auth::user()->isSomeAdmin())
+                {
+                    str: "Administrera", href: "/admin"
+                },
+                @endif
+            ]
+        }
+        $(document).ready(function () {
+            $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+            $('.timepicker').timepicker({timeFormat: 'H:i'});
+        });
     </script>
     <script async src="//methone.datasektionen.se/bar.js"></script>
     @yield('head-js')
 </head>
 <body>
-    <div id="methone-container-replace"></div>
-    <div id="application" class="blue">
-        <header>
-            <div class="header-inner">
-                <div class="row">
-                    <div class="header-left col-md-2">
-                        @yield('header-left')
-                    </div>
-                    <div class="col-md-8">
-                        <h2>@yield('title', 'Bokningar för lokal: Mötesrummet')</h2>
-                    </div>
-                    <div class="header-right col-md-2">
-                        @yield('action-button')
-                    </div>
+<div id="methone-container-replace"></div>
+<div id="application" class="blue">
+    <header>
+        <div class="header-inner">
+            <div class="row">
+                <div class="header-left col-md-2">
+                    @yield('header-left')
                 </div>
-                <div class="clear"></div>
+                <div class="col-md-8">
+                    <h2>@yield('title', 'Bokningar för lokal: Mötesrummet')</h2>
+                </div>
+                <div class="header-right col-md-2">
+                    @yield('action-button')
+                </div>
             </div>
-        </header>
-        <div id="content">
-            @include('includes.messages')
-            @yield('content')
+            <div class="clear"></div>
         </div>
+    </header>
+    <div id="content">
+        @include('includes.messages')
+        @yield('content')
     </div>
+</div>
 </body>
 </html>

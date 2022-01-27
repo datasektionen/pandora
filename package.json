@@ -1,26 +1,19 @@
 {
-  "private": true,
-  "scripts": {
-    "prod": "gulp --production",
-    "dev": "gulp watch",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "dependencies": {
-    "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.8",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-react": "^6.16.0",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "laravel-elixir": "^6.0.0-11",
-    "laravel-elixir-webpack-official": "^1.0.2",
-    "laravel-react": "^1.0.3",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "reactify": "^1.1.1",
-    "whatwg-fetch": "^2.0.1"
-  }
+    "name": "pandora",
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14"
+    }
 }

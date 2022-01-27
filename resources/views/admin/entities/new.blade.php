@@ -5,7 +5,7 @@
 
 
 @section('content')
-{!! Form::open(['url' => URL::to(Request::path(), [], true)]) !!}
+    {!! Form::open(['url' => URL::to(Request::path(), [], env('APP_ENV') != 'local')]) !!}
     <div class="form">
         <div class="form-entry">
             <span class="description">
@@ -118,5 +118,5 @@
             </div>
         </div>
     </div>
-{!! Form::close() !!}
+    {!! Form::close() !!}
 @endsection

@@ -8,6 +8,16 @@ use Illuminate\Routing\UrlGenerator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
      * Bootstrap any application services.
      *
      * @return void
@@ -16,17 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // https://daveismyname.blog/laravel-force-https-with-url-helper
         if (env('APP_ENV') === 'production') {
-            $url->forceSchema('https');
+            $url->forceScheme('https');
         }
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }

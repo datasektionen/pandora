@@ -28,21 +28,23 @@ use Carbon\Carbon;
  * @author  Jonas Dahl <jonas@jdahl.se>
  * @version 2016-11-22
  */
-class UserController extends BaseController {
-	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+class UserController extends BaseController
+{
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-	/**
-	 * Returns an entity's schedule as ical.
-	 * 
-	 * @param integer $id the id of the entity
-	 * @return ical formatted calendar output
-	 */
-	public function getIndex() {
-		$user = Auth::user();
+    /**
+     * Returns an entity's schedule as ical.
+     *
+     * @param integer $id the id of the entity
+     * @return ical formatted calendar output
+     */
+    public function getIndex()
+    {
+        $user = Auth::user();
 
-		return view('user.index')
-			->with('past', $user->bookings()->where('end', '<', Carbon::now())->orderBy('start', 'DESC')->get())
-			->with('future', $user->bookings()->where('end', '>', Carbon::now())->orderBy('start', 'ASC')->get())
-			->with('user', $user);
-	}
+        return view('user.index')
+            ->with('past', $user->bookings()->where('end', '<', Carbon::now())->orderBy('start', 'DESC')->get())
+            ->with('future', $user->bookings()->where('end', '>', Carbon::now())->orderBy('start', 'ASC')->get())
+            ->with('user', $user);
+    }
 }

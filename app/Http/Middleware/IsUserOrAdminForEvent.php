@@ -12,11 +12,12 @@ class IsUserOrAdminForEvent
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next) {
+    public function handle($request, Closure $next)
+    {
         $event = Event::findOrFail(intval($request->route('id')));
         if (!Auth::user()->isAdminFor($event->entity) && $event->booked_by != Auth::user()->id) {
             abort(403);
