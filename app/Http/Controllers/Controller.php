@@ -13,16 +13,18 @@ use App\Models\Entity;
  * @author Jonas Dahl <jonadahl@kth.se>
  * @version 2016-11-23
  */
-class Controller extends BaseController {
-	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+class Controller extends BaseController
+{
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-	/**
-	 * Returns the main page.
-	 * 
-	 * @return response welcome view
-	 */
-	public function getIndex() {
-		return view('welcome')
-			->with('entities', Entity::all());
-	}
+    /**
+     * Returns the main page.
+     *
+     * @return response welcome view
+     */
+    public function getIndex()
+    {
+        return view('welcome')
+            ->with('entities', Entity::all());
+    }
 }

@@ -1,41 +1,41 @@
 {!! Form::open(['url' => '/bookings/' . $entity->id . '/book']) !!}
 
-    @if (!isset($close) || $close)
-        <a class="close" href="" id="closedialog">Stäng</a>
-    @endif
+@if (!isset($close) || $close)
+    <a class="close" href="" id="closedialog">Stäng</a>
+@endif
 
-    <h1>Boka {{ $entity->name }}</h1>
-    <div class="form">
-        <div class="form-entry">
+<h1>Boka {{ $entity->name }}</h1>
+<div class="form">
+    <div class="form-entry">
             <span class="description">
                 Startdatum och -tid för bokning:
             </span>
-            {!! Form::input('date', 'startdate', null, ['id' => 'startdate', 'class' => 'datepicker', 'placeholder' => 'YYYY-MM-DD']) !!}
-            {!! Form::input('time', 'starttime', null, ['class' => 'timepicker', 'placeholder' => 'TT:MM']) !!}
-            <div class="clear"></div>
-        </div>
-        <div class="form-entry">
+        {!! Form::input('date', 'startdate', null, ['id' => 'startdate', 'class' => 'datepicker', 'placeholder' => 'YYYY-MM-DD']) !!}
+        {!! Form::input('time', 'starttime', null, ['class' => 'timepicker', 'placeholder' => 'TT:MM']) !!}
+        <div class="clear"></div>
+    </div>
+    <div class="form-entry">
             <span class="description">
                 Slutdatum och -tid för bokning:
             </span>
-            {!! Form::input('date', 'enddate', null, ['class' => 'datepicker', 'placeholder' => 'YYYY-MM-DD']) !!}
-            {!! Form::input('time', 'endtime', null, ['class' => 'timepicker', 'placeholder' => 'TT:MM']) !!}
-            <div class="clear"></div>
-        </div>
-        <div class="form-entry">
+        {!! Form::input('date', 'enddate', null, ['class' => 'datepicker', 'placeholder' => 'YYYY-MM-DD']) !!}
+        {!! Form::input('time', 'endtime', null, ['class' => 'timepicker', 'placeholder' => 'TT:MM']) !!}
+        <div class="clear"></div>
+    </div>
+    <div class="form-entry">
             <span class="description">
                 Vem bokar?
             </span>
-            {!! Form::text('booker', null, ['placeholder' => 'Nämnd/Sektion/Person']) !!}
-            <span class="hint">(du bokar genom {{ Auth::user()->name }})</span>
-        </div>
-        <div class="form-entry">
+        {!! Form::text('booker', null, ['placeholder' => 'Nämnd/Sektion/Person']) !!}
+        <span class="hint">(du bokar genom {{ Auth::user()->name }})</span>
+    </div>
+    <div class="form-entry">
             <span class="description">
                 Anledning för bokning:
             </span>
-            {!! Form::text('reason', null, ['placeholder' => 'T.ex. "Vi ska ha en fiskdammstävling."']) !!}
-        </div>
-        @if ($entity->alcohol_question)
+        {!! Form::text('reason', null, ['placeholder' => 'T.ex. "Vi ska ha en fiskdammstävling."']) !!}
+    </div>
+    @if ($entity->alcohol_question)
         <div class="form-entry">
             <span class="description">
                 Kommer det serveras alkohol?
@@ -49,8 +49,8 @@
                 </div>
             </div>
         </div>
-        @endif
-        @if ($entity->contract_url !== null)
+    @endif
+    @if ($entity->contract_url !== null)
         <div class="form-entry">
             <span class="description">
                 Har du läst och godkänner <a href="{!! $entity->contract_url !!}" target="_blank">bokningsavtalet</a>?
@@ -61,19 +61,21 @@
                 </div>
             </div>
         </div>
-        @endif
+    @endif
 
-        @if (Auth::user()->isAdminFor($entity))
+    @if (Auth::user()->isAdminFor($entity))
         <div class="form-entry">
             <span class="description">
                 Återkommer eventet veckovis?
             </span>
             <div class="horizontal">
                 <div class="radio">
-                    {!! Form::radio('recurring', 'yes', false, ['id' => 'recurring']) !!} <label for="recurring">Ja</label>
+                    {!! Form::radio('recurring', 'yes', false, ['id' => 'recurring']) !!} <label
+                        for="recurring">Ja</label>
                 </div>
                 <div class="radio">
-                    {!! Form::radio('recurring', 'no', true, ['id' => 'norecurring']) !!} <label for="norecurring">Nej</label>
+                    {!! Form::radio('recurring', 'no', true, ['id' => 'norecurring']) !!} <label
+                        for="norecurring">Nej</label>
                 </div>
             </div>
         </div>
@@ -85,20 +87,21 @@
                 {!! Form::input('date', 'recurringuntil', null) !!}
             </div>
         </div>
-        @endif
-        <div class="form-entry">
-            <p>Genom att trycka på knappen nedan godkänner du att automatiska e-postmeddelanden skickas till dig för att uppdatera dig om din bokning.</p>
-            {!! Form::submit('Skapa bokningsförfrågan', ['class' => 'theme-color', 'id' => 'save-booking']) !!}
-        </div>
+    @endif
+    <div class="form-entry">
+        <p>Genom att trycka på knappen nedan godkänner du att automatiska e-postmeddelanden skickas till dig för att
+            uppdatera dig om din bokning.</p>
+        {!! Form::submit('Skapa bokningsförfrågan', ['class' => 'theme-color', 'id' => 'save-booking']) !!}
     </div>
-    <script type="text/javascript">
-        $('input[name="recurring"]').change(function (e) {
-            if ($(this).val() === 'yes') {
-                $('#untildate').show();
-            } else {
-                $('#untildate').hide();
-            }
-        });
-        $('input[name="recurring"][value="no"]').change();
-    </script>
+</div>
+<script type="text/javascript">
+    $('input[name="recurring"]').change(function (e) {
+        if ($(this).val() === 'yes') {
+            $('#untildate').show();
+        } else {
+            $('#untildate').hide();
+        }
+    });
+    $('input[name="recurring"][value="no"]').change();
+</script>
 {!! Form::close() !!}

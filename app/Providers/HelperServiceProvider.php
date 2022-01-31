@@ -13,10 +13,10 @@ class HelperServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind('EmailClient', function() {
+        $this->app->bind('EmailClient', function () {
             return new \App\Helpers\EmailClient;
         });
-        $this->app->bind('Planner', function() {
+        $this->app->bind('Planner', function () {
             return new \App\Helpers\Planner;
         });
 

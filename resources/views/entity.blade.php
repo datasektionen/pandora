@@ -17,7 +17,9 @@
 @endsection
 
 
-@section('action-button', '<a href="/bookings/' . $entity->id . '/book" class="primary-action">Boka</a>')
+@section('action-button')
+    <a href="/bookings/{{$entity->id}}/book" class="primary-action">Boka</a>
+@endsection
 
 
 @section('head-js')
@@ -52,6 +54,7 @@
     @include('includes.week-component')
 
     <h3>Dela kalendern</h3>
-    <p>Du kan enkelt dela denna kalender (till exempel importera den till Google Calendar) genom att använda länken nedan.</p>
+    <p>Du kan enkelt dela denna kalender (till exempel importera den till Google Calendar) genom att använda länken
+        nedan.</p>
     <input type="text" class="" id="copy" value="{{ url('/bookings/' . $entity->id . '/ical') }}">
 @endsection
