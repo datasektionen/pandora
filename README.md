@@ -33,6 +33,7 @@ DB_PASSWORD=
 ### END ALT 1
 
 ### ALT 2
+DB_CONNECTION=
 DATABASE_URL:driver://user:password@host:port/database
 ### END ALT 2
 
@@ -45,6 +46,9 @@ SPAM_API_URL=https://spam.datasektionen.se/api/sendmail
 ```
 
 If you set up locally, `DB_HOST` should likely be `localhost`. If you set up with docker it should be set to `mysql`.
+
+The `DB_CONNECTION` determines which type of database is used. Default is `mysql` but allowed values are: `sqlite`,
+`mysql`, `pgsql`, and `sqlsrv`.
 
 ## Roadmap
 
