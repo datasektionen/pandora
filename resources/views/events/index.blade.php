@@ -9,7 +9,7 @@
 
 @if (Auth::check() && (Auth::user()->isAdminFor($event->entity) || $event->booked_by == Auth::user()->id))
 @section('action-button')
-    <a href="/events/{{$event->id}}'/edit" class="primary-action">Ändra</a>
+    <a href="/events/{{$event->id}}/edit" class="primary-action">Ändra</a>
 @endsection
 @endif
 
