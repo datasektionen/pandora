@@ -5,11 +5,11 @@
 <?php $green = 'style="color: #3a0;"'; ?>
 
 #Hej, {{ $user->name }}!
-    
+
 Din bokning har ändrats. Se nedan vad. Din bokning är inte bekräftad än. Du får ett nytt mejl när din bokning är handlagd.
 
-@if (isset($entity->reason) && strlen($entity->reason) > 0)
-**Anledning:** {{ $entity->reason }}
+@if (isset($event->reason) && strlen($event->reason) > 0)
+**Anledning:** {{ $event->reason }}
 @endif
 
 | Egenskap               | Gammalt värde          | Nytt värde |
