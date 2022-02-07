@@ -120,11 +120,7 @@ class EmailClient
         return $email->send();
     }
 
-    public static function sendBookingChanged(
-        Event $oldEvent,
-        Event $event,
-        array $dirty
-    ): bool {
+    public static function sendBookingChanged(Event $oldEvent, Event $event, array $dirty): bool {
         $email = new self('Din bokning av {$event->entity->name} ändrades');
         $email->recipient = $event->author->kth_username . '@kth.se';
         $email->html = view('emails.changed')
@@ -137,11 +133,7 @@ class EmailClient
         return $email->send();
     }
 
-    public static function sendBookingChangedNotification(
-        Event $oldEvent,
-        Event $event,
-        array $dirty
-    ): bool {
+    public static function sendBookingChangedNotification(Event $oldEvent, Event $event, array $dirty): bool {
         $email = new self(
             'Bokningen {$event->entity->name} ändrades och måste granskas'
         );
