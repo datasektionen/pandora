@@ -34,7 +34,7 @@ class EmailClient
 
     public function __construct(string $subject)
     {
-        $this->sender = "no-reply@datasektionen.se";
+        $this->sender = 'no-reply@datasektionen.se';
         $this->subject = $subject;
     }
 
@@ -55,19 +55,19 @@ class EmailClient
             return false;
         }
 
-        if (!preg_match("/(.*@.*\..*)(,.*@.*\..*)*/", $this->recipient)) {
+        if (!preg_match('/(.*@.*\..*)(,.*@.*\..*)*/', $this->recipient)) {
             return false;
         }
 
         $client = new Client();
         try {
-            $response = $client->post(config("spam.url"), [
-                "json" => [
-                    "to" => $this->recipient,
-                    "from" => $this->sender,
-                    "subject" => $this->subject,
-                    "html" => $this->html->render(),
-                    "key" => config("spam.api_key"),
+            $response = $client->post(config('spam.url'), [
+                'json' => [
+                    'to' => $this->recipient,
+                    'from' => $this->sender,
+                    'subject' => $this->subject,
+                    'html' => $this->html->render(),
+                    'key' => config('spam.api_key'),
                 ],
             ]);
             return $response->getStatusCode() == 200;
@@ -78,45 +78,45 @@ class EmailClient
 
     public static function sendBookingStatus(Event $event): bool
     {
-        $email = new self("Din bokning handläggs nu");
-        $email->recipient = $event->author->kth_username . "@kth.se";
-        $email->html = view("emails.reviewing")
-            ->with("user", $event->author)
-            ->with("event", $event)
-            ->with("entity", $event->entity);
+        $email = new self('Din bokning handläggs nu');
+        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->html = view('emails.reviewing')
+            ->with('user', $event->author)
+            ->with('event', $event)
+            ->with('entity', $event->entity);
         return $email->send();
     }
 
     public static function sendBookingConfirmation(Event $event): bool
     {
-        $email = new self("Din bokning är godkänd");
-        $email->recipient = $event->author->kth_username . "@kth.se";
-        $email->html = view("emails.approved")
-            ->with("user", $event->author)
-            ->with("event", $event)
-            ->with("entity", $event->entity);
+        $email = new self('Din bokning är godkänd');
+        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->html = view('emails.approved')
+            ->with('user', $event->author)
+            ->with('event', $event)
+            ->with('entity', $event->entity);
         return $email->send();
     }
 
     public static function sendBookingDeclined(Event $event): bool
     {
-        $email = new self("Din bokning blev inte godkänd");
-        $email->recipient = $event->author->kth_username . "@kth.se";
-        $email->html = view("emails.declined")
-            ->with("user", $event->author)
-            ->with("event", $event)
-            ->with("entity", $event->entity);
+        $email = new self('Din bokning blev inte godkänd');
+        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->html = view('emails.declined')
+            ->with('user', $event->author)
+            ->with('event', $event)
+            ->with('entity', $event->entity);
         return $email->send();
     }
 
     public static function sendBookingNotification(Event $event): bool
     {
-        $email = new self("Ny bokningsförfrågan för {$event->entity->name}");
+        $email = new self('Ny bokningsförfrågan för {$event->entity->name}');
         $email->recipient = $event->entity->notify_email;
-        $email->html = view("emails.notify")
-            ->with("user", $event->author)
-            ->with("event", $event)
-            ->with("entity", $event->entity);
+        $email->html = view('emails.notify')
+            ->with('user', $event->author)
+            ->with('event', $event)
+            ->with('entity', $event->entity);
         return $email->send();
     }
 
@@ -125,14 +125,14 @@ class EmailClient
         Event $event,
         array $dirty
     ): bool {
-        $email = new self("Din bokning av {$event->entity->name} ändrades");
-        $email->recipient = $event->author->kth_username . "@kth.se";
-        $email->html = view("emails.changed")
-            ->with("user", $event->author)
-            ->with("event", $event)
-            ->with("oldEvent", $oldEvent)
-            ->with("entity", $event->entity)
-            ->with("dirty", $dirty);
+        $email = new self('Din bokning av {$event->entity->name} ändrades');
+        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->html = view('emails.changed')
+            ->with('user', $event->author)
+            ->with('event', $event)
+            ->with('oldEvent', $oldEvent)
+            ->with('entity', $event->entity)
+            ->with('dirty', $dirty);
 
         return $email->send();
     }
@@ -143,27 +143,27 @@ class EmailClient
         array $dirty
     ): bool {
         $email = new self(
-            "Bokningen {$event->entity->name} ändrades och måste granskas"
+            'Bokningen {$event->entity->name} ändrades och måste granskas'
         );
         $email->recipient = $event->entity->notify_email;
-        $email->html = view("emails.changed-notify")
-            ->with("event", $event)
-            ->with("oldEvent", $oldEvent)
-            ->with("entity", $event->entity)
-            ->with("dirty", $dirty);
+        $email->html = view('emails.changed-notify')
+            ->with('event', $event)
+            ->with('oldEvent', $oldEvent)
+            ->with('entity', $event->entity)
+            ->with('dirty', $dirty);
         return $email->send();
     }
 
     public static function sendBookingDeleted(Event $event): bool
     {
-        $email = new self("Bokningen {$event->entity->name} togs bort");
+        $email = new self('Bokningen {$event->entity->name} togs bort');
         $email->recipient = $event->entity->notify_email;
-        $email->html = view("emails.deleted")
-            ->with("event", $event)
-            ->with("entity", $event->entity);
+        $email->html = view('emails.deleted')
+            ->with('event', $event)
+            ->with('entity', $event->entity);
         $sentToEntityOwner = $email->send();
 
-        $email->recipient = $event->author->kth_username . "@kth.se";
+        $email->recipient = $event->author->kth_username . '@kth.se';
         $sentToAuthor = $email->send();
 
         return $sentToEntityOwner && $sentToAuthor;
