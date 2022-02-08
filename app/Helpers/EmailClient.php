@@ -111,7 +111,7 @@ class EmailClient
 
     public static function sendBookingNotification(Event $event): bool
     {
-        $email = new self('Ny bokningsförfrågan för {$event->entity->name}');
+        $email = new self("Ny bokningsförfrågan för {$event->entity->name}");
         $email->recipient = $event->entity->notify_email;
         $email->html = view('emails.notify')
             ->with('user', $event->author)
@@ -121,7 +121,7 @@ class EmailClient
     }
 
     public static function sendBookingChanged(Event $oldEvent, Event $event, array $dirty): bool {
-        $email = new self('Din bokning av {$event->entity->name} ändrades');
+        $email = new self("Din bokning av {$event->entity->name} ändrades");
         $email->recipient = $event->author->kth_username . '@kth.se';
         $email->html = view('emails.changed')
             ->with('user', $event->author)
@@ -135,7 +135,7 @@ class EmailClient
 
     public static function sendBookingChangedNotification(Event $oldEvent, Event $event, array $dirty): bool {
         $email = new self(
-            'Bokningen {$event->entity->name} ändrades och måste granskas'
+            "Bokningen {$event->entity->name} ändrades och måste granskas"
         );
         $email->recipient = $event->entity->notify_email;
         $email->html = view('emails.changed-notify')
@@ -148,7 +148,7 @@ class EmailClient
 
     public static function sendBookingDeleted(Event $event): bool
     {
-        $email = new self('Bokningen {$event->entity->name} togs bort');
+        $email = new self("Bokningen {$event->entity->name} togs bort");
         $email->recipient = $event->entity->notify_email;
         $email->html = view('emails.deleted')
             ->with('event', $event)
