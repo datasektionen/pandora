@@ -7,13 +7,13 @@ Din bokning blev inte godkänd!
 
 Detta mejl är en bekräftelse på att din bokning blivit avslagen. Nedan finns information kring bokningen.
 
-@if (isset($entity->reason) && strlen($entity->reason) > 0)
-**Anledning:** {{ $entity->reason }}
+@if (isset($event->reason) && strlen($event->reason) > 0)
+**Anledning:** {{ $event->reason }}
 @endif
 
 | Egenskap               | Värde                     |
 | ---------------------- | ------------------------- |
-| Bokningens start:      | {{ $event->start }}       | 
+| Bokningens start:      | {{ $event->start }}       |
 | Bokningens slut:       | {{ $event->end }}         |
 | Av vem:                | {{ $event->title }}       |
 | Anledning för bokning: | {{ $event->description }} |
