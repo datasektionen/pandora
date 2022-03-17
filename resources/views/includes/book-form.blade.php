@@ -34,6 +34,7 @@
                 Anledning för bokning:
             </span>
         {!! Form::text('reason', null, ['placeholder' => 'T.ex. "Vi ska ha en fiskdammstävling."']) !!}
+        <span class="hint">Det är viktigt att ange en utförlig anledning då detta tas i beaktning när flera bokningar finns på samma tid</span>
     </div>
     @if ($entity->alcohol_question)
         <div class="form-entry">
