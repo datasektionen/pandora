@@ -34,7 +34,7 @@ class EmailClient
 
     public function __construct(string $subject)
     {
-        $this->sender = 'no-reply@datasektionen.se';
+        $this->sender = 'bokning-no-reply@datasektionen.se';
         $this->subject = $subject;
     }
 
