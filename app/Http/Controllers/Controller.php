@@ -4,6 +4,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 
 use App\Models\Entity;
 
@@ -22,9 +23,15 @@ class Controller extends BaseController
      *
      * @return response welcome view
      */
-    public function getIndex()
+    public function getIndex(Request $request)
     {
+        $hidden = $request->query('hidden');
+        $entities = Entity::query();
+        if (!$hidden) {
+            $entities->orWhere("id", "<>", 15);
+        }
+
         return view('welcome')
-            ->with('entities', Entity::all());
+            ->with('entities', $entities->get());
     }
 }
