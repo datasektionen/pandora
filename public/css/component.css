@@ -160,6 +160,10 @@
 }
 
 .event.not-confirmed .content {
+    background: rgba(255, 215, 83, 0.5);
+}
+
+.event.confirmed .content {
     background: rgba(33, 150, 243, 0.5);
 }
 
