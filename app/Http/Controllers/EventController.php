@@ -152,6 +152,7 @@ class EventController extends BaseController
         if ($oldEvent->approved !== null) {
             $event = $oldEvent->replicate();
             $event->save();
+            $event->replaces_on_edit = $oldEvent->id;
         } else {
             $event = clone $oldEvent;
         }
@@ -161,7 +162,6 @@ class EventController extends BaseController
         $event->end = date("Y-m-d H:i:s", strtotime($request->input('enddate') . ' ' . $request->input('endtime')));
         $event->title = $request->input('booker');
         $event->description = $request->input('reason');
-        $event->replaces_on_edit = $oldEvent->id;
         //$event->alcohol = (!$request->has('alcohol')) || ($request->has('alcohol') && $request->input('alcohol') === 'yes');
         // TODO: Above line fucks up since the boolean value of some reason is being cast to int
         // If fixed, also change in view
