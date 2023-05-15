@@ -66,32 +66,32 @@
             $('.timepicker').timepicker({timeFormat: 'H:i'});
         });
     </script>
-    <script async src="//methone.datasektionen.se/bar.js"></script>
     @yield('head-js')
 </head>
 <body>
-<div id="methone-container-replace"></div>
-<div id="application" class="blue">
-    <header>
-        <div class="header-inner">
-            <div class="row">
-                <div class="header-left col-md-2">
-                    @yield('header-left')
+    <div id="methone-container-replace"></div>
+    <div id="application" class="blue">
+        <header>
+            <div class="header-inner">
+                <div class="row">
+                    <div class="header-left col-md-2">
+                        @yield('header-left')
+                    </div>
+                    <div class="col-md-8">
+                        <h2>@yield('title', 'Bokningar för lokal: Mötesrummet')</h2>
+                    </div>
+                    <div class="header-right col-md-2">
+                        @yield('action-button')
+                    </div>
                 </div>
-                <div class="col-md-8">
-                    <h2>@yield('title', 'Bokningar för lokal: Mötesrummet')</h2>
-                </div>
-                <div class="header-right col-md-2">
-                    @yield('action-button')
-                </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
+        </header>
+        <div id="content">
+            @include('includes.messages')
+            @yield('content')
         </div>
-    </header>
-    <div id="content">
-        @include('includes.messages')
-        @yield('content')
     </div>
-</div>
+    <script async src="//methone.datasektionen.se/bar.js"></script>
 </body>
 </html>
