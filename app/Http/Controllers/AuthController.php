@@ -14,7 +14,7 @@ use App\Models\Position;
 use App\Models\User;
 
 /**
- * Authentication controller. Handles login via login2.datasektionen.se.
+ * Authentication controller. Handles login via login.datasektionen.se.
  *
  * @author Jonas Dahl <jonas@jdahl.se>
  * @version 2016-11-23
@@ -37,9 +37,9 @@ class AuthController extends BaseController
     }
 
     /**
-     * The login page. Just redirects to login2.
+     * The login page. Just redirects to login.
      *
-     * @return redirect to login2.datasektionen.se
+     * @return redirect to login.datasektionen.se
      */
     public function getLogin(Request $request)
     {
@@ -47,11 +47,11 @@ class AuthController extends BaseController
     }
 
     /**
-     * When login is complete, login2 will redirect us here. Now verify the login and ask PLS
+     * When login is complete, login will redirect us here. Now verify the login and ask PLS
      * for admin privileges. The admin privileges will be stored in Session['admin'] as an array of
      * pls permissions.
      *
-     * @param string $token the token from login2
+     * @param string $token the token from login
      * @return redirect to main page or intended page
      */
     public function getLoginComplete($token)
