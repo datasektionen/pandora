@@ -27,6 +27,16 @@
 
         <div class="form-entry">
                 <span class="description">
+                    <!-- Skriven av d-LoL (emeritus?) Karl-Isac. Fy F**n va jobbigt det var >:( -->
+                    Låda med info (HTML-format):
+                </span>
+            <div class="input">
+                {!! Form::textarea('ruta_med_stuff', $entity->ruta_med_stuff, array('placeholder' => 'T.ex. "Vape\'a inte i Mötesrummet!"', 'class' => 'textarea')) !!}
+            </div>
+        </div>
+
+        <div class="form-entry">
+                <span class="description">
                     Fråga om alkoholförtäring under bokning:
                 </span>
             <div class="input horizontal">
@@ -62,7 +72,7 @@
                     E-post för händelsenotifiering:
                 </span>
             <div class="input">
-                {!! Form::text('notify_email', $entity->notify_email, array('placeholder' => 'T.ex. "lokalchef@d.kth.se"')) !!}
+                {!! Form::text('notify_email', $entity->notify_email, array('placeholder' => 'T.ex. "carl@datasektionen.se"')) !!}
             </div>
         </div>
 

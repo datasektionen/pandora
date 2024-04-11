@@ -21,7 +21,6 @@
     <a href="/bookings/{{$entity->id}}/book" class="primary-action">Boka</a>
 @endsection
 
-
 @section('head-js')
     {{-- Include the booking script --}}
     <script type="text/javascript" async src="/js/book.js"></script>
@@ -33,6 +32,11 @@
     @if (Auth::guest())
         @include('includes.bottom-alert', ['message' => 'Du kan inte boka tider utan att <a href="/login">logga in</a> först.'])
     @else
+
+        <div>
+            {!!$entity->ruta_med_stuff!!}
+        </div>
+
         <div class="book-box-container">
             <div class="book-box">
                 @include('includes.book-form')
