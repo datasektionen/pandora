@@ -108,6 +108,7 @@ class EntityAdminController extends BaseController
         $entity = Entity::findOrFail($id);
         $entity->name = $request->input('name');
         $entity->description = $request->input('description');
+        $entity->ruta_med_stuff = $request->input('ruta_med_stuff');
         $entity->notify_email = $request->input('notify_email');
         $entity->alcohol_question = $request->input('alcohol_question') == 'yes';
         $entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
