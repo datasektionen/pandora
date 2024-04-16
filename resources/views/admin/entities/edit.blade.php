@@ -31,7 +31,7 @@
                     Låda med info (HTML-format):
                 </span>
             <div class="input">
-                {!! Form::textarea('ruta_med_stuff', $entity->ruta_med_stuff, array('placeholder' => 'T.ex. "Vape\'a inte i Mötesrummet!"', 'class' => 'textarea')) !!}
+                {!! Form::textarea('ruta_med_stuff', $entity->ruta_med_stuff, array('placeholder' => 'T.ex. "<p style="text-align: center;">Vape\'a inte i Mötesrummet!</p>"', 'class' => 'textarea')) !!}
             </div>
         </div>
 
