@@ -5,7 +5,7 @@ services:
     ports: [ 8000:8000 ]
     init: true
     environment:
-      - APP_ENV=development
+      - APP_ENV=local
       - APP_KEY=12345678901234567890abcdefabcdea
       - APP_DEBUG=true
       - APP_LOG_LEVEL=debug
