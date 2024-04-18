@@ -1,0 +1,51 @@
+services:
+  app:
+    build: .
+    command: sh -c 'php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000'
+    ports: [ 8000:8000 ]
+    init: true
+    environment:
+      - APP_ENV=development
+      - APP_KEY=12345678901234567890abcdefabcdea
+      - APP_DEBUG=true
+      - APP_LOG_LEVEL=debug
+      - APP_URL=http://localhost:8000/
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_DATABASE=pandora
+      - DB_USERNAME=pandora
+      - DB_PASSWORD=pandora
+      - LOGIN_API_URL=http://login:7002
+      - LOGIN_FRONTEND_URL=http://localhost:7002
+      - PLS_API_URL=https://pls.datasektionen.se/api
+      - HODIS_API_URL=https://hodis.datasektionen.se
+    depends_on:
+      db:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore: [vendor/]
+        - action: rebuild
+          path: composer.json
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_PASSWORD=pandora
+      - POSTGRES_USER=pandora
+      - POSTGRES_DB=pandora
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - "sh -c 'pg_isready -d pandora -U pandora'"
+      interval: 1s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+  login:
+    image: ghcr.io/datasektionen/nyckeln-under-dorrmattan
+    ports: [ 7002:7002 ]
+    environment:
+      - KTH_ID=mathm

@@ -39,6 +39,7 @@ DATABASE_URL:driver://user:password@host:port/database
 
 LOGIN_API_KEY=[the key]
 LOGIN_API_URL=https://login.datasektionen.se
+LOGIN_FRONTEND_URL=https://login.datasektionen.se
 PLS_API_URL=http://pls.froyo.datasektionen.se/api
 ZFINGER_API_URL=https://zfinger.datasektionen.se
 SPAM_API_KEY=[the key]
