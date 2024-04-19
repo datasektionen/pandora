@@ -43,7 +43,7 @@ class AuthController extends BaseController
      */
     public function getLogin(Request $request)
     {
-        return redirect(env('LOGIN_API_URL') . '/login?callback=' . url('/login-complete') . '/');
+        return redirect(env('LOGIN_FRONTEND_URL') . '/login?callback=' . url('/login-complete') . '/');
     }
 
     /**
