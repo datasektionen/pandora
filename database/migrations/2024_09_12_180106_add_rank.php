@@ -14,7 +14,8 @@ class AddRank extends Migration
     public function up()
     {
         Schema::table('entities', function (Blueprint $table) {
-            $table->text('rank')->nullable();
+            $table->dropColumn('rank');
+            $table->integer('rank')->nullable();
         });
     }
 

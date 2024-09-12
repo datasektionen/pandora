@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RetypeRank extends Migration
+class AssReRank extends Migration
 {
     /**
      * Run the migrations.
@@ -16,6 +16,7 @@ class RetypeRank extends Migration
         Schema::table('entities', function (Blueprint $table) {
             $table->dropColumn('rank');
             $table->integer('rank')->nullable();
+
         });
     }
 
