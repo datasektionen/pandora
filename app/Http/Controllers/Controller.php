@@ -27,8 +27,10 @@ class Controller extends BaseController
     {
         $hidden = $request->query('hidden');
         $entities = Entity::query();
+        $entities->orderBy("rank");
         if (!$hidden) {
             $entities->orWhere("id", "<>", 15);
+            // Tack Adam
         }
 
         return view('welcome')
