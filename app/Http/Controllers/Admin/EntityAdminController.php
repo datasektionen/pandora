@@ -72,6 +72,7 @@ class EntityAdminController extends BaseController
         $entity->part_of = $request->input('part_of');
         $entity->fa_icon = $request->input('fa_icon');
         $entity->contract_url = $request->input('contract') === 'yes' ? $request->input('contract_url') : null;
+        $entity->rank = $request->input('rank');
         $entity->save();
 
         return redirect('/admin/entities')
