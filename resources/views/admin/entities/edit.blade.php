@@ -124,6 +124,18 @@
         </div>
 
         <div class="form-entry">
+                <span class="description">
+                    Rank:
+                </span>
+                <p>
+                Hur högt upp ska denna entitet vara på startsidan?
+                    </p>
+            <div class="input">
+                {!! Form::number('rank', $entity->rank, array('placeholder' => '1 = viktigast <-> 100 = mindre prioriterad')) !!}
+            </div>
+        </div>
+
+        <div class="form-entry">
             <div class="input">
                 {!! Form::submit('Ändra entitet', NULL) !!}
             </div>
