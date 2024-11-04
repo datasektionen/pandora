@@ -102,9 +102,9 @@ class EntityController extends BaseController
             ->with('week', $week)
             ->with('year', $year)
             ->with('nextWeek', date("W", strtotime("+1week", $startDate)))
-            ->with('nextYear', date("Y", strtotime("+1week", $startDate)))
+            ->with('nextYear', date("Y", strtotime("+1week thursday", $startDate)))
             ->with('prevWeek', date("W", strtotime("-1week", $startDate)))
-            ->with('prevYear', date("Y", strtotime("-1week", $startDate)))
+            ->with('prevYear', date("Y", strtotime("-1week thursday", $startDate)))
             ->with('highlightId', $highlightId);
     }
 
