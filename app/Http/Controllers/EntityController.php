@@ -168,6 +168,7 @@ class EntityController extends BaseController
         $event->booked_by = Auth::user()->id;
         $event->entity_id = $entity->id;
         $event->alcohol = ($entity->alcohol_question && !$request->has('alcohol')) || ($request->has('alcohol') && $request->input('alcohol') === 'yes');
+        $event->lol = ($entity->lol_question && !$request->has('lol')) || ($request->has('lol') && $request->input('lol') === 'yes');
         $event->save();
 
         $validateDate = function ($date) {

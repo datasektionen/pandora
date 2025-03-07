@@ -29,7 +29,7 @@ class Event extends Model
      *
      * @var array
      */
-    protected $casts = ['alcohol' => 'boolean'];
+    protected $casts = ['alcohol' => 'boolean', 'lol' => 'boolean'];
 
     /**
      * Defines relation the the entity it belongs to.

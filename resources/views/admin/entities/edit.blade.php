@@ -53,6 +53,22 @@
 
         <div class="form-entry">
                 <span class="description">
+                    Fråga om behovet av speciell LoL-utrustning under bokning:
+                </span>
+            <div class="input horizontal">
+                <div class="radio">
+                    {!! Form::radio('lol_question', 'yes', $entity->lol_question, array('id' => 'lol_yes')) !!}
+                    <label for="lol_yes">Ja</label>
+                </div>
+                <div class="radio">
+                    {!! Form::radio('lol_question', 'no', !$entity->lol_question, array('id' => 'lol_no')) !!}
+                    <label for="lol_no">Nej</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-entry">
+                <span class="description">
                     Visa ännu ej handlagda bokningar för allmänheten:
                 </span>
             <div class="input horizontal">
