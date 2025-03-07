@@ -68,6 +68,9 @@
                                         @if ($entity->alcohol_question)
                                             <br>Alkohol: {{ $event->alcohol ? 'Ja' : 'Nej' }}
                                         @endif
+                                        @if ($entity->lol_question)
+                                            <br>LoL: {{ $event->lol ? 'Ja' : 'Nej' }}
+                                        @endif
                                     @endif
                                 </div>
                             </a>

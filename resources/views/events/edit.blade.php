@@ -45,7 +45,7 @@
             {!! Form::text('reason_edit', NULL, ['placeholder' => 'T.ex. "Ett annat event tog bokningstiden."']) !!}
         </div>
         {{--
-        TODO: Enable when controller handles it
+        TODO: Enable when controller handles it; also LoL
         @if ($event->entity->alcohol_question)
         <div class="form-entry">
             <span class="description">

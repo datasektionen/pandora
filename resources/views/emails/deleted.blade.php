@@ -18,6 +18,9 @@ Nedanstående bokning har **tagits bort** för {{ $entity->name }}. Tiden är al
 @if ($entity->alcohol_question)
 | Servering av alkohol:  | {{ $event->alcohol ? 'Ja' : 'Nej' }} |
 @endif
+@if ($entity->lol_question)
+| Behov för LoL-utrustning: | {{ $event->lol ? 'Ja' : 'Nej' }} |
+@endif
 | Bokat av:              | {{ $event->author->name }} ({{ $event->author->kth_username }}@kth.se) |
 | Bokning skapad:        | {{ $event->created_at }}  |
 | Status:                | Avbokad |

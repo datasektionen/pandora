@@ -68,6 +68,7 @@ class EntityAdminController extends BaseController
         $entity->notify_email = $request->input('notify_email');
         $entity->pls_group = $request->input('pls_group');
         $entity->alcohol_question = $request->input('alcohol_question') == 'yes';
+        $entity->lol_question = $request->input('lol_question') == 'yes';
         $entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
         $entity->part_of = $request->input('part_of');
         $entity->fa_icon = $request->input('fa_icon');
@@ -112,6 +113,7 @@ class EntityAdminController extends BaseController
         $entity->ruta_med_stuff = $request->input('ruta_med_stuff');
         $entity->notify_email = $request->input('notify_email');
         $entity->alcohol_question = $request->input('alcohol_question') == 'yes';
+        $entity->lol_question = $request->input('lol_question') == 'yes';
         $entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
         $entity->part_of = $request->input('part_of');
         $entity->fa_icon = $request->input('fa_icon');

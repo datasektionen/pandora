@@ -48,4 +48,4 @@ services:
     image: ghcr.io/datasektionen/nyckeln-under-dorrmattan
     ports: [ 7002:7002 ]
     environment:
-      - KTH_ID=mathm
+      - KTH_ID=rmfseo

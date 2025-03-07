@@ -51,6 +51,21 @@
             </div>
         </div>
     @endif
+    @if ($entity->lol_question)
+        <div class="form-entry">
+            <span class="description">
+                Kommer det att behövas någon speciell Ljud-och-Ljus utrustning? (t.ex. mikrofoner, högtalare, kablage)
+            </span>
+            <div class="horizontal">
+                <div class="radio">
+                    {!! Form::radio('lol', 'yes', false, ['id' => 'lol']) !!} <label for="lol">Ja</label>
+                </div>
+                <div class="radio">
+                    {!! Form::radio('lol', 'no', true, ['id' => 'nolol']) !!} <label for="nolol">Nej</label>
+                </div>
+            </div>
+        </div>
+    @endif
     @if ($entity->contract_url !== null)
         <div class="form-entry">
             <span class="description">
