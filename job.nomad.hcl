@@ -1,4 +1,4 @@
-ob "pandora" {
+job "pandora" {
   type = "service"
 
   group "pandora" {
