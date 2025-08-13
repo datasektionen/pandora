@@ -1,5 +1,8 @@
 # Pandora
 
+> [!WARNING]
+> Migrations not run in production env
+
 PHP Laravel application that handles bookings. Live at https://bokning.datasektionen.se.
 
 ## API
