@@ -70,6 +70,12 @@
                         <td> {{ $event->alcohol ? 'Ja' : 'Nej' }}</td>
                     </tr>
                 @endif
+                @if ($event->entity->lol_question)
+                    <tr>
+                        <td>Behövas speciell LoL-utrustning:</td>
+                        <td> {{ $event->lol ? 'Ja' : 'Nej' }}</td>
+                    </tr>
+                @endif
                 <tr>
                     <td>Bokat av:</td>
                     <td> {{ $event->author->name }} ({{ $event->author->kth_username }}@kth.se)</td>

@@ -32,9 +32,16 @@ En bokning har ändrats. Se nedan vad. Du måste godkänna eller avböja bokning
 @endif
 @if ($entity->alcohol_question)
 @if (array_key_exists('alcohol', $dirty))
-| Anledning för bokning: | <span {!! $red !!}>~~{{ $oldEvent->alcohol ? 'Ja' : 'Nej' }}~~</span> | <span {!! $green !!}>{{ $event->alcohol ? 'Ja' : 'Nej' }}</span> |
+| Servering av alkohol:  | <span {!! $red !!}>~~{{ $oldEvent->alcohol ? 'Ja' : 'Nej' }}~~</span> | <span {!! $green !!}>{{ $event->alcohol ? 'Ja' : 'Nej' }}</span> |
 @else
-| Anledning för bokning: | {{ $oldEvent->alcohol ? 'Ja' : 'Nej' }} | {{ $event->alcohol ? 'Ja' : 'Nej' }} |
+| Servering av alkohol:  | {{ $oldEvent->alcohol ? 'Ja' : 'Nej' }} | {{ $event->alcohol ? 'Ja' : 'Nej' }} |
+@endif
+@endif
+@if ($entity->lol_question)
+@if (array_key_exists('lol', $dirty))
+| Behov för LoL-utrustning: | <span {!! $red !!}>~~{{ $oldEvent->lol ? 'Ja' : 'Nej' }}~~</span> | <span {!! $green !!}>{{ $event->lol ? 'Ja' : 'Nej' }}</span> |
+@else
+| Behov för LoL-utrustning: | {{ $oldEvent->lol ? 'Ja' : 'Nej' }} | {{ $event->lol ? 'Ja' : 'Nej' }} |
 @endif
 @endif
 | Bokat av:              | {{ $oldEvent->author->name }} ({{ $oldEvent->author->kth_username }}@kth.se) | {{ $event->author->name }} ({{ $event->author->kth_username }}@kth.se)  |

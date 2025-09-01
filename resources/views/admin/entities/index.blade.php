@@ -24,6 +24,7 @@
             <th>Pls-grupp</th>
             <th>Visa bokningsförslag?</th>
             <th>Fråga om alkohol?</th>
+            <th>Fråga om LoL?</th>
             <th>E-post vid händelser</th>
         </tr>
         @foreach ($entities as $entity)
@@ -34,6 +35,7 @@
                 <td>{{ $entity->pls_group }}</td>
                 <td>{{ $entity->show_pending_bookings ? 'Ja' : 'Nej' }}</td>
                 <td>{{ $entity->alcohol_question ? 'Ja' : 'Nej' }}</td>
+                <td>{{ $entity->lol_question ? 'Ja' : 'Nej' }}</td>
                 <td>{{ $entity->notify_email }}</td>
             </tr>
         @endforeach

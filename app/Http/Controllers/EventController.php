@@ -165,6 +165,7 @@ class EventController extends BaseController
         //$event->alcohol = (!$request->has('alcohol')) || ($request->has('alcohol') && $request->input('alcohol') === 'yes');
         // TODO: Above line fucks up since the boolean value of some reason is being cast to int
         // If fixed, also change in view
+        // also fix for LoL, not just alcohol
 
         // isDirty() checks if something has been changed. If not, delete the duplicate event
         if (!$event->isDirty()) {
