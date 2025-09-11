@@ -61,8 +61,9 @@ class SSOServiceProvider extends ServiceProvider
             return false;
         }
 
-        // For web requests, only validate if we have basic SSO config
-        return !empty(config('sso.client_id'));
+        // For web requests, always validate SSO configuration
+        // This ensures configuration errors are caught early and stored
+        return true;
     }
 
     /**

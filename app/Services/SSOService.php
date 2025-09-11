@@ -31,12 +31,11 @@ class SSOService
      * Create a new SSO service instance.
      *
      * @param SSOConfigValidator $configValidator
-     * @throws SSOException
      */
     public function __construct(SSOConfigValidator $configValidator)
     {
         $this->configValidator = $configValidator;
-        $this->initializeClient();
+        // Don't initialize client in constructor - defer until first use
     }
 
     /**
@@ -46,6 +45,11 @@ class SSOService
      */
     protected function initializeClient()
     {
+        // Return early if client is already initialized
+        if ($this->client !== null) {
+            return;
+        }
+
         try {
             // Check for configuration errors from startup
             if (config('sso.configuration_error')) {
@@ -113,6 +117,8 @@ class SSOService
         $startTime = microtime(true);
 
         try {
+            // Initialize client if not already done
+            $this->initializeClient();
             // Check if this is a callback with an error parameter
             if (isset($_GET['error'])) {
                 $error = $_GET['error'];
@@ -215,6 +221,8 @@ class SSOService
     public function extractUserInfo()
     {
         try {
+            // Ensure client is initialized
+            $this->initializeClient();
             // Build user info by requesting individual claims
             $userInfo = [];
             
@@ -274,6 +282,8 @@ class SSOService
     public function extractPermissions()
     {
         try {
+            // Ensure client is initialized
+            $this->initializeClient();
             // Get the custom permissions claim using requestUserInfo
             $permissions = $this->client->requestUserInfo('permissions');
 
@@ -371,6 +381,8 @@ class SSOService
      */
     public function getClient()
     {
+        // Ensure client is initialized
+        $this->initializeClient();
         return $this->client;
     }
 
