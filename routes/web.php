@@ -11,8 +11,6 @@
 |
 */
 
-// TODO Change permissions and middleware
-
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BookingAdminController;
 use App\Http\Controllers\Admin\EntityAdminController;
@@ -42,11 +40,11 @@ Route::post('events/{id}/delete', [EventController::class, 'postDelete'])->middl
 Route::get('user', [UserController::class, 'getIndex'])->middleware('auth');
 
 /**
- * Authentication routes
+ * Authentication routes - SSO using OpenID Connect
  */
-Route::get('logout', [AuthController::class, 'getLogout'])->middleware('auth');
-Route::get('login', [AuthController::class, 'getLogin'])->middleware('guest');
-Route::get('login-complete/{token}', [AuthController::class, 'getLoginComplete'])->middleware('guest');
+Route::get('login', [AuthController::class, 'initiateLogin'])->middleware(['guest', 'sso.configured']);
+Route::get('auth/callback', [AuthController::class, 'handleCallback'])->middleware(['guest', 'sso.configured']);
+Route::get('logout', [AuthController::class, 'getLogout'])->middleware(['auth', 'sso.configured']);
 
 /**
  * Admin routes.

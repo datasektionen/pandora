@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Auth;
 use Session;
+use App\Services\PermissionService;
 
 /**
  * An entity can be a car or a house or a room or anything.
@@ -36,8 +37,8 @@ class Entity extends Model
 
     /**
      * Returns all entities for the given user. Auth::user() is used if none given.
-     * If user is super admin all entities are given, otherwise only those that is in
-     * admin session.
+     * If user is super admin all entities are given, otherwise only those that the user
+     * has manage permissions for.
      *
      * @return null no user given or a Query otherwise
      */
@@ -49,9 +50,52 @@ class Entity extends Model
         if ($user == null) {
             return null;
         }
-        if ($user->isAdmin()) {
+
+        $permissionService = app(PermissionService::class);
+
+        // If user is super admin (has admin permission), return all entities
+        if ($permissionService->isSuperAdmin()) {
             return Entity::select('*');
         }
-        return Entity::whereIn('pls_group', Session::get('admin', []));
+
+        // Get entity scopes the user can access based on permissions
+        $accessibleEntityScopes = [];
+        $permissions = $permissionService->getPermissions();
+
+        foreach ($permissions as $permission) {
+            $permissionId = $permission['id'];
+            $scope = $permission['scope'];
+
+            // Only consider manage permissions
+            if ($permissionId !== PermissionService::PERMISSION_MANAGE) {
+                continue;
+            }
+
+            // Handle wildcard scope - user can access all entities
+            if ($scope === PermissionService::WILDCARD_SCOPE) {
+                return Entity::select('*');
+            }
+
+            // Handle null scope - treated as global permission for all entities
+            if ($scope === null) {
+                return Entity::select('*');
+            }
+
+            // Add specific entity scope
+            if (is_string($scope) && !empty($scope)) {
+                $accessibleEntityScopes[] = $scope;
+            }
+        }
+
+        // Remove duplicates
+        $accessibleEntityScopes = array_unique($accessibleEntityScopes);
+
+        // If no accessible entities, return empty query
+        if (empty($accessibleEntityScopes)) {
+            return Entity::whereRaw('1 = 0'); // Returns empty query
+        }
+
+        // Return entities the user can access
+        return Entity::whereIn('pls_group', $accessibleEntityScopes);
     }
 }

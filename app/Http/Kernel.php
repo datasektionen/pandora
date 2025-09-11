@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'isAdminForEvent' => \App\Http\Middleware\IsAdminForEvent::class,
         'isUserOrAdminForEvent' => \App\Http\Middleware\IsUserOrAdminForEvent::class,
         'isSomeAdmin' => \App\Http\Middleware\IsSomeAdmin::class,
+        'sso.configured' => \App\Http\Middleware\EnsureSSOConfigured::class,
     ];
 }

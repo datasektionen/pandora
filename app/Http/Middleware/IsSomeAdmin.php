@@ -3,10 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\Entity;
 use Auth;
-use App\Models\Event;
-use Session;
+use App\Services\PermissionService;
 
 class IsSomeAdmin
 {
@@ -19,9 +17,15 @@ class IsSomeAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (count(Session::get('admin', [])) <= 0) {
+        if (!Auth::check()) {
             abort(403);
         }
+
+        $permissionService = app(PermissionService::class);
+        if (!$permissionService->hasAnyAdminPermission()) {
+            abort(403);
+        }
+
         return $next($request);
     }
 }

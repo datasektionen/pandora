@@ -19,7 +19,7 @@ use Validator;
 use Auth;
 use DateTime;
 use DB;
-use Session;
+use App\Services\PermissionService;
 
 /**
  * Handles entity requests.
@@ -77,7 +77,10 @@ class EntityController extends BaseController
             ->orderBy('start', 'DESC');
 
         // We want to show some less events if we are not admin or owner of the event
-        if (!$entity->show_pending_bookings && !in_array($entity->pls_group, Session::get('admin', []))) {
+        $permissionService = app(PermissionService::class);
+        $canManageBookings = Auth::check() && $permissionService->hasPermission(PermissionService::PERMISSION_MANAGE, $entity->pls_group);
+        
+        if (!$entity->show_pending_bookings && !$canManageBookings) {
             $query->where(function ($query) {
                 $query
                     ->whereNotNull('approved')

@@ -3,6 +3,7 @@
 use Closure;
 use App\Models\Entity;
 use Auth;
+use App\Services\PermissionService;
 
 /**
  * Checks if user is admin for the entity in the $request->route('id')
@@ -18,10 +19,17 @@ class IsAdminForEntity
      */
     public function handle($request, Closure $next)
     {
-        $entity = Entity::findOrFail(intval($request->route('id')));
-        if (!Auth::user()->isAdminFor($entity)) {
+        if (!Auth::check()) {
             abort(403);
         }
+
+        $entity = Entity::findOrFail(intval($request->route('id')));
+        
+        $permissionService = app(PermissionService::class);
+        if (!$permissionService->hasPermission(PermissionService::PERMISSION_MANAGE, $entity->pls_group)) {
+            abort(403);
+        }
+
         return $next($request);
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Models\Entity;
 use App\Models\Event;
 use App\Helpers\Planner;
+use App\Services\PermissionService;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +53,10 @@ Route::get('events/{id}/{year?}/{week?}', function ($id, $year = null, $week = n
         ->orderBy('start', 'DESC');
 
     // We want to show some less events if we are not admin or owner of the event
-    if (!$entity->show_pending_bookings && !in_array($entity->pls_group, Session::get('admin', []))) {
+    $permissionService = app(PermissionService::class);
+    $canManageBookings = Auth::check() && $permissionService->hasPermission(PermissionService::PERMISSION_MANAGE, $entity->pls_group);
+    
+    if (!$entity->show_pending_bookings && !$canManageBookings) {
         $query->where(function ($query) {
             $query
                 ->whereNotNull('approved')

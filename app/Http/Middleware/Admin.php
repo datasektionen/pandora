@@ -2,6 +2,7 @@
 
 use Closure;
 use Auth;
+use App\Services\PermissionService;
 
 /**
  * Handles admin requests. If user is not admin, send to '/'.
@@ -20,7 +21,12 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() || !Auth::user()->isAdmin()) {
+        if (!Auth::check()) {
+            abort(403);
+        }
+
+        $permissionService = app(PermissionService::class);
+        if (!$permissionService->isSuperAdmin()) {
             abort(403);
         }
 

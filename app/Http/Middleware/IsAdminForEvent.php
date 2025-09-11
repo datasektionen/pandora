@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\Entity;
 use Auth;
 use App\Models\Event;
+use App\Services\PermissionService;
 
 class IsAdminForEvent
 {
@@ -18,10 +18,17 @@ class IsAdminForEvent
      */
     public function handle($request, Closure $next)
     {
-        $event = Event::findOrFail(intval($request->route('id')));
-        if (!Auth::user()->isAdminFor($event->entity)) {
+        if (!Auth::check()) {
             abort(403);
         }
+
+        $event = Event::findOrFail(intval($request->route('id')));
+        
+        $permissionService = app(PermissionService::class);
+        if (!$permissionService->hasPermission(PermissionService::PERMISSION_MANAGE, $event->entity->pls_group)) {
+            abort(403);
+        }
+
         return $next($request);
     }
 }
