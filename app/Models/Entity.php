@@ -76,11 +76,6 @@ class Entity extends Model
                 return Entity::select('*');
             }
 
-            // Handle null scope - treated as global permission for all entities
-            if ($scope === null) {
-                return Entity::select('*');
-            }
-
             // Add specific entity scope
             if (is_string($scope) && !empty($scope)) {
                 $accessibleEntityScopes[] = $scope;

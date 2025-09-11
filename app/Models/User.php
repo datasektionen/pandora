@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'kth_username', 'sso_subject',
+        'name', 'email', 'password', 'kth_username',
     ];
 
     /**
@@ -51,7 +51,7 @@ class User extends Authenticatable
         if (!Auth::check() || Auth::user()->id != $this->id) {
             return false;
         }
-        
+
         $permissionService = app(PermissionService::class);
         return $permissionService->isSuperAdmin();
     }
@@ -69,7 +69,7 @@ class User extends Authenticatable
         if (!Auth::check() || Auth::user()->id != $this->id) {
             return false;
         }
-        
+
         $permissionService = app(PermissionService::class);
         return $permissionService->hasAnyAdminPermission();
     }
@@ -118,15 +118,15 @@ class User extends Authenticatable
     {
         $permissionService = app(PermissionService::class);
         $entities = $permissionService->getEntitiesForPermission(PermissionService::PERMISSION_MANAGE);
-        
+
         // Extract pls_group values from the entities collection
         $plsGroups = $entities->pluck('pls_group')->toArray();
-        
+
         // If no entities accessible, return empty query
         if (empty($plsGroups)) {
             return Event::whereRaw('1 = 0');
         }
-        
+
         return Event::select('events.*')
             ->join('entities', 'entities.id', 'events.entity_id')
             ->whereNull('approved')

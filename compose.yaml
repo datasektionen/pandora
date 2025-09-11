@@ -18,21 +18,10 @@ services:
 
       - HODIS_API_URL=https://hodis.datasektionen.se
       - PORT=8000
-      # SSO Configuration (OpenID Connect)
-      # Required: OAuth2/OIDC client credentials from your SSO provider
-      - SSO_CLIENT_ID=mathm-local
-      - SSO_CLIENT_SECRET=vXgfGi4qD3hAvoPiDQsc3HneBJgZGQSl2TGGMUnScfg=
-      # Required: SSO provider's issuer URL (OpenID Connect discovery endpoint)
       - SSO_ISSUER_URL=https://sso.datasektionen.se/op
-      # Required: Callback URL where SSO will redirect after authentication
-      # Must match the redirect URI registered with your SSO provider
       - SSO_REDIRECT_URI=http://localhost:8000/auth/callback
-      # Optional: Where to redirect after SSO logout (defaults to APP_URL)
       - SSO_LOGOUT_REDIRECT_URI=http://localhost:8000/
-      # Optional: SSL verification settings (recommended: true for production)
       - SSO_VERIFY_SSL=true
-      # Optional: Request timeout in seconds (default: 30)
-      - SSO_TIMEOUT=30
     depends_on:
       db:
         condition: service_healthy

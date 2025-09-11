@@ -175,7 +175,6 @@ class AuthController extends BaseController
 
             Log::info('User successfully authenticated via SSO callback', [
                 'user_id' => $user->id,
-                'sso_subject' => $user->sso_subject,
                 'user_email' => $user->email,
                 'permissions_count' => count($validPermissions),
                 'processing_time_ms' => $processingTime,
@@ -252,10 +251,10 @@ class AuthController extends BaseController
             // Clear local authentication and permissions
             Auth::logout();
             $this->permissionService->clearPermissions();
-            
+
             // Clear legacy admin session data if it exists
             Session::forget('admin');
-            
+
             // Invalidate the session
             $request->session()->invalidate();
             $request->session()->regenerateToken();
@@ -333,13 +332,11 @@ class AuthController extends BaseController
 
             Log::info('User information updated from SSO', [
                 'user_id' => $user->id,
-                'sso_subject' => $user->sso_subject,
-                'changes' => $changes
+                'changes' => $changes,
             ]);
         } else {
             Log::debug('No user information changes needed', [
                 'user_id' => $user->id,
-                'sso_subject' => $user->sso_subject
             ]);
         }
     }
@@ -359,34 +356,34 @@ class AuthController extends BaseController
         switch ($error) {
             case 'access_denied':
                 return 'Inloggning avbröts av användaren.';
-            
+
             case 'invalid_request':
                 return 'Felaktig inloggningsförfrågan. Kontakta systemadministratören.';
-            
+
             case 'invalid_client':
                 return 'Systemet är felkonfigurerat. Kontakta systemadministratören.';
-            
+
             case 'unauthorized_client':
                 return 'Systemet har inte behörighet att använda inloggningssystemet. Kontakta systemadministratören.';
-            
+
             case 'unsupported_response_type':
                 return 'Inloggningsmetoden stöds inte. Kontakta systemadministratören.';
-            
+
             case 'invalid_scope':
                 return 'Begärda behörigheter är ogiltiga. Kontakta systemadministratören.';
-            
+
             case 'server_error':
                 return 'Inloggningssystemet har ett internt fel. Försök igen senare.';
-            
+
             case 'temporarily_unavailable':
                 return 'Inloggningssystemet är tillfälligt otillgängligt. Försök igen senare.';
-            
+
             default:
                 // If we have a description, use it for unknown errors
                 if (!empty($errorDescription)) {
                     return 'Inloggning misslyckades: ' . $errorDescription;
                 }
-                
+
                 return 'Inloggning misslyckades. Kontakta systemadministratören om problemet kvarstår.';
         }
     }
