@@ -45,8 +45,7 @@ Route::get('user', [UserController::class, 'getIndex'])->middleware('auth');
  * Authentication routes
  */
 Route::get('logout', [AuthController::class, 'getLogout'])->middleware('auth');
-Route::get('login', [AuthController::class, 'getLogin'])->middleware('guest');
-Route::get('login-complete/{token}', [AuthController::class, 'getLoginComplete'])->middleware('guest');
+Route::get('login', [AuthController::class, 'getLogin'])->middleware('guest')->name('oidc-callback');
 
 /**
  * Admin routes.

@@ -30,16 +30,15 @@ job "pandora" {
 {{ with nomadVar "nomad/jobs/pandora" }}
 DATABASE_URL=postgres://pandora:{{ .db_password }}@postgres.dsekt.internal:5432/pandora
 APP_KEY={{ .app_key }}
-LOGIN_API_KEY={{ .login_api_key }}
-SPAM_API_KEY={{ .spam_api_key }}
+SSO_CLIENT_SECRET={{ .sso_client_secret }}
 {{ end }}
 PORT={{ env "NOMAD_PORT_http" }}
+APP_URL=https://bokning.datasektionen.se
 APP_DEBUG=false
 APP_ENV=production
 DB_CONNECTION=pgsql
-LOGIN_API_URL=https://login.datasektionen.se
-LOGIN_FRONTEND_URL=https://login.datasektionen.se
-PLS_API_URL=https://pls.datasektionen.se/api
+SSO_PROVIDER=https://sso.datasektionen.se/op
+SSO_CLIENT_ID=pandora
 SPAM_API_URL=https://spam.datasektionen.se/api/sendmail
 ENV
         destination = "local/.env"
