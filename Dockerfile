@@ -27,5 +27,7 @@ RUN ln -s _vendor vendor && chown -R www:www /app
 
 EXPOSE 8000
 
+RUN touch /app/storage/logs/laravel.log && chown www:www /app/storage/logs/laravel.log
+
 USER root
 ENTRYPOINT ["/app/run.sh"]
