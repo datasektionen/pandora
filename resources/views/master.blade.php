@@ -54,7 +54,7 @@
                     str: "Mina bokningar", href: "/user"
                 },
                     @endif
-                    @if(Auth::check() && Auth::user()->isSomeAdmin())
+                    @if(Auth::check() && Auth::user()->isManager())
                 {
                     str: "Administrera", href: "/admin"
                 },

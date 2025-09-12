@@ -50,13 +50,13 @@ Route::get('login', [AuthController::class, 'getLogin'])->middleware('guest')->n
 /**
  * Admin routes.
  */
-Route::get('admin', [AdminController::class, 'getIndex'])->middleware('auth')->middleware('isSomeAdmin');
-Route::get('admin/bookings', [BookingAdminController::class, 'getShow'])->middleware('auth')->middleware('isSomeAdmin');
-Route::post('admin/bookings', [BookingAdminController::class, 'postShow'])->middleware('auth')->middleware('isSomeAdmin');
-Route::get('admin/bookings/{id}/accept', [BookingAdminController::class, 'getAccept'])->middleware('auth')->middleware('isAdminForEvent');
-Route::get('admin/bookings/{id}/decline', [BookingAdminController::class, 'getDecline'])->middleware('auth')->middleware('isAdminForEvent');
+Route::get('admin', [AdminController::class, 'getIndex'])->middleware('auth')->middleware('isManager');
+Route::get('admin/bookings', [BookingAdminController::class, 'getShow'])->middleware('auth')->middleware('isManager');
+Route::post('admin/bookings', [BookingAdminController::class, 'postShow'])->middleware('auth')->middleware('isManager');
+Route::get('admin/bookings/{id}/accept', [BookingAdminController::class, 'getAccept'])->middleware('auth')->middleware('canManageEvent');
+Route::get('admin/bookings/{id}/decline', [BookingAdminController::class, 'getDecline'])->middleware('auth')->middleware('canManageEvent');
 
-Route::get('admin/entities', [EntityAdminController::class, 'getShow'])->middleware('auth')->middleware('isSomeAdmin');
+Route::get('admin/entities', [EntityAdminController::class, 'getShow'])->middleware('auth')->middleware('isManager');
 Route::get('admin/entities/new', [EntityAdminController::class, 'getNew'])->middleware('auth')->middleware('admin');
 Route::post('admin/entities/new', [EntityAdminController::class, 'postNew'])->middleware('auth')->middleware('admin');
 Route::get('admin/entities/edit/{id}', [EntityAdminController::class, 'getEdit'])->middleware('auth')->middleware('admin');

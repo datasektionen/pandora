@@ -5,13 +5,10 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use Auth;
 use Session;
 use Jumbojett\OpenIDConnectClient;
 
-use App\Models\Election;
-use App\Models\Position;
 use App\Models\User;
 
 /**
@@ -74,14 +71,14 @@ class AuthController extends BaseController
 
         Auth::login($user);
 
-        $isSuperAdmin = false;
+        $isAdmin = false;
         $manageEntities = [];
         foreach ($claims->permissions as $perm) {
-            if ($perm->id === "admin") $admin = true;
+            if ($perm->id === "admin") $isAdmin = true;
             if ($perm->id === "manage") $manageEntities[] = $perm->scope;
         }
 
-        Session::put('superadmin', $isSuperAdmin);
+        Session::put('admin', $isAdmin);
         Session::put('manage-entities', $manageEntities);
 
         return redirect()->intended('/')->with('success', 'Du loggades in.');

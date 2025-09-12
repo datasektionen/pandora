@@ -77,7 +77,7 @@ class EntityController extends BaseController
             ->orderBy('start', 'DESC');
 
         // We want to show some less events if we are not admin or owner of the event
-        if (!$entity->show_pending_bookings && !in_array($entity->pls_group, Session::get('admin', []))) {
+        if (!$entity->show_pending_bookings && !Auth::user()->canManage($entity)) {
             $query->where(function ($query) {
                 $query
                     ->whereNotNull('approved')
@@ -176,7 +176,7 @@ class EntityController extends BaseController
         };
 
         // If an admin, the booking is automatically approved, otherwise, notify both admin and user
-        if (Auth::check() && Auth::user()->isAdminFor($entity)) {
+        if (Auth::check() && Auth::user()->canManage($entity)) {
             $event->approve();
             if ($request->get('recurring') === 'yes' && $validateDate($request->get('recurringuntil'))) {
                 $sDate = strtotime($event->start);

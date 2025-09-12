@@ -176,7 +176,7 @@ class EventController extends BaseController
         // Otherwise, go on and email
         $dirty = $event->getDirty();
         $event->reason = $request->input('reason_edit');
-        if (Auth::check() && Auth::user()->isAdminFor($event->entity)) {
+        if (Auth::check() && Auth::user()->canManage($event->entity)) {
             // Approve directly if booking is made by admin
             // This will automatically remove the duplicate event
             $event->approve();

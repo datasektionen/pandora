@@ -64,7 +64,7 @@
         </div>
     @endif
 
-    @if (Auth::user()->isAdminFor($entity))
+    @if (Auth::user()->canManage($entity))
         <div class="form-entry">
             <span class="description">
                 Återkommer eventet veckovis?

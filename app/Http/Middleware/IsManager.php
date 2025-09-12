@@ -6,8 +6,9 @@ use Closure;
 use App\Models\Entity;
 use Auth;
 use App\Models\Event;
+use Session;
 
-class IsAdminForEvent
+class IsManager
 {
     /**
      * Handle an incoming request.
@@ -18,8 +19,7 @@ class IsAdminForEvent
      */
     public function handle($request, Closure $next)
     {
-        $event = Event::findOrFail(intval($request->route('id')));
-        if (!Auth::user()->isAdminFor($event->entity)) {
+        if (count(Session::get('manage-entities', [])) <= 0) {
             abort(403);
         }
         return $next($request);

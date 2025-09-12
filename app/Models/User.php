@@ -50,7 +50,7 @@ class User extends Authenticatable
         if (!Auth::check() || Auth::user()->id != $this->id) {
             return false;
         }
-        return count(Session::get('admin', [])) > 0 && in_array('admin', Session::get('admin', []));
+        return Session::get('admin');
     }
 
     /**
@@ -61,12 +61,12 @@ class User extends Authenticatable
      *                       - is logged in but is not this user or
      *                       - is logged in and is this user but is not admin for anything (has empty admin session)
      */
-    public function isSomeAdmin()
+    public function isManager()
     {
         if (!Auth::check() || Auth::user()->id != $this->id) {
             return false;
         }
-        return count(Session::get('admin', [])) > 0;
+        return Session::get('admin') || count(Session::get('manage-entities', [])) > 0;
     }
 
     /**
@@ -76,27 +76,35 @@ class User extends Authenticatable
      * @return boolean         false if user is not logged in, or this user
      *                         is not the logged in one, or the user is not admin for the entity
      */
-    public function isAdminFor($entity)
+    public function canManage($entity)
     {
         if (!Auth::check() || Auth::user()->id != $this->id) {
             return false;
         }
 
-        return in_array($entity->pls_group, Session::get('admin', []));
+        return in_array($entity->pls_group, Session::get('manage-entities', [])) ||
+            in_array('*', Session::get('manage-entities', []));
     }
 
     /**
-     * Returns all events that are not approved or deleted for the current user as admin.
+     * Returns all events that are not approved or deleted for which the current user can manage.
      *
      * @return Query
      */
     public function decisionEvents()
     {
-        return Event::select('events.*')
+        $managerFor = Session::get('manage-entities', []);
+
+        $events = Event::select('events.*')
             ->join('entities', 'entities.id', 'events.entity_id')
             ->whereNull('approved')
-            ->whereIn('pls_group', Session::get('admin', []))
             ->orderBy('start');
+
+        if (in_array('*', $managerFor))
+            return $events;
+        else
+            return $events->whereIn('pls_group', $managerFor);
+
     }
 
     /**
