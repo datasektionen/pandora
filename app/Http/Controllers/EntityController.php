@@ -77,7 +77,7 @@ class EntityController extends BaseController
             ->orderBy('start', 'DESC');
 
         // We want to show some less events if we are not admin or owner of the event
-        if (!$entity->show_pending_bookings && !Auth::user()->canManage($entity)) {
+        if (!$entity->show_pending_bookings && (!Auth::check() || !Auth::user()->canManage($entity))) {
             $query->where(function ($query) {
                 $query
                     ->whereNotNull('approved')
