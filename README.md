@@ -1,8 +1,5 @@
 # Pandora
 
-> [!WARNING]
-> Migrations not run in production env
-
 PHP Laravel application that handles bookings. Live at https://bokning.datasektionen.se.
 
 ## API
@@ -40,10 +37,9 @@ DB_CONNECTION=
 DATABASE_URL:driver://user:password@host:port/database
 ### END ALT 2
 
-LOGIN_API_KEY=[the key]
-LOGIN_API_URL=https://login.datasektionen.se
-LOGIN_FRONTEND_URL=https://login.datasektionen.se
-PLS_API_URL=http://pls.froyo.datasektionen.se/api
+OIDC_CLIENT_ID=[pandora or something]
+OIDC_CLIENT_SECRET=[the key]
+OIDC_PROVIDER=https://sso.datasektionen.se/op
 ZFINGER_API_URL=https://zfinger.datasektionen.se
 SPAM_API_KEY=[the key]
 SPAM_API_URL=https://spam.datasektionen.se/api/sendmail
@@ -112,13 +108,13 @@ sail artisan key:generate
 #### Other locally running services
 
 Keep in mind that from the Docker container's point of view: `localhost` is the container itself, your local machine is
-reachable at `host.docker.internal`.
+reachable at `host.docker.internal` if you use docker desktop or podman (but not docker with only the cli!!!).
 
-So, for example, if you have a local `pls` instance on port `6000` to test for different permissions, the `PLS_API_URL`
+So, for example, if you have a local `zfinger` instance on port `6000` to test for different permissions, the `ZFINGER_API_URL`
 can be set in `.env` as:
 
 ```dotenv
-PLS_API_URL=http://host.docker.internal:6000/api
+ZFINGER_API_URL=http://host.docker.internal:6000
 ```
 
 ### Locally
