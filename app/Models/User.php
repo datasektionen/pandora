@@ -82,7 +82,7 @@ class User extends Authenticatable
             return false;
         }
 
-        return in_array($entity->pls_group, Session::get('manage-entities', [])) ||
+        return in_array($entity->hive_scope, Session::get('manage-entities', [])) ||
             in_array('*', Session::get('manage-entities', []));
     }
 
@@ -100,10 +100,10 @@ class User extends Authenticatable
             ->whereNull('approved')
             ->orderBy('start');
 
-        if (in_array('*', $managerFor))
+        if (in_array('*', $managerFor) || Session::get('admin'))
             return $events;
         else
-            return $events->whereIn('pls_group', $managerFor);
+            return $events->whereIn('hive_scope', $managerFor);
 
     }
 

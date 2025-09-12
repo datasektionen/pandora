@@ -68,10 +68,10 @@
 
         <div class="form-entry">
             <span class="description">
-                Gruppnamn för administration i Pls:
+                Omfång för administration i Hive:
             </span>
             <div class="input">
-                {!! Form::text('pls_group', NULL, array('placeholder' => 'T.ex. "meta"')) !!}
+                {!! Form::text('hive_scope', NULL, array('placeholder' => 'T.ex. "meta"')) !!}
             </div>
         </div>
 

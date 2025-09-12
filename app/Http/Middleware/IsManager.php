@@ -19,7 +19,7 @@ class IsManager
      */
     public function handle($request, Closure $next)
     {
-        if (count(Session::get('manage-entities', [])) <= 0) {
+        if (count(Session::get('manage-entities', [])) <= 0 && !Session::get('admin')) {
             abort(403);
         }
         return $next($request);

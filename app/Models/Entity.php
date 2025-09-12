@@ -52,6 +52,6 @@ class Entity extends Model
         if ($user->isAdmin() || in_array('*', Session::get('manage-entities', []))) {
             return Entity::select('*');
         }
-        return Entity::whereIn('pls_group', Session::get('manage-entities', []));
+        return Entity::whereIn('hive_scope', Session::get('manage-entities', []));
     }
 }
