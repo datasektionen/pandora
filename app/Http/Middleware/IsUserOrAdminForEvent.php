@@ -19,7 +19,7 @@ class IsUserOrAdminForEvent
     public function handle($request, Closure $next)
     {
         $event = Event::findOrFail(intval($request->route('id')));
-        if (!Auth::user()->isAdminFor($event->entity) && $event->booked_by != Auth::user()->id) {
+        if (!Auth::user()->canManage($event->entity) && $event->booked_by != Auth::user()->id) {
             abort(403);
         }
         return $next($request);

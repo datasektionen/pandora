@@ -7,7 +7,7 @@ use Auth;
 /**
  * Checks if user is admin for the entity in the $request->route('id')
  */
-class IsAdminForEntity
+class CanManageEntity
 {
     /**
      * Handle an incoming request.
@@ -19,7 +19,7 @@ class IsAdminForEntity
     public function handle($request, Closure $next)
     {
         $entity = Entity::findOrFail(intval($request->route('id')));
-        if (!Auth::user()->isAdminFor($entity)) {
+        if (!Auth::user()->canManage($entity)) {
             abort(403);
         }
         return $next($request);

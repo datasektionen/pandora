@@ -60,7 +60,7 @@
                                         <b>{{ $event->title }}</b><br>
                                     @endif
 
-                                    @if (Auth::check() && (Auth::user()->isAdminFor($entity) || $event->created_by == Auth::user()->id))
+                                    @if (Auth::check() && (Auth::user()->canManage($entity) || $event->created_by == Auth::user()->id))
                                         Vem: {{ $event->title }}
                                         <br>Skapad av: {{ $event->author->name }}
                                         <br>Varför: {{ $event->description }}

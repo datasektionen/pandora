@@ -10,8 +10,10 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
+        "doctrine/dbal": "^3.10",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "jumbojett/openid-connect-php": "^1.0",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",

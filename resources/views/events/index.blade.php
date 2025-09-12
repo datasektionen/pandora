@@ -7,7 +7,7 @@
 
 @section('title', 'Bokning: ' . $event->title)
 
-@if (Auth::check() && (Auth::user()->isAdminFor($event->entity) || $event->booked_by == Auth::user()->id))
+@if (Auth::check() && (Auth::user()->canManage($event->entity) || $event->booked_by == Auth::user()->id))
 @section('action-button')
     <a href="/events/{{$event->id}}/edit" class="primary-action">Ändra</a>
 @endsection
@@ -15,7 +15,7 @@
 
 @section('content')
     <div class="center-table">
-        @if ($event->approved === null && Auth::check() && Auth::user()->isAdminFor($event->entity))
+        @if ($event->approved === null && Auth::check() && Auth::user()->canManage($event->entity))
             <p>
                 @if (($c = $event->weakCollisions()) == 0)
                     <b style="color: #3a0">Krockar inte med något!</b>
@@ -57,7 +57,7 @@
                 </tr>
             @endif
         </table>
-        @if (Auth::check() && (Auth::user()->isAdminFor($event->entity) || Auth::user()->isAdmin() || Auth::user()->id == $event->booked_by))
+        @if (Auth::check() && (Auth::user()->canManage($event->entity) || Auth::user()->isAdmin() || Auth::user()->id == $event->booked_by))
             <h2>Information som inte visas för alla</h2>
             <table>
                 <tr>

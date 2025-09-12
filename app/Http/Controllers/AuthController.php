@@ -5,12 +5,10 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use Auth;
 use Session;
+use Jumbojett\OpenIDConnectClient;
 
-use App\Models\Election;
-use App\Models\Position;
 use App\Models\User;
 
 /**
@@ -22,6 +20,15 @@ use App\Models\User;
 class AuthController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    private OpenIDConnectClient $oidc;
+
+    public function __construct()
+    {
+        $this->oidc = new OpenIDConnectClient(config('oidc.provider'), config('oidc.client_id'), config('oidc.client_secret'));
+        $this->oidc->setRedirectURL(route("oidc-callback"));
+        $this->oidc->addScope(["openid", "profile", "permissions"]);
+    }
 
     /**
      * The logout url. Redirects to main page with success message.
@@ -43,49 +50,36 @@ class AuthController extends BaseController
      */
     public function getLogin(Request $request)
     {
-        return redirect(env('LOGIN_FRONTEND_URL') . '/login?callback=' . url('/login-complete') . '/');
-    }
+        // This either redirects and exits or retrieves the claims if we already have been redirected and got back here.
+        $this->oidc->authenticate();
+        $claims = $this->oidc->getVerifiedClaims();
 
-    /**
-     * When login is complete, login will redirect us here. Now verify the login and ask PLS
-     * for admin privileges. The admin privileges will be stored in Session['admin'] as an array of
-     * pls permissions.
-     *
-     * @param string $token the token from login
-     * @return redirect to main page or intended page
-     */
-    public function getLoginComplete($token)
-    {
-        // Send get request to login server
-        $res = @file_get_contents(env('LOGIN_API_URL') . '/verify/' . $token . '.json?api_key=' . env('LOGIN_API_KEY'));
-
-        // We now have a response. If it is good, parse the json and login user
-        if ($res !== false) {
-            $body = json_decode($res);
-            $user = User::where('kth_username', $body->user)->first();
-
-            if ($user === null) {
-                // Create new user in our systems if did not exist
-                $user = new User;
-                $user->name = $body->first_name . " " . $body->last_name;
-                $user->kth_username = $body->user;
-                $user->save();
-            }
-
-            Auth::login($user);
-
-//			// Get all admin permissions
-            $admin = file_get_contents(env('PLS_API_URL') . '/user/' . $user->kth_username . '/pandora');
-            if ($admin === 'false') {
-                Session::put('admin', []);
-            } else {
-                Session::put('admin', json_decode($admin));
-            }
-
-        } else {
-            Auth::logout();
-            return redirect('/')->with('error', 'Du loggades inte in.');
+        if (!isset($claims->sub)) {
+            return redirect('/')
+                ->with('error', 'Fick tydligen inte veta vem du är (försök igen eller kontakta d-sys)');
         }
+
+        $user = User::where('kth_username', $claims->sub)->first();
+
+        if ($user === null) {
+            $user = new User;
+            $user->kth_username = $claims->sub;
+        }
+
+        $user->name = $claims->name;
+        $user->save();
+
+        Auth::login($user);
+
+        $isAdmin = false;
+        $manageEntities = [];
+        foreach ($claims->permissions as $perm) {
+            if ($perm->id === "admin") $isAdmin = true;
+            if ($perm->id === "manage") $manageEntities[] = $perm->scope;
+        }
+
+        Session::put('admin', $isAdmin);
+        Session::put('manage-entities', $manageEntities);
 
         return redirect()->intended('/')->with('success', 'Du loggades in.');
     }

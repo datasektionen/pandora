@@ -1,7 +1,8 @@
 services:
   app:
     build: .
-    command: sh -c 'php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000'
+    entrypoint: /bin/sh
+    command: -c 'php artisan migrate && echo hej && php artisan serve --host 0.0.0.0 --port 8000'
     ports: [ 8000:8000 ]
     init: true
     environment:
@@ -15,11 +16,8 @@ services:
       - DB_DATABASE=pandora
       - DB_USERNAME=pandora
       - DB_PASSWORD=pandora
-      - LOGIN_API_URL=http://login:7002
-      - LOGIN_FRONTEND_URL=http://localhost:7002
-      - PLS_API_URL=https://pls.datasektionen.se/api
+      - OIDC_PROVIDER=https://sso.datasektionen.se/op # TODO: nyckeln-under-dörrmattan in oidc mode
       - HODIS_API_URL=https://hodis.datasektionen.se
-      - PORT=8000
     depends_on:
       db:
         condition: service_healthy

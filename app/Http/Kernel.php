@@ -64,9 +64,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\Admin::class,
-        'isAdminForEntity' => \App\Http\Middleware\IsAdminForEntity::class,
-        'isAdminForEvent' => \App\Http\Middleware\IsAdminForEvent::class,
+        'canManageEntity' => \App\Http\Middleware\CanManageEntity::class,
+        'canManageEvent' => \App\Http\Middleware\CanManageEvent::class,
         'isUserOrAdminForEvent' => \App\Http\Middleware\IsUserOrAdminForEvent::class,
-        'isSomeAdmin' => \App\Http\Middleware\IsSomeAdmin::class,
+        'isManager' => \App\Http\Middleware\IsManager::class,
     ];
 }

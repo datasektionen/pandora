@@ -58,7 +58,7 @@ class EntityAdminController extends BaseController
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
-            'pls_group' => 'required'
+            'hive_scope' => 'required'
         ]);
 
         // Create entity
@@ -66,7 +66,7 @@ class EntityAdminController extends BaseController
         $entity->name = $request->input('name');
         $entity->description = $request->input('description');
         $entity->notify_email = $request->input('notify_email');
-        $entity->pls_group = $request->input('pls_group');
+        $entity->hive_scope = $request->input('hive_scope');
         $entity->alcohol_question = $request->input('alcohol_question') == 'yes';
         $entity->show_pending_bookings = $request->input('show_pending_bookings') == 'yes';
         $entity->part_of = $request->input('part_of');
