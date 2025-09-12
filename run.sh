@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sed -i "s/LISTEN_PORT/$PORT/g" /etc/nginx/http.d/default.conf
+
 su www -c 'php artisan config:cache'
 su www -c 'php artisan migrate --force'
 
