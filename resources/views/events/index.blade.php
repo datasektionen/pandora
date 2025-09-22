@@ -58,7 +58,7 @@
             @endif
         </table>
         @if (Auth::check())
-            <h2>Detaljerad Information</h2>
+            <h2>Detaljerad information</h2>
             <table>
                 <tr>
                     <td>Anledning för bokning:</td>
