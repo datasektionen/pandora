@@ -57,8 +57,8 @@
                 </tr>
             @endif
         </table>
-        @if (Auth::check() && (Auth::user()->canManage($event->entity) || Auth::user()->isAdmin() || Auth::user()->id == $event->booked_by))
-            <h2>Information som inte visas för alla</h2>
+        @if (Auth::check())
+            <h2>Detaljerad Information</h2>
             <table>
                 <tr>
                     <td>Anledning för bokning:</td>
