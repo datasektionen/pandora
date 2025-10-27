@@ -17,7 +17,6 @@ services:
       - DB_USERNAME=pandora
       - DB_PASSWORD=pandora
       - OIDC_PROVIDER=https://sso.datasektionen.se/op # TODO: nyckeln-under-dörrmattan in oidc mode
-      - HODIS_API_URL=https://hodis.datasektionen.se
     depends_on:
       db:
         condition: service_healthy
