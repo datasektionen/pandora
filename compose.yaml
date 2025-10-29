@@ -1,13 +1,13 @@
 services:
   app:
-    build: .
-    entrypoint: /bin/sh
-    command: -c 'php artisan migrate && echo hej && php artisan serve --host 0.0.0.0 --port 8000'
+    build:
+      dockerfile: Dockerfile.dev
     ports: [ 8000:8000 ]
     init: true
     environment:
+      - PORT=8000
       - APP_ENV=local
-      - APP_KEY=12345678901234567890abcdefabcdea
+      - APP_KEY=12345678901234567890abcdefabcdef
       - APP_DEBUG=true
       - APP_LOG_LEVEL=debug
       - APP_URL=http://localhost:8000/
@@ -16,7 +16,9 @@ services:
       - DB_DATABASE=pandora
       - DB_USERNAME=pandora
       - DB_PASSWORD=pandora
-      - OIDC_PROVIDER=https://sso.datasektionen.se/op # TODO: nyckeln-under-dörrmattan in oidc mode
+      - OIDC_PROVIDER=http://localhost:7003
+      - OIDC_CLIENT_SECRET=client-secret
+      - OIDC_CLIENT_ID=client-id
     depends_on:
       db:
         condition: service_healthy
@@ -42,8 +44,37 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-  login:
+  nyckeln:
     image: ghcr.io/datasektionen/nyckeln-under-dorrmattan
-    ports: [ 7002:7002 ]
-    environment:
-      - KTH_ID=mathm
+    ports:
+      - 7003:7003
+      - 7004:7004
+    configs:
+      - source: nyckeln.yaml
+        target: /config.yaml
+
+configs:
+  nyckeln.yaml:
+    content: |
+      clients:
+        - id: client-id
+          secret: client-secret
+          redirect_uris:
+            - http://localhost:8000/login
+
+      users:
+        - ug_kth_id: some-id
+          kth_id: turetek
+          email: turetek@kth.se
+          first_name: Ture
+          family_name: Teknolog
+
+      hive:
+        groups:
+          - name: Systemansvarig
+            id: d-sys
+            domain: example.com
+            members:
+              - turetek
+            permissions:
+              - id: admin
