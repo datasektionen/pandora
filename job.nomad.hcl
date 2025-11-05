@@ -39,7 +39,7 @@ APP_ENV=production
 DB_CONNECTION=pgsql
 OIDC_PROVIDER=https://sso.datasektionen.se/op
 OIDC_CLIENT_ID=pandora
-SPAM_API_URL=https://spam.datasektionen.se/api/sendmail
+SPAM_API_URL=https://spam.datasektionen.se/api/legacy/sendmail
 ENV
         destination = "local/.env"
         env         = true

@@ -42,7 +42,7 @@ OIDC_CLIENT_SECRET=[the key]
 OIDC_PROVIDER=https://sso.datasektionen.se/op
 ZFINGER_API_URL=https://zfinger.datasektionen.se
 SPAM_API_KEY=[the key]
-SPAM_API_URL=https://spam.datasektionen.se/api/sendmail
+SPAM_API_URL=https://spam.datasektionen.se/api/legacy/sendmail
 ```
 
 If you set up locally, `DB_HOST` should likely be `localhost`. If you set up with docker it should be set to `mysql`.
