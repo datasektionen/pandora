@@ -66,7 +66,7 @@ class EmailClient
                     'to' => $this->recipient,
                     'from' => $this->sender,
                     'subject' => $this->subject,
-                    'html' => $this->html->render(),
+                    'content' => $this->html->render(),
                     'key' => config('spam.api_key'),
                 ],
             ]);
