@@ -31,6 +31,7 @@ job "pandora" {
 DATABASE_URL=postgres://pandora:{{ .db_password }}@postgres.dsekt.internal:5432/pandora
 APP_KEY={{ .app_key }}
 OIDC_CLIENT_SECRET={{ .sso_client_secret }}
+SPAM_API_KEY={{ .spam_api_key }}
 {{ end }}
 PORT={{ env "NOMAD_PORT_http" }}
 APP_URL=https://bokning.datasektionen.se
