@@ -40,7 +40,6 @@ DATABASE_URL:driver://user:password@host:port/database
 OIDC_CLIENT_ID=[pandora or something]
 OIDC_CLIENT_SECRET=[the key]
 OIDC_PROVIDER=https://sso.datasektionen.se/op
-ZFINGER_API_URL=https://zfinger.datasektionen.se
 SPAM_API_KEY=[the key]
 SPAM_API_URL=https://spam.datasektionen.se/api/legacy/sendmail
 ```
@@ -109,13 +108,6 @@ sail artisan key:generate
 
 Keep in mind that from the Docker container's point of view: `localhost` is the container itself, your local machine is
 reachable at `host.docker.internal` if you use docker desktop or podman (but not docker with only the cli!!!).
-
-So, for example, if you have a local `zfinger` instance on port `6000` to test for different permissions, the `ZFINGER_API_URL`
-can be set in `.env` as:
-
-```dotenv
-ZFINGER_API_URL=http://host.docker.internal:6000
-```
 
 ### Locally
 
