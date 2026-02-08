@@ -72,7 +72,7 @@
                 @endif
                 <tr>
                     <td>Bokat av:</td>
-                    <td> {{ $event->author->name }} ({{ $event->author->kth_username }}@kth.se)</td>
+                    <td> {{ $event->author->name }} ({{ $event->author->email }})</td>
                 </tr>
                 <tr>
                     <td>Bokning skapad:</td>
