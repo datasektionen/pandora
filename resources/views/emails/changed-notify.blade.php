@@ -37,7 +37,7 @@ En bokning har ändrats. Se nedan vad. Du måste godkänna eller avböja bokning
 | Anledning för bokning: | {{ $oldEvent->alcohol ? 'Ja' : 'Nej' }} | {{ $event->alcohol ? 'Ja' : 'Nej' }} |
 @endif
 @endif
-| Bokat av:              | {{ $oldEvent->author->name }} ({{ $oldEvent->author->kth_username }}@kth.se) | {{ $event->author->name }} ({{ $event->author->kth_username }}@kth.se)  |
+| Bokat av:              | {{ $oldEvent->author->name }} ({{ $oldEvent->author->email }}) | {{ $event->author->name }} ({{ $event->author->email }})  |
 | Skapad:                | {{ $oldEvent->created_at }} | {{ $event->created_at }} |
 | Status:                | <span {!! $red !!}>~~{{ $oldEvent->approved === null && $oldEvent->deleted_at === null ? 'Inte handlagd' : ($oldEvent->approved != null ? 'Godkänd' : 'Inte godkänd') }}~~</span> | Inte handlagt |
 

@@ -14,7 +14,7 @@ En ny bokningsförfrågan har inkommit för {{ $entity->name }}. Se nedan. [Du k
 @if ($entity->alcohol_question)
 | Servering av alkohol:  | {{ $event->alcohol ? 'Ja' : 'Nej' }} |
 @endif
-| Bokat av:              | {{ $event->author->name }} ({{ $event->author->kth_username }}@kth.se) |
+| Bokat av:              | {{ $event->author->name }} ({{ $event->author->email }}) |
 | Bokning skapad:        | {{ $event->created_at }}  |
 | Status:                | {{ $event->approved === null && $event->deleted_at === null ? 'Inte handlagd' : ($event->approved != null ? 'Godkänd' : 'Inte godkänd') }} |
 @endsection

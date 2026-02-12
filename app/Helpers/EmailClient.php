@@ -79,7 +79,7 @@ class EmailClient
     public static function sendBookingStatus(Event $event): bool
     {
         $email = new self('Din bokning handläggs nu');
-        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->recipient = $event->author->email;
         $email->html = view('emails.reviewing')
             ->with('user', $event->author)
             ->with('event', $event)
@@ -90,7 +90,7 @@ class EmailClient
     public static function sendBookingConfirmation(Event $event): bool
     {
         $email = new self('Din bokning är godkänd');
-        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->recipient = $event->author->email;
         $email->html = view('emails.approved')
             ->with('user', $event->author)
             ->with('event', $event)
@@ -101,7 +101,7 @@ class EmailClient
     public static function sendBookingDeclined(Event $event): bool
     {
         $email = new self('Din bokning blev inte godkänd');
-        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->recipient = $event->author->email;
         $email->html = view('emails.declined')
             ->with('user', $event->author)
             ->with('event', $event)
@@ -122,7 +122,7 @@ class EmailClient
 
     public static function sendBookingChanged(Event $oldEvent, Event $event, array $dirty): bool {
         $email = new self("Din bokning av {$event->entity->name} ändrades");
-        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->recipient = $event->author->email;
         $email->html = view('emails.changed')
             ->with('user', $event->author)
             ->with('event', $event)
@@ -155,7 +155,7 @@ class EmailClient
             ->with('entity', $event->entity);
         $sentToEntityOwner = $email->send();
 
-        $email->recipient = $event->author->kth_username . '@kth.se';
+        $email->recipient = $event->author->email;
         $sentToAuthor = $email->send();
 
         return $sentToEntityOwner && $sentToAuthor;

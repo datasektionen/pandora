@@ -27,7 +27,7 @@ class AuthController extends BaseController
     {
         $this->oidc = new OpenIDConnectClient(config('oidc.provider'), config('oidc.client_id'), config('oidc.client_secret'));
         $this->oidc->setRedirectURL(route("oidc-callback"));
-        $this->oidc->addScope(["openid", "profile", "permissions"]);
+        $this->oidc->addScope(["openid", "profile", "email", "permissions"]);
     }
 
     /**
@@ -67,6 +67,7 @@ class AuthController extends BaseController
         }
 
         $user->name = $claims->name;
+        $user->email = $claims->email;
         $user->save();
 
         Auth::login($user);
