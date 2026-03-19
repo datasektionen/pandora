@@ -59,8 +59,8 @@ Route::get('admin/bookings/{id}/decline', [BookingAdminController::class, 'getDe
 Route::get('admin/entities', [EntityAdminController::class, 'getShow'])->middleware('auth')->middleware('isManager');
 Route::get('admin/entities/new', [EntityAdminController::class, 'getNew'])->middleware('auth')->middleware('admin');
 Route::post('admin/entities/new', [EntityAdminController::class, 'postNew'])->middleware('auth')->middleware('admin');
-Route::get('admin/entities/edit/{id}', [EntityAdminController::class, 'getEdit'])->middleware('auth')->middleware('admin');
-Route::post('admin/entities/edit/{id}', [EntityAdminController::class, 'postEdit'])->middleware('auth')->middleware('admin');
+Route::get('admin/entities/edit/{id}', [EntityAdminController::class, 'getEdit'])->middleware('auth')->middleware('isManager');
+Route::post('admin/entities/edit/{id}', [EntityAdminController::class, 'postEdit'])->middleware('auth')->middleware('isManager');
 
 Route::get('admin/import', [ImportAdminController::class, 'getIndex'])->middleware('auth')->middleware('admin');
 Route::post('admin/import', [ImportAdminController::class, 'postIndex'])->middleware('auth')->middleware('admin');
