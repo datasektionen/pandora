@@ -68,6 +68,11 @@ configs:
           email: turetek@kth.se
           first_name: Ture
           family_name: Teknolog
+        - ug_kth_id: some-id2
+          kth_id: mulle
+          email: mulle@kth.se
+          first_name: Mulle
+          family_name: Teknolog
 
       hive:
         groups:
@@ -78,3 +83,12 @@ configs:
               - turetek
             permissions:
               - id: admin
+          - name: Mulle
+            id: mulle
+            domain: example2.com
+            members:
+              - mulle
+            permissions:
+              - id: manage
+                scope: car
+              
