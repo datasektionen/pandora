@@ -30,13 +30,9 @@
         @foreach ($entities as $entity)
             <tr>
                 <td>
-                    @if(Auth::user()->isAdmin())
-                        <a href="/admin/entities/edit/{{ $entity->id }}" title="Ändra">
-                            <i class="fa {{ $entity->fa_icon }}"></i> {{ $entity->name }}
-                        </a>
-                    @else
+                    <a href="/admin/entities/edit/{{ $entity->id }}" title="Ändra">
                         <i class="fa {{ $entity->fa_icon }}"></i> {{ $entity->name }}
-                    @endif
+                    </a>
                 </td>
                 <td>{{ $entity->parent == null ? '' : $entity->parent->name }}</td>
                 <td>{{ $entity->hive_scope }}</td>
