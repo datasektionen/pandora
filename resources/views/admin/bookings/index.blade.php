@@ -10,14 +10,29 @@
         $('.reason').css('width', '150px');
         $('.reason').hide();
 
+        $('.radio').on('mousedown', function() {
+            var radio = $(this).find('input[type="radio"]');
+            radio.data('wasChecked', radio.prop('checked'));
+        });
+
         $('input[type="radio"]').change(function() {
             if ($(this).prop('name').startsWith('booking')) {
-                if ($(this).val() == 'decline') {
-                    $(this).parent().parent().parent().find('td:nth-child(3) input').show();
+                var row = $(this).parent().parent().parent();
+                var selected = row.find('input[type="radio"]:checked');
+                if (selected.val() == 'decline') {
+                    row.find('td:nth-child(3) input').show();
                 } else {
-                    $(this).parent().parent().parent().find('td:nth-child(3) input').hide();
+                    row.find('td:nth-child(3) input').hide();
                 }
             }
+        });
+
+        $('input[type="radio"]').click(function() {
+            if ($(this).data('wasChecked')) {
+                this.checked = false;
+                $(this).trigger('change');
+            }
+            $(this).removeData('wasChecked');
         });
     });
 </script>
@@ -30,7 +45,7 @@
 <p>Du har inga bokningar att hantera! Bra jobbat!</p>
 @else
 <table>
-    <tr>
+    <tr class="admin-booking-header">
         <th>Godkänn</th>
         <th>Neka</th>
         <th></th>
@@ -61,7 +76,7 @@
             <a href="/bookings/{{ $booking->entity->id }}/{{ date("Y", strtotime($booking->start)) }}/{{ date("W", strtotime($booking->start)) }}/{{ $booking->id }}"
                 title="Ändra">{{ $booking->title }}</a>
         </td>
-        <td><i class="fa {{ $booking->entity->fa_icon }}"></i> {{ $booking->entity->name }}</td>
+        <td class="booking-entity"><i class="fa {{ $booking->entity->fa_icon }}"></i> {{ $booking->entity->name }}</td>
         <td>{{ date("Y-m-d H:i", strtotime($booking->start)) }}</td>
         <td>{{ date("Y-m-d H:i", strtotime($booking->end)) }}</td>
         <td>

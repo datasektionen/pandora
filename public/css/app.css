@@ -1,7 +1,8 @@
 /**
  * General page elements
  */
-th, td {
+th,
+td {
     padding: 10px;
 }
 
@@ -34,11 +35,11 @@ p {
     padding-right: 5px;
 }
 
-.legend .hour.hidden + .hour span {
+.legend .hour.hidden+.hour span {
     margin-top: -4px;
 }
 
-.legend .hour.hidden + .hour {
+.legend .hour.hidden+.hour {
     height: 39px;
 }
 
@@ -80,7 +81,8 @@ p {
     text-align: center;
 }
 
-.day .hour, .legend .hour {
+.day .hour,
+.legend .hour {
     height: 35px;
     border-bottom: 1px solid #eee;
     width: 100%;
@@ -103,7 +105,8 @@ p {
     transition: height 0.25s !important;
 }
 
-.day .hour.hidden, .legend .hour.hidden {
+.day .hour.hidden,
+.legend .hour.hidden {
     height: 0px !important;
     border: 0;
     display: block !important;
@@ -199,10 +202,10 @@ p {
     background: rgba(200, 200, 200, 0.3) !important;
 }
 
-.event .content .text {
-}
+.event .content .text {}
 
-.event .content .to, .event .content .from {
+.event .content .to,
+.event .content .from {
     position: absolute;
     right: 4px;
     font-size: 65%;
@@ -307,7 +310,8 @@ button {
     margin: 0 0 0 10px;
 }
 
-header .header-inner .header-left .controls, .header-lower .controls {
+header .header-inner .header-left .controls,
+.header-lower .controls {
     margin: 0 auto;
     display: block;
     text-align: center;
@@ -317,7 +321,8 @@ header .header-inner .header-left .controls, .header-lower .controls {
     z-index: 10;
 }
 
-header .header-inner .header-left .controls a, .header-lower .controls a {
+header .header-inner .header-left .controls a,
+.header-lower .controls a {
     display: block;
     float: left;
     padding: 10px;
@@ -328,15 +333,18 @@ header .header-inner .header-left .controls a, .header-lower .controls a {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) !important;
 }
 
-header .header-inner .header-left .controls a:hover, .header-lower .controls a:hover {
+header .header-inner .header-left .controls a:hover,
+.header-lower .controls a:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
 }
 
-header .header-inner .header-left .controls a.today, .header-lower .controls a.today {
+header .header-inner .header-left .controls a.today,
+.header-lower .controls a.today {
     margin-left: 5px;
 }
 
-header .header-inner .header-left .controls span, .header-lower .controls span {
+header .header-inner .header-left .controls span,
+.header-lower .controls span {
     float: left;
     display: block;
     height: 45px;
@@ -346,9 +354,7 @@ header .header-inner .header-left .controls span, .header-lower .controls span {
     padding: 12px;
 }
 
-header .header-inner .header-left {
-
-}
+header .header-inner .header-left {}
 
 a.action {
     display: table;
@@ -389,14 +395,16 @@ a.action {
 /**
  * Message classes.
  */
-.error, .success {
+.error,
+.success {
     border: 1px solid #c99;
     background: #fdd;
     padding: 20px;
     margin: 0 0 10px;
 }
 
-.error p, .success p {
+.error p,
+.success p {
     margin: 0;
     padding: 0;
 }
@@ -408,7 +416,8 @@ a.action {
     margin: 0 0 10px;
 }
 
-.error h3, .success h3 {
+.error h3,
+.success h3 {
     border: 0 !important;
     margin: 10px 0 !important;
     padding: 0 !important;
@@ -474,7 +483,11 @@ input[type="submit"].inactive {
     opacity: 0.2;
 }
 
-input[type="text"], textarea, input[type="datetime-local"], input[type="date"], input[type="time"] {
+input[type="text"],
+textarea,
+input[type="datetime-local"],
+input[type="date"],
+input[type="time"] {
     padding: 9px;
     font-family: inherit;
     font-size: inherit;
@@ -494,7 +507,8 @@ input[type="text"] {
     max-width: 400px;
 }
 
-input[type="date"], input[type="time"] {
+input[type="date"],
+input[type="time"] {
     width: 50%;
     float: left;
 }
@@ -602,15 +616,15 @@ table .checkbox {
     opacity: 0.5;
 }
 
-.checkbox input[type=checkbox]:checked + label:after {
+.checkbox input[type=checkbox]:checked+label:after {
     opacity: 1;
 }
 
-.checkbox input[type=checkbox]:checked + label:before {
+.checkbox input[type=checkbox]:checked+label:before {
     background: #08e;
 }
 
-.checkbox input[type=checkbox]:checked + label {
+.checkbox input[type=checkbox]:checked+label {
     color: #08e;
 }
 
@@ -628,7 +642,7 @@ input[type=checkbox] {
     margin: 10px 0 -10px;
 }
 
-.radio + .radio {
+.radio+.radio {
     margin-top: 10px !important;
 }
 
@@ -684,15 +698,15 @@ table .radio {
     opacity: 0.5;
 }
 
-.radio input[type=radio]:checked + label:after {
+.radio input[type=radio]:checked+label:after {
     opacity: 1;
 }
 
-.radio input[type=radio]:checked + label:before {
+.radio input[type=radio]:checked+label:before {
     background: #08e;
 }
 
-.radio input[type=radio]:checked + label {
+.radio input[type=radio]:checked+label {
     color: #08e;
 }
 
@@ -737,6 +751,10 @@ input[type=radio] {
 
 .center-table table {
     margin-bottom: 40px !important;
+}
+
+.admin-booking-header th {
+    white-space: nowrap;
 }
 
 ul.actions {
