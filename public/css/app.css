@@ -227,7 +227,23 @@ p {
     text-align: center;
 }
 
-.home_sections p {
+.home_sections .home_section_description {
+    text-align: center;
+}
+
+.home_sections .home_section_description summary {
+    color: #1e88fe;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 20px;
+    list-style: none;
+}
+
+.home_sections .home_section_description summary::-webkit-details-marker {
+    display: none;
+}
+
+.home_sections .home_section_description p {
     font-size: 15px;
     line-height: 185%;
     text-align: justify;
