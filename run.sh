@@ -5,7 +5,7 @@ sed -i "s/LISTEN_PORT/$PORT/g" /etc/nginx/http.d/default.conf
 su www -c 'php artisan config:cache'
 su www -c 'php artisan migrate --force'
 
-su www -c 'php-fpm8 -F' &
+su www -c 'php-fpm83 -F' &
 nginx -g 'daemon off;' &
 
 wait -n
