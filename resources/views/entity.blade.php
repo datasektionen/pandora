@@ -28,7 +28,7 @@
 
 
 @section('content')
-<p>{{ $entity->description }}</p>
+<p style="white-space: pre-line; text-align: center; margin: 1em 2em;">{{ $entity->description }}</p>
 
 {{-- Present alert for users not logged in, or a book form otherwise --}}
 @if (Auth::guest())
