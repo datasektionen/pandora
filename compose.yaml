@@ -2,7 +2,9 @@ services:
   app:
     build:
       dockerfile: Dockerfile.dev
-    ports: [ 8000:8000 ]
+    ports:
+      - 8000:8000
+      - 7003:7003
     init: true
     environment:
       - PORT=8000
@@ -27,7 +29,7 @@ services:
         - action: sync
           path: .
           target: /app
-          ignore: [vendor/]
+          ignore: [ vendor/ ]
         - action: rebuild
           path: composer.json
   db:
@@ -47,7 +49,6 @@ services:
   nyckeln:
     image: ghcr.io/datasektionen/nyckeln-under-dorrmattan
     ports:
-      - 7003:7003
       - 7004:7004
     configs:
       - source: nyckeln.yaml
@@ -55,7 +56,7 @@ services:
 
 configs:
   nyckeln.yaml:
-    content: |
+    content: |+
       clients:
         - id: client-id
           secret: client-secret
