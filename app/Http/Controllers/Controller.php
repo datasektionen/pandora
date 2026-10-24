@@ -29,8 +29,7 @@ class Controller extends BaseController
         $entities = Entity::query();
         $entities->orderBy("rank");
         if (!$hidden) {
-            $entities->orWhere("id", "<>", 15);
-            // Tack Adam
+            $entities->where("name", "<>", "SektionsVape'n");
         }
 
         return view('welcome')
