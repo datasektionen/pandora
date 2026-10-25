@@ -61,6 +61,7 @@ Route::get('admin/entities/new', [EntityAdminController::class, 'getNew'])->midd
 Route::post('admin/entities/new', [EntityAdminController::class, 'postNew'])->middleware('auth')->middleware('admin');
 Route::get('admin/entities/edit/{id}', [EntityAdminController::class, 'getEdit'])->middleware('auth')->middleware('isManager');
 Route::post('admin/entities/edit/{id}', [EntityAdminController::class, 'postEdit'])->middleware('auth')->middleware('isManager');
+Route::post('admin/entities/remove/{id}', [EntityAdminController::class, 'removeEntity'])->middleware('auth')->middleware('isManager');
 
 Route::get('admin/import', [ImportAdminController::class, 'getIndex'])->middleware('auth')->middleware('admin');
 Route::post('admin/import', [ImportAdminController::class, 'postIndex'])->middleware('auth')->middleware('admin');

@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Event;
 use App\Models\User;
@@ -121,6 +122,28 @@ class EntityAdminController extends BaseController
 
         return redirect('/admin/entities')
             ->with('success', $request->input('name') . ' ändrades!');
+    }
+
+
+    public function removeEntity($id)
+    {
+        $entity = Entity::findOrFail($id);
+
+        if (!Auth::user()->isManager()) {
+            return redirect('/admin/entities')
+                ->with('error', 'Du har inte behörighet att ta bort entiteten.');
+        }
+
+        DB::transaction(function () use ($entity) {
+            // Delete all bookings belonging to this entity
+            Event::where('entity_id', $entity->id)->delete();
+
+            // Delete the entity
+            $entity->delete();
+        });
+
+        return redirect('/admin/entities')
+            ->with('success', 'Enheten togs bort.');
     }
 
 }
