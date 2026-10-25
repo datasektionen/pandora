@@ -3,7 +3,18 @@
 
 @section('title', 'Ändra entitet: ' . $entity->name)
 
-
+@section('action-button')
+    <form action="{{ url('/admin/entities/remove/' . $entity->id) }}"
+          method="POST"
+          onsubmit="return confirm('Är du säker på att du vill ta bort denna entitet?')">
+        @csrf
+        <button type="submit"
+                class="primary-action"
+                style="background-color: #dc3545; color: white;">
+            Ta bort
+        </button>
+    </form>
+@endsection
 @section('content')
     {!!  Form::open(['url' => URL::to(Request::path(), [], env('APP_ENV') != 'local')]) !!}
     <div class="form">
