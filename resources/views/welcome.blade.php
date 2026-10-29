@@ -4,9 +4,8 @@
 
 @section('content')
 <div class="home_sections">
-    <?php $i = 0; ?>
     @foreach ($entities ?? [] as $entity)
-    <div class="col-md-4 home_section">
+    <div class="home_section">
         @if (isset($entity->fa_icon))
         <div class="home_section_icon">
             <a href="{{ url('bookings', $entity->id) }}">
@@ -18,11 +17,6 @@
             <h2>{{ $entity->name }}</h2>
         </a>
     </div>
-    @if ($i++ % 4 == 3)
-    <div class="clear"></div>
-    @endif
     @endforeach
-
-    <div class="clear"></div>
 </div>
 @endsection
